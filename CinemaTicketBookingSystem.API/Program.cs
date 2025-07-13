@@ -1,4 +1,7 @@
 
+using CinemaTicketBookingSystem.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
+
 namespace CinemaTicketBookingSystem.API
 {
     public class Program
@@ -7,12 +10,17 @@ namespace CinemaTicketBookingSystem.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Add services to the container
+
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
-
+            //Connection To SQL Server
+            builder.Services.AddDbContext<ApplicationDBContext>(option =>
+            {
+                option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
