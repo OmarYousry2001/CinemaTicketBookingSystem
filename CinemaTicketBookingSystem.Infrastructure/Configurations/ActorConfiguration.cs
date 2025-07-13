@@ -15,10 +15,10 @@ namespace CinemaTicketBookingSystem.Infrastructure.Configurations
         {
             builder.HasKey(a => a.Id);
 
-            builder.HasOne(a => a.Person)
-                   .WithOne(p => p.Actor)
-                   .HasForeignKey<Actor>(a => a.PersonId)
-                   .OnDelete(DeleteBehavior.Restrict);
+            //builder.HasOne(a => a.Person)
+            //       .WithOne(p => p.Actor)
+            //       .HasForeignKey<Actor>(a => a.PersonId)
+            //       .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(a => a.MovieActors)
                    .WithOne(ma => ma.Actor)

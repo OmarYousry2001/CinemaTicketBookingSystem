@@ -24,4 +24,10 @@
     <ProjectReference Include="..\CinemaTicketBookingSystem.Data\CinemaTicketBookingSystem.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstracts\" />
+    <Folder Include="Implementations\" />
+    <Folder Include="Seeding\" />
+  </ItemGroup>
+
 </Project>

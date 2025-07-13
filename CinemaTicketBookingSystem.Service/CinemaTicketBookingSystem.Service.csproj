@@ -10,4 +10,9 @@
     <ProjectReference Include="..\CinemaTicketBookingSystem.Infrastructure\CinemaTicketBookingSystem.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Implementations\" />
+    <Folder Include="Abstracts\" />
+  </ItemGroup>
+
 </Project>
