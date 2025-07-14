@@ -6,7 +6,7 @@ using EntityFrameworkCore.EncryptColumn.Util;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SchoolProject.Data.Entities.Identity;
+
 using System.Reflection;
 
 namespace CinemaTicketBookingSystem.Infrastructure.Context

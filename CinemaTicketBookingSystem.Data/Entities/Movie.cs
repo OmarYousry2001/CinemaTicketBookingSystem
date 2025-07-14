@@ -17,7 +17,7 @@ namespace CinemaTicketBookingSystem.Data.Entities
         public RatingEnum Rate { get; set; }
         public bool IsActive { get; set; }
         public Guid DirectorId { get; set; }
-        public virtual Director Director { get; set; } = new();
+        public virtual Director Director { get; set; } 
         public virtual ICollection<MovieGenre> MovieGenres { get; set; } = new HashSet<MovieGenre>();
         public virtual ICollection<ShowTime> ShowTimes { get; set; } = new HashSet<ShowTime>();
         public virtual ICollection<MovieActor> MovieActors { get; set; } = new HashSet<MovieActor>();

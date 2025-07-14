@@ -12,7 +12,7 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositor
         #region Vars / Props
 
         protected readonly ApplicationDBContext _dbContext;
-        protected DbSet<T> DbSet => DbSet;
+        protected DbSet<T> DbSet => _dbContext.Set<T>();
 
         #endregion
 
