@@ -555,4 +555,19 @@
   <data name="InvalidOrExpiredRefreshToken" xml:space="preserve">
     <value>Invalid Or Expired Refresh Token</value>
   </data>
+  <data name="FileSizeLimit" xml:space="preserve">
+    <value>The file size must not exceed {1} MB</value>
+  </data>
+  <data name="Invalidfile" xml:space="preserve">
+    <value>Invalid file</value>
+  </data>
+  <data name="InvalidImageExtension" xml:space="preserve">
+    <value>Only JPG, PNG, or WebP images are allowed</value>
+  </data>
+  <data name="GreaterThan" xml:space="preserve">
+    <value>Must be greater than {0}</value>
+  </data>
+  <data name="LessThanOrEqualTo" xml:space="preserve">
+    <value>Must be less than or equal to</value>
+  </data>
 </root>

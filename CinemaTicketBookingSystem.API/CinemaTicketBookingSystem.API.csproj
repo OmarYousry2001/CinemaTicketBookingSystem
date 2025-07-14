@@ -23,4 +23,8 @@
     <ProjectReference Include="..\CinemaTicketBookingSystem.Core\CinemaTicketBookingSystem.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

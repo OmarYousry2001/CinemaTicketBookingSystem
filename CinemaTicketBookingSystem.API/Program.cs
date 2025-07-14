@@ -43,13 +43,13 @@ namespace CinemaTicketBookingSystem.API
             #region Loaclation
             // Use resources for multi-language support
             var supportedCultures = new List<CultureInfo>
-{
+                  {
     new CultureInfo("en-US"),
     new CultureInfo("ar-EG")
 };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture("ar-EG"), 
+                DefaultRequestCulture = new RequestCulture("ar-EG"),
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures,
                 RequestCultureProviders = new List<IRequestCultureProvider>

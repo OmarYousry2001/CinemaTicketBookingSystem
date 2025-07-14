@@ -51,20 +51,7 @@ namespace CinemaTicketBookingSystem.API
                 opt.ResourcesPath = "";
             });
 
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                List<CultureInfo> supportedCultures = new List<CultureInfo>
-    {
-            new CultureInfo("en-US"),
-            new CultureInfo("de-DE"),
-            new CultureInfo("fr-FR"),
-            new CultureInfo("ar-EG")
-    };
-
-                options.DefaultRequestCulture = new RequestCulture("en-US");
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
-            });
+            #endregion
 
 
 
@@ -101,7 +88,8 @@ namespace CinemaTicketBookingSystem.API
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
-            #endregion
+   
+
             return services;
         }
    

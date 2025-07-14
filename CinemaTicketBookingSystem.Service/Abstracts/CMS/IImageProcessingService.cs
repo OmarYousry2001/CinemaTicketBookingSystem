@@ -1,4 +1,4 @@
-﻿namespace BL.Contracts.GeneralService.CMS
+﻿namespace CinemaTicketBookingSystem.Service.Abstracts.CMS
 {
     public interface IImageProcessingService
     {

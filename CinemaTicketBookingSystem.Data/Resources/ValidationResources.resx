@@ -555,4 +555,19 @@
   <data name="InvalidOrExpiredRefreshToken" xml:space="preserve">
     <value>رمز التحديث غير صالح أو منتهي الصلاحية</value>
   </data>
+  <data name="FileSizeLimit" xml:space="preserve">
+    <value>حجم الملف يجب ألا يتجاوز {1} ميجابايت</value>
+  </data>
+  <data name="Invalidfile" xml:space="preserve">
+    <value>الملف غير صحيح</value>
+  </data>
+  <data name="InvalidImageExtension" xml:space="preserve">
+    <value>فقط الصور من نوع JPG أو PNG أو WebP مسموح بها</value>
+  </data>
+  <data name="GreaterThan" xml:space="preserve">
+    <value>يجب أن يكون أكبر من {0}</value>
+  </data>
+  <data name="LessThanOrEqualTo" xml:space="preserve">
+    <value>يجب أن يكون أقل من أو يساوي تاي</value>
+  </data>
 </root>

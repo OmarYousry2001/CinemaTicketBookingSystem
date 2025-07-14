@@ -1,4 +1,5 @@
-﻿using BL.Contracts.GeneralService.CMS;
+﻿
+using CinemaTicketBookingSystem.Service.Abstracts.CMS;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace BL.GeneralService.CMS

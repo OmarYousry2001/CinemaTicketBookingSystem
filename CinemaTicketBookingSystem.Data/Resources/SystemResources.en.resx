@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LessThanOrEqualToToday" xml:space="preserve">
+    <value>Date  Must be less than or equal to today</value>
+  </data>
+  <data name="NameAlreadyExists" xml:space="preserve">
+    <value>This name already exists</value>
+  </data>
 </root>

@@ -1,117 +1,142 @@
-﻿//using BL.Contracts.GeneralService.CMS;
-//using Microsoft.AspNetCore.Hosting;
-//using Microsoft.AspNetCore.Http;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿
+using CinemaTicketBookingSystem.Data.Resources;
+using CinemaTicketBookingSystem.Service.Abstracts.CMS;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using SchoolProject.Core.Resources;
 
-//namespace BL.GeneralService.CMS
-//{
-//    public class FileUploadService : IFileUploadService
-//    {
-//        private readonly IWebHostEnvironment _env;
 
-//        public FileUploadService(IWebHostEnvironment env)
-//        {
-//            _env = env;
-//        }
+namespace CinemaTicketBookingSystem.Service.Implementations.CMS
+{
+    public class FileUploadService : IFileUploadService
+    {
+        private readonly IWebHostEnvironment _env;
+        private readonly long _maxFileSize = 5 * 1024 * 1024; //5MB
+        private readonly string[] _allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+        private readonly string _imagesFolder = "uploads";
 
-//        public async Task<byte[]> GetFileBytesAsync(IFormFile file)
-//        {
-//            using var memoryStream = new MemoryStream();
-//            await file.CopyToAsync(memoryStream);
-//            return memoryStream.ToArray();
-//        }
+        public FileUploadService(IWebHostEnvironment env)
+        {
+            _env = env;
+        }
 
-//        public async Task<byte[]> GetFileBytesAsync(string base64String)
-//        {
-//            // Simulate async operation, if needed
-//            return await Task.Run(() => Convert.FromBase64String(base64String));
-//        }
+        public async Task<byte[]> GetFileBytesAsync(IFormFile file)
+        {
+            using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
+            return memoryStream.ToArray();
+        }
 
-//        public async Task<string> UploadFileAsync(IFormFile file)
-//        {
-//            if (file == null || file.Length == 0)
-//                throw new ArgumentException("Invalid file.");
+        public async Task<byte[]> GetFileBytesAsync(string base64String)
+        {
+            // Simulate async operation, if needed
+            return await Task.Run(() => Convert.FromBase64String(base64String));
+        }
 
-//            var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
-//            Directory.CreateDirectory(uploadsFolder);
+        public async Task<string> UploadFileAsync(IFormFile file , string featureFolder)
+        {
+            if (file == null || file.Length == 0)
+                throw new ArgumentException(ValidationResources.Invalidfile);
 
-//            var uniqueFileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
-//            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            if (file.Length > _maxFileSize)
+                throw new ArgumentException(string.Format(ValidationResources.FileSizeLimit, _maxFileSize / 1024 / 1024));
 
-//            using (var fileStream = new FileStream(filePath, FileMode.Create))
-//            {
-//                await file.CopyToAsync(fileStream);
-//            }
 
-//            return uniqueFileName;
-//        }
+            var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+            if (!_allowedExtensions.Contains(extension))
+                throw new ArgumentException($"{ValidationResources.InvalidFormat} {string.Join(", ", _allowedExtensions)}");
 
-//        public async Task<string> UploadFileAsync(byte[] fileBytes, string folderName, string? oldFileName = null)
-//        {
-//            // Create the uploads folder if it doesn't exist
-//            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", folderName);
-//            if (!Directory.Exists(uploadsFolder))
-//            {
-//                Directory.CreateDirectory(uploadsFolder);
-//            }
 
-//            if (!string.IsNullOrEmpty(oldFileName))
-//            {
-//                var oldFilePath = Path.Combine(uploadsFolder, oldFileName);
-//                if (File.Exists(oldFilePath))
-//                {
-//                    File.Delete(oldFilePath);
-//                }
-//            }
+            var uploadsFolder = Path.Combine(_env.WebRootPath, _imagesFolder , featureFolder);
+            Directory.CreateDirectory(uploadsFolder);
 
-//            //   WebP  100%
-//            var imageProcessor = new ImageProcessingService();
-//            var processedImage = imageProcessor.ConvertToWebP(fileBytes, quality: 100);
+            // convert file to byte array   
+            var fileBytes = await GetFileBytesAsync(file);
 
-//            // Generate a new GUID and append the original file extension
-//            var uniqueFileName = $"{Guid.NewGuid()}.webp";
-//            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-//            int index = filePath.IndexOf("uploads");
-//            string relativePath = filePath.Substring(index);
+            //   WebP  100%
+            var imageProcessor = new ImageProcessingService();
+            var processedImage = imageProcessor.ConvertToWebP(fileBytes, quality: 100);
 
-//            // Write the file bytes to the specified path
-//            await File.WriteAllBytesAsync(filePath, processedImage);
+            var uniqueFileName = $" {Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-//            return uniqueFileName;
-//        }
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+            //var result = _imagesFolder +"/"+ featureFolder + "/" + uniqueFileName;
+            return uniqueFileName;
+        }
 
-//        public bool IsValidFile(IFormFile file)
-//        {
-//            return ValidateFile(file).isValid;
-//        }
+        public async Task<string> UploadFileAsync(byte[] fileBytes, string folderName, string? oldFileName = null)
+        {
+            // Create the uploads folder if it doesn't exist
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", folderName);
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
 
-//        public bool IsValidFile(string base64File, string fileName)
-//        {
-//            // Implementation for base64 string validation
-//            throw new NotImplementedException();
-//        }
+            if (!string.IsNullOrEmpty(oldFileName))
+            {
+                var oldFilePath = Path.Combine(uploadsFolder, oldFileName);
+                if (File.Exists(oldFilePath))
+                {
+                    File.Delete(oldFilePath);
+                }
+            }
 
-//        public (bool isValid, string errorMessage) ValidateFile(IFormFile file)
-//        {
-//            if (file == null)
-//                return (false, "File is null.");
+            //   WebP  100%
+            var imageProcessor = new ImageProcessingService();
+            var processedImage = imageProcessor.ConvertToWebP(fileBytes, quality: 100);
 
-//            if (!file.ContentType.StartsWith("image/"))
-//                return (false, "Invalid file type. Only images are allowed.");
+            // Generate a new GUID and append the original file extension
+            var uniqueFileName = $"{Guid.NewGuid()}.webp";
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            int index = filePath.IndexOf("uploads");
+            string relativePath = filePath.Substring(index);
 
-//            return (true, string.Empty);
-//        }
+            // Write the file bytes to the specified path
+            await File.WriteAllBytesAsync(filePath, processedImage);
 
-//        public (bool isValid, string errorMessage) ValidateFile(string base64String)
-//        {
-//            if (string.IsNullOrEmpty(base64String)) return (false, "File is null.");
+            return uniqueFileName;
+        }
 
-//            Span<byte> buffer = new Span<byte>(new byte[base64String.Length]);
-//            return (Convert.TryFromBase64String(base64String, buffer, out _), "File is not valid");
-//        }
-//    }
-//}
+        public bool IsValidFile(IFormFile file)
+        {
+            return ValidateFile(file).isValid;
+        }
+
+        public bool IsValidFile(string base64File, string fileName)
+        {
+            // Implementation for base64 string validation
+            throw new NotImplementedException();
+        }
+
+        public (bool isValid, string errorMessage) ValidateFile(IFormFile file)
+        {
+            if (file == null)
+                return (false, "File is null.");
+
+            if (!file.ContentType.StartsWith("image/"))
+                return (false, "Invalid file type. Only images are allowed.");
+
+            return (true, string.Empty);
+        }
+
+        public (bool isValid, string errorMessage) ValidateFile(string base64String)
+        {
+            if (string.IsNullOrEmpty(base64String)) return (false, "File is null.");
+
+            Span<byte> buffer = new Span<byte>(new byte[base64String.Length]);
+            return (Convert.TryFromBase64String(base64String, buffer, out _), "File is not valid");
+        }
+
+        public Task<string> UploadFileAsync(IFormFile file)
+        {
+            throw new NotImplementedException();
+        }
+
+   
+    }
+}

@@ -46,14 +46,11 @@ namespace CinemaTicketBookingSystem.Core.Features.Actors.Commands.Handler
 
 
             var entity = _mapper.Map<Actor>(request);
-            var savedActor = await _actorService.AddAsync(entity , Guid.NewGuid());
+            var savedActor = await _actorService.SaveAndUploadImageAsync(entity , Guid.NewGuid() , request.Image);
             if(savedActor)
             return Success(ActionsResources.Accept);
             else
                 return NotFound<string>("not found error" );
-
-
-
 
 
         }

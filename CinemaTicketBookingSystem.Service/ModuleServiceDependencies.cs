@@ -1,5 +1,7 @@
 ﻿using CinemaTicketBookingSystem.Service.Abstracts;
+using CinemaTicketBookingSystem.Service.Abstracts.CMS;
 using CinemaTicketBookingSystem.Service.Implementations;
+using CinemaTicketBookingSystem.Service.Implementations.CMS;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,10 @@ namespace CinemaTicketBookingSystem.Service
         public static IServiceCollection AddServiceDependencies(this IServiceCollection services)
         {
             services.AddTransient<IActorService, ActorService>();
+            services.AddTransient<IFileUploadService, FileUploadService>();
+            services.AddTransient<IImageProcessingService, ImageProcessingService>();
+
+            
 
             return services;
         }

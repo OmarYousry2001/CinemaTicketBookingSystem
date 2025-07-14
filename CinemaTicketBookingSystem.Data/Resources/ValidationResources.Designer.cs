@@ -39,7 +39,7 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.ValidationResources", typeof(ValidationResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CinemaTicketBookingSystem.Data.Resources.ValidationResources", typeof(ValidationResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -484,6 +484,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to حجم الملف يجب ألا يتجاوز {1} ميجابايت.
+        /// </summary>
+        public static string FileSizeLimit {
+            get {
+                return ResourceManager.GetString("FileSizeLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to يجب أن تكون حالة التشطيب عددًا صحيحًا إيجابيًا..
         /// </summary>
         public static string FinishingStatusRange {
@@ -543,6 +552,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static string GenderRequired {
             get {
                 return ResourceManager.GetString("GenderRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يجب أن يكون أكبر من {0}.
+        /// </summary>
+        public static string GreaterThan {
+            get {
+                return ResourceManager.GetString("GreaterThan", resourceCulture);
             }
         }
         
@@ -610,11 +628,29 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الملف غير صحيح.
+        /// </summary>
+        public static string Invalidfile {
+            get {
+                return ResourceManager.GetString("Invalidfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تنسيق الحقل غير صحيح..
         /// </summary>
         public static string InvalidFormat {
             get {
                 return ResourceManager.GetString("InvalidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to فقط الصور من نوع JPG أو PNG أو WebP مسموح بها.
+        /// </summary>
+        public static string InvalidImageExtension {
+            get {
+                return ResourceManager.GetString("InvalidImageExtension", resourceCulture);
             }
         }
         
@@ -723,6 +759,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static string LengthRequired {
             get {
                 return ResourceManager.GetString("LengthRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يجب أن يكون أقل من أو يساوي تاي.
+        /// </summary>
+        public static string LessThanOrEqualTo {
+            get {
+                return ResourceManager.GetString("LessThanOrEqualTo", resourceCulture);
             }
         }
         

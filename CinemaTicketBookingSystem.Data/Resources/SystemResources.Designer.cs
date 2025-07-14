@@ -39,7 +39,7 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.SystemResources", typeof(SystemResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CinemaTicketBookingSystem.Data.Resources.SystemResources", typeof(SystemResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,24 @@ namespace CinemaTicketBookingSystem.Data.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to   التاريخ جب أن يكون أقل من أو يساوي تاريخ   اليوم.
+        /// </summary>
+        public static string LessThanOrEqualToToday {
+            get {
+                return ResourceManager.GetString("LessThanOrEqualToToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هذا الاسم موجود بالفعل.
+        /// </summary>
+        public static string NameAlreadyExists {
+            get {
+                return ResourceManager.GetString("NameAlreadyExists", resourceCulture);
             }
         }
     }
