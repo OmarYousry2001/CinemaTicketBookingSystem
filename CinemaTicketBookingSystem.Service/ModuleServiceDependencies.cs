@@ -18,7 +18,8 @@ namespace CinemaTicketBookingSystem.Service
             services.AddTransient<IActorService, ActorService>();
             services.AddTransient<IDirectorService, DirectorService>();
             services.AddTransient<IHallService, HallService>();
-             
+            services.AddTransient<ISeatTypeService, SeatTypeService>();
+
             services.AddTransient<IFileUploadService, FileUploadService>();
             services.AddTransient<IImageProcessingService, ImageProcessingService>();
 

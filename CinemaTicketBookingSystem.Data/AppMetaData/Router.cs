@@ -47,6 +47,18 @@
             public const string Edit = Prefix + "Edit";
             public const string Delete = Prefix + SingleRoute;
         }
+        public static class SeatTypeRouting
+        {
+            public const string Prefix = Rule + "SeatType/";
+
+            public const string list = Prefix + "List";
+            public const string GetById = Prefix + SingleRoute;
+
+
+            public const string Create = Prefix + "Create";
+            public const string Edit = Prefix + "Edit";
+            public const string Delete = Prefix + SingleRoute;
+        }
         public static class StudentRouting
         {
             public const string Prefix = Rule+"Student";

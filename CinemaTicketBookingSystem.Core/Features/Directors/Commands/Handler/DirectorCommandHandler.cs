@@ -63,9 +63,9 @@ namespace CinemaTicketBookingSystem.Core.Features.Directors.Commands.Handler
         }
         public async Task<Response<string>> Handle(DeleteDirectorCommand request, CancellationToken cancellationToken)
         {
-            var actor = await _directorService.FindByIdAsync(request.Id);
-            if (actor == null) return NotFound<string>();
-            var isDeleted = await _directorService.Delete(actor);
+            var entity = await _directorService.FindByIdAsync(request.Id);
+            if (entity == null) return NotFound<string>();
+            var isDeleted = await _directorService.Delete(entity);
             if (isDeleted) return Deleted<string>();
             else return BadRequest<string>();
         }
