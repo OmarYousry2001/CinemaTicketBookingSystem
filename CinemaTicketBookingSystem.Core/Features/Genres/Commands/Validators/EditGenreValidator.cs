@@ -1,43 +1,40 @@
-﻿using CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Models;
+﻿using CinemaTicketBookingSystem.Core.Features.Genres.Commands.Models;
 using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using FluentValidation;
 
-namespace CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Validators
+namespace CinemaTicketBookingSystem.Core.Features.Genres.Commands.Validators
 {
-    public class CreateSeatTypeValidator : AbstractValidator<AddSeatTypeCommand>
+    public class EditGenreValidator : AbstractValidator<EditGenreCommand>
     {
-        private readonly ISeatTypeService _seatTypeService;
+        private readonly IGenreService _genreService;
 
-        public CreateSeatTypeValidator(ISeatTypeService seatTypeService)
+        public EditGenreValidator(IGenreService genreService)
         {
-            _seatTypeService = seatTypeService;
+            _genreService = genreService;
+
             ApplyValidationRules();
             ApplyCustomValidationRules();
         }
 
         private void ApplyValidationRules()
         {
-            RuleFor(st => st.TypeNameAr)
+            RuleFor(g => g.NameAr)
                 .NotEmpty().WithMessage(ValidationResources.FieldRequired)
                 .MinimumLength(2).WithMessage(_ => string.Format(ValidationResources.MinimumLength, 2))
                 .MaximumLength(100).WithMessage(_ => string.Format(ValidationResources.MaxLengthExceeded, 100));
 
-            RuleFor(st => st.TypeNameEn)
+            RuleFor(g => g.NameEn)
                 .NotEmpty().WithMessage(ValidationResources.FieldRequired)
                 .MinimumLength(2).WithMessage(_ => string.Format(ValidationResources.MinimumLength, 2))
                 .MaximumLength(100).WithMessage(_ => string.Format(ValidationResources.MaxLengthExceeded, 100));
-
-            RuleFor(st => st.SeatTypePrice)
-                .NotEmpty().WithMessage(_ => ValidationResources.FieldRequired)
-                .GreaterThan(0).WithMessage(_ => string.Format(ValidationResources.GreaterThan, 0));
         }
 
         private void ApplyCustomValidationRules()
         {
-            RuleFor(st => st.TypeNameEn)
-                .MustAsync(async (model, typeNameEn, cancellationToken) =>
-                    !await _seatTypeService.IsExistByNameAsync(typeNameEn, model.TypeNameAr))
+            RuleFor(g => g.NameEn)
+                .MustAsync(async (model, nameEn, cancellationToken) =>
+                    !await _genreService.IsExistByNameExcludeItselfAsync(model.Id, nameEn, model.NameAr))
                 .WithMessage(_ => SystemResources.NameAlreadyExists);
         }
     }
