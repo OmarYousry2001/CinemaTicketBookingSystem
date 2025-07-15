@@ -570,4 +570,7 @@
   <data name="LessThanOrEqualTo" xml:space="preserve">
     <value>يجب أن يكون أقل من أو يساوي تاي</value>
   </data>
+  <data name="MinimumLength" xml:space="preserve">
+    <value>يجب ألا يقل الحقل عن {1} حرفًا</value>
+  </data>
 </root>

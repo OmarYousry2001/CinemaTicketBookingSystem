@@ -30,7 +30,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
         {
             if (!string.IsNullOrEmpty(entity.ImageURL))
             {
-                entity.ImageURL = await _fileUploadService.UploadFileAsync(file, "Actors");  
+                entity.ImageURL = await _fileUploadService.UploadFileAsync(file, "Actors", entity.ImageURL);  
 
                 return await _tableRepositoryAsync.SaveChangesAsync(entity, userId);
 

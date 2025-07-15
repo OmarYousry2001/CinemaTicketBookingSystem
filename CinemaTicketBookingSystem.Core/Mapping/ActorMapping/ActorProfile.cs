@@ -6,10 +6,10 @@ namespace CinemaTicketBookingSystem.Core.Mapping.ActorMapping
     {
         public ActorProfile()
         {
-            //GetAllActorsMapping();
-            //GetActorByIdMapping();
+            GetAllActorsMapping();
+            FindActorByIdMapping();
             AddActorMapping();
-            //EditActorMapping();
+            EditActorMapping();
         }
     }
 }

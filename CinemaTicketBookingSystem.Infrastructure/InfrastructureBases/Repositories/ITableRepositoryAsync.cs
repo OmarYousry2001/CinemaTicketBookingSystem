@@ -27,6 +27,6 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositor
         Task<IDbContextTransaction> BeginTransactionAsync();
         Task CommitAsync();
         Task RollBackAsync();
-        public bool UpdateCurrentState(T entity, int newValue = 0);
+        public Task<bool> UpdateCurrentState(T entity, int newValue = 0);
     }
 }

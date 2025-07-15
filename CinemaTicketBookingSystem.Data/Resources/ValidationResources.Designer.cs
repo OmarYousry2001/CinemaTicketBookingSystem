@@ -880,6 +880,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يجب ألا يقل الحقل عن {1} حرفًا.
+        /// </summary>
+        public static string MinimumLength {
+            get {
+                return ResourceManager.GetString("MinimumLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رقم الهاتف المحمول ليس بتنسيق صحيح..
         /// </summary>
         public static string MobileFormat {

@@ -2,17 +2,56 @@
 {
     public static class Router
     {
-        public const string SignleRoute = "/{id}";
+        public const string SingleRoute = "{id}";
 
         public const string root = "Api";
         public const string version = "V1";
         public const string Rule = root+"/"+version+"/";
 
+        public static class ActorRouting
+        {
+            public const string Prefix = Rule + "Actor/";
+            public const string list = Prefix + "List";
+            public const string GetById = Prefix + SingleRoute;
+            public const string Create = Prefix + "Create";
+            public const string Edit = Prefix + "Edit";
+            public const string Delete = Prefix + SingleRoute;
+        }
+        public static class DirectorRouting
+        {
+            public const string Prefix = Rule + "Director/";
+            public const string list = Prefix + "List";
+            public const string GetById = Prefix + SingleRoute;
+            public const string Create = Prefix + "Create";
+            public const string Edit = Prefix + "Edit";
+            public const string Delete = Prefix + SingleRoute;
+        }
+        public static class SeatRouting
+        {
+            public const string Prefix = Rule + "Seat/";
+            public const string list = Prefix + "List";
+            public const string FreeSeatsInShowTime = Prefix + "FreeSeats/{showTimeId}";
+            public const string GetById = Prefix + SingleRoute;
+            public const string Create = Prefix + "Create";
+            public const string Delete = Prefix + SingleRoute;
+        }
+        public static class HallRouting
+        {
+            public const string Prefix = Rule + "Hall/";
+
+            public const string list = Prefix + "List";
+            public const string GetById = Prefix + SingleRoute;
+
+
+            public const string Create = Prefix + "Create";
+            public const string Edit = Prefix + "Edit";
+            public const string Delete = Prefix + SingleRoute;
+        }
         public static class StudentRouting
         {
             public const string Prefix = Rule+"Student";
             public const string List = Prefix+"/List";
-            public const string GetByID = Prefix+SignleRoute;
+            public const string GetByID = Prefix+ SingleRoute;
             public const string Create = Prefix+"/Create";
             public const string Edit = Prefix+"/Edit";
             public const string Delete = Prefix+"/{id}";
@@ -32,7 +71,7 @@
             public const string Prefix = Rule+"User";
             public const string Create = Prefix+"/Create";
             public const string Paginated = Prefix+"/Paginated";
-            public const string GetByID = Prefix+SignleRoute;
+            public const string GetByID = Prefix+ SingleRoute;
             public const string Edit = Prefix+"/Edit";
             public const string Delete = Prefix+"/{id}";
             public const string ChangePassword = Prefix+"/Change-Password";

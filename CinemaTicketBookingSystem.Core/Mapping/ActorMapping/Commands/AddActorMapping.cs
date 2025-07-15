@@ -10,11 +10,11 @@ namespace CinemaTicketBookingSystem.Core.Mapping.ActorMapping
         public void AddActorMapping()
         {
             CreateMap<AddActorCommand, Actor>()
-            .ForPath(dist => dist.FirstName, opt => opt.MapFrom(src => src.FirstName))
-            .ForPath(dist => dist.LastName, opt => opt.MapFrom(src => src.LastName))
-            .ForPath(dist => dist.ImageURL, opt => opt.MapFrom(src => src.Image))
-            .ForPath(dist => dist.BirthDate, opt => opt.MapFrom(src => src.BirthDate))
-            .ForPath(dist => dist.Bio, opt => opt.MapFrom(src => src.Bio));
+            .ForPath(des => des.FirstName, opt => opt.MapFrom(src => src.FirstName))
+            .ForPath(des => des.LastName, opt => opt.MapFrom(src => src.LastName))
+            .ForPath(des => des.ImageURL, opt => opt.MapFrom(src => src.Image))
+            .ForPath(des => des.BirthDate, opt => opt.MapFrom(src => src.BirthDate))
+            .ForPath(des => des.Bio, opt => opt.MapFrom(src => src.Bio));
         }
     }
 }

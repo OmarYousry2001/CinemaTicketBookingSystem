@@ -426,4 +426,13 @@
   <data name="RateLimitExceeded" xml:space="preserve">
     <value>Rate limit exceeded. Try again later</value>
   </data>
+  <data name="UnprocessableEntity" xml:space="preserve">
+    <value>There are Validation Errors Or Syntax Errors</value>
+  </data>
+  <data name="BadRequest" xml:space="preserve">
+    <value>Bad request, please check your data</value>
+  </data>
+  <data name="CreatedSuccessfully" xml:space="preserve">
+    <value>Created successfully</value>
+  </data>
 </root>

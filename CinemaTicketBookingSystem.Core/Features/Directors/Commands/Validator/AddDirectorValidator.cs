@@ -5,15 +5,15 @@ using FluentValidation;
 using SchoolProject.Core.Resources;
 
 
-namespace CinemaTicketBookingSystem.Core.Features.Actors.Commands.Validator
+namespace CinemaTicketBookingSystem.Core.Features.Directors.Commands.Validator
 {
-    public class CreateActorValidator : AbstractValidator<AddActorCommand>
+    public class AddDirectorValidator : AbstractValidator<AddActorCommand>
     {
-        private readonly IActorService _actorService;
+        private readonly IDirectorService _directorService;
 
-        public CreateActorValidator(IActorService actorService)
+        public AddDirectorValidator(IDirectorService actorService)
         {
-            _actorService = actorService;
+            _directorService = actorService;
             ApplyValidationRules();
             ApplyCustomValidationRules();
         }
@@ -22,37 +22,22 @@ namespace CinemaTicketBookingSystem.Core.Features.Actors.Commands.Validator
         {
             RuleFor(a => a.FirstName)
                 .NotEmpty().WithMessage(ValidationResources.FieldRequired)
-                //.NotNull().WithMessage(SharedResourcesKeys.NotNull)
                 .MaximumLength(100).WithMessage(string.Format(ValidationResources.MaxLengthExceeded, 100));
 
 
             RuleFor(a => a.LastName)
                 .NotEmpty().WithMessage(ValidationResources.FieldRequired)
-                               //.NotNull().WithMessage(SharedResourcesKeys.NotNull)
                                .MaximumLength(100).WithMessage(string.Format(ValidationResources.MaxLengthExceeded, 100));
 
 
             RuleFor(a => a.Bio)
        .NotEmpty().WithMessage(ValidationResources.FieldRequired)
-                //.NotNull().WithMessage(SharedResourcesKeys.NotNull)
      .MaximumLength(500).WithMessage(string.Format(ValidationResources.MaxLengthExceeded, 500));
-
-
-            //RuleFor(a => a.BirthDate)
-            //  .NotEmpty().WithMessage(ValidationResources.FieldRequired)
-            //    //.NotNull().WithMessage(SharedResourcesKeys.NotNull)
-            //    .GreaterThan(new DateOnly(1500, 1, 1)).WithMessage($"{SharedResourcesKeys.GreaterThan} 1-1-1900");
-
 
             RuleFor(a => a.BirthDate)
      .NotEmpty().WithMessage(ValidationResources.FieldRequired)
-    //.NotNull().WithMessage(SharedResourcesKeys.NotNull)
-    .GreaterThan(new DateOnly(1800, 1, 1)).WithMessage(string.Format( ValidationResources.GreaterThan ,"1-1-1800"))
+    .GreaterThan(new DateOnly(1800, 1, 1)).WithMessage(string.Format(ValidationResources.GreaterThan, "1-1-1800"))
     .LessThanOrEqualTo(DateOnly.FromDateTime(DateTime.Today)).WithMessage(SystemResources.LessThanOrEqualToToday);
-
-
-       
-
 
 
         }
@@ -78,7 +63,7 @@ namespace CinemaTicketBookingSystem.Core.Features.Actors.Commands.Validator
            .WithMessage(_ => ValidationResources.InvalidImageExtension);
             RuleFor(a => a.FirstName).MustAsync(async (model, key, CancellationToken) =>
             {
-                return !await _actorService.IsExistByNameAsync(key, model.LastName);
+                return !await _directorService.IsExistByNameAsync(key, model.LastName);
             }).WithMessage(SystemResources.NameAlreadyExists);
         }
     }

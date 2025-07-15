@@ -570,4 +570,7 @@
   <data name="LessThanOrEqualTo" xml:space="preserve">
     <value>Must be less than or equal to</value>
   </data>
+  <data name="MinimumLength" xml:space="preserve">
+    <value>The field  must not be less than {1} chars</value>
+  </data>
 </root>

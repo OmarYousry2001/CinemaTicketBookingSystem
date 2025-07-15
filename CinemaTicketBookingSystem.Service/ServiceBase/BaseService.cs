@@ -15,7 +15,7 @@ namespace CinemaTicketBookingSystem.Service.ServiceBase
             _baseRepository = baseRepository;
 
         }
-        public virtual async Task<IEnumerable<T>> GetAll()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
 
             return await _baseRepository.GetTableNoTracking().Where(x => x.CurrentState == 1).ToListAsync();
@@ -42,9 +42,9 @@ namespace CinemaTicketBookingSystem.Service.ServiceBase
             return await _baseRepository.UpdateAsync(entity, updaterId);
         }
 
-        public virtual bool Delete(T entity)
+        public virtual async Task<bool> Delete(T entity)
         {
-          return _baseRepository.UpdateCurrentState(entity);
+          return await _baseRepository.UpdateCurrentState(entity);
         }
         public virtual void PrepareEntity(T entity, Guid userId) 
         {

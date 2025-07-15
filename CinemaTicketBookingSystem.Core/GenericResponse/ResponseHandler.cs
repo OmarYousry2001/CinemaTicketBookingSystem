@@ -1,14 +1,15 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using CinemaTicketBookingSystem.Data.Resources;
+using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Resources;
 
 namespace CinemaTicketBookingSystem.Core.GenericResponse
 {
     public class ResponseHandler
     {
-        private readonly IStringLocalizer<SharedResources> _stringLocalizer;
-        public ResponseHandler(IStringLocalizer<SharedResources> stringLocalizer)
+        //private readonly IStringLocalizer<SharedResources> _stringLocalizer;
+        public ResponseHandler()
         {
-            _stringLocalizer= stringLocalizer;
+            //_stringLocalizer= stringLocalizer;
         }
         public Response<T> Deleted<T>(string Message = null)
         {
@@ -16,7 +17,7 @@ namespace CinemaTicketBookingSystem.Core.GenericResponse
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = Message == null ? _stringLocalizer[SharedResourcesKeys.Deleted] : Message
+                Message = Message == null ? NotifiAndAlertsResources.DeletedSuccessfully : Message
             };
         }
         public Response<T> Success<T>(T entity, object Meta = null)
@@ -26,7 +27,7 @@ namespace CinemaTicketBookingSystem.Core.GenericResponse
                 Data = entity,
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = _stringLocalizer[SharedResourcesKeys.Success],
+                Message = NotifiAndAlertsResources.Success,
                 Meta = Meta
             };
         }
@@ -36,7 +37,7 @@ namespace CinemaTicketBookingSystem.Core.GenericResponse
             {
                 StatusCode = System.Net.HttpStatusCode.Unauthorized,
                 Succeeded = true,
-                Message = Message == null ? _stringLocalizer[SharedResourcesKeys.UnAuthorized] : Message
+                Message = Message == null ? NotifiAndAlertsResources.UnauthorizedAccess : Message
             };
         }
         public Response<T> BadRequest<T>(string Message = null)
@@ -45,7 +46,7 @@ namespace CinemaTicketBookingSystem.Core.GenericResponse
             {
                 StatusCode = System.Net.HttpStatusCode.BadRequest,
                 Succeeded = false,
-                Message = Message == null ? _stringLocalizer[SharedResourcesKeys.BadRequest] : Message
+                Message = Message == null ? NotifiAndAlertsResources.BadRequest : Message
             };
         }
 
@@ -55,7 +56,7 @@ namespace CinemaTicketBookingSystem.Core.GenericResponse
             {
                 StatusCode = System.Net.HttpStatusCode.UnprocessableEntity,
                 Succeeded = false,
-                Message = Message == null ? _stringLocalizer[SharedResourcesKeys.UnprocessableEntity] : Message
+                Message = Message == null ? NotifiAndAlertsResources.UnprocessableEntity : Message
             };
         }
 
@@ -66,7 +67,7 @@ namespace CinemaTicketBookingSystem.Core.GenericResponse
             {
                 StatusCode = System.Net.HttpStatusCode.NotFound,
                 Succeeded = false,
-                Message = message == null ? _stringLocalizer[SharedResourcesKeys.NotFound] : message
+                Message = message == null ? NotifiAndAlertsResources.NotFound : message
             };
         }
 
@@ -77,7 +78,7 @@ namespace CinemaTicketBookingSystem.Core.GenericResponse
                 Data = entity,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Succeeded = true,
-                Message = _stringLocalizer[SharedResourcesKeys.Created],
+                Message = NotifiAndAlertsResources.CreatedSuccessfully,
                 Meta = Meta
             };
         }

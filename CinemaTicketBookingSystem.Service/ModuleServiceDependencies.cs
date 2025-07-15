@@ -16,10 +16,11 @@ namespace CinemaTicketBookingSystem.Service
         public static IServiceCollection AddServiceDependencies(this IServiceCollection services)
         {
             services.AddTransient<IActorService, ActorService>();
+            services.AddTransient<IDirectorService, DirectorService>();
+            services.AddTransient<IHallService, HallService>();
+             
             services.AddTransient<IFileUploadService, FileUploadService>();
             services.AddTransient<IImageProcessingService, ImageProcessingService>();
-
-            
 
             return services;
         }

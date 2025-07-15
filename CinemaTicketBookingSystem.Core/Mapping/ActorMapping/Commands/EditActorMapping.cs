@@ -1,23 +1,20 @@
-﻿//using CinemaTicketBookingSystem.Core.Features.Actors.Commands.Models;
-//using CinemaTicketBookingSystem.Data.Entities;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using CinemaTicketBookingSystem.Core.Features.Actors.Commands.Models;
+using CinemaTicketBookingSystem.Data.Entities;
 
-//namespace CinemaTicketBookingSystem.Core.Mapping.ActorMapping.Commands
-//{
-//    public partial class ActorProfile
-//    {
-//        public void EditActorMapping()
-//        {
-//            CreateMap<AddActorCommand, Actor>()
-//            .ForPath(dist => dist.FirstName, opt => opt.MapFrom(src => src.FirstName))
-//            .ForPath(dist => dist.LastName, opt => opt.MapFrom(src => src.LastName))
-//            .ForPath(dist => dist.ImageURL, opt => opt.MapFrom(src => src.Image))
-//            .ForPath(dist => dist.BirthDate, opt => opt.MapFrom(src => src.BirthDate))
-//            .ForPath(dist => dist.Bio, opt => opt.MapFrom(src => src.Bio));
-//        }
-//    }
-//}
+
+namespace CinemaTicketBookingSystem.Core.Mapping.ActorMapping
+{
+    public partial class ActorProfile
+    {
+        public void EditActorMapping()
+        {
+            CreateMap<EditActorCommand, Actor>()
+            .ForPath(des => des.FirstName, opt => opt.MapFrom(src => src.FirstName))
+            .ForPath(des => des.LastName, opt => opt.MapFrom(src => src.LastName))
+            .ForPath(des => des.ImageURL, opt => opt.MapFrom(src => src.ImageURL))
+            .ForPath(des => des.BirthDate, opt => opt.MapFrom(src => src.BirthDate))
+            .ForPath(des => des.Bio, opt => opt.MapFrom(src => src.Bio));
+
+        }
+    }
+}

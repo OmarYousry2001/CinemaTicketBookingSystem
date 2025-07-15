@@ -51,7 +51,9 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositor
         public virtual async Task<T> FindByIdAsync(Guid id)
         {
 
-            return await DbSet.FindAsync(id);
+            return await DbSet.Where(x => x.Id == id && x.CurrentState == 1)
+                              .AsNoTracking()
+                              .FirstOrDefaultAsync();
         }
 
 
@@ -165,13 +167,14 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositor
         /// <summary>
         /// Updates the CurrentState of an entity.
         /// </summary>
-        public bool UpdateCurrentState(T entity, int newValue = 0)
+        public async Task<bool> UpdateCurrentState(T entity, int newValue = 0)
         {
             entity.CurrentState = newValue;
             DbSet.Update(entity);
-            return _dbContext.SaveChanges() > 0;
+            return await _dbContext.SaveChangesAsync() > 0;
 
-            #endregion
+
         }
+        #endregion
     }
 }

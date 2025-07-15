@@ -22,6 +22,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FormResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\GeneralResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>GeneralResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\NotifiAndAlertsResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -48,6 +53,10 @@
     <EmbeddedResource Update="Resources\FormResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FormResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\GeneralResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GeneralResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\NotifiAndAlertsResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

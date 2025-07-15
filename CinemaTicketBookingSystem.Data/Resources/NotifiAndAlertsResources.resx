@@ -426,4 +426,13 @@
   <data name="RateLimitExceeded" xml:space="preserve">
     <value>تم تجاوز الحد المسموح للطلبات. حاول لاحقًا</value>
   </data>
+  <data name="UnprocessableEntity" xml:space="preserve">
+    <value>يوجد مشاكل في صيغة الداتا او نوعها عن المطلوب</value>
+  </data>
+  <data name="BadRequest" xml:space="preserve">
+    <value>طلب غير صالح، يرجى التحقق من البيانات</value>
+  </data>
+  <data name="CreatedSuccessfully" xml:space="preserve">
+    <value>تم الإنشاء بنجاح</value>
+  </data>
 </root>

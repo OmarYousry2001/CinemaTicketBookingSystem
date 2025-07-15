@@ -33,7 +33,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations.CMS
             return await Task.Run(() => Convert.FromBase64String(base64String));
         }
 
-        public async Task<string> UploadFileAsync(IFormFile file , string featureFolder)
+        public async Task<string> UploadFileAsync(IFormFile file , string featureFolder , string oldFileName = null)
         {
             if (file == null || file.Length == 0)
                 throw new ArgumentException(ValidationResources.Invalidfile);
@@ -49,6 +49,15 @@ namespace CinemaTicketBookingSystem.Service.Implementations.CMS
 
             var uploadsFolder = Path.Combine(_env.WebRootPath, _imagesFolder , featureFolder);
             Directory.CreateDirectory(uploadsFolder);
+
+            if (!string.IsNullOrEmpty(oldFileName))
+            {
+                var oldFilePath = Path.Combine(uploadsFolder, oldFileName);
+                if (File.Exists(oldFilePath))
+                {
+                    File.Delete(oldFilePath);
+                }
+            }
 
             // convert file to byte array   
             var fileBytes = await GetFileBytesAsync(file);

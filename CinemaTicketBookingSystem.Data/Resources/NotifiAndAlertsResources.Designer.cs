@@ -142,6 +142,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to طلب غير صالح، يرجى التحقق من البيانات.
+        /// </summary>
+        public static string BadRequest {
+            get {
+                return ResourceManager.GetString("BadRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ملغي.
         /// </summary>
         public static string Cancelled {
@@ -201,6 +210,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static string ConnectionRestored {
             get {
                 return ResourceManager.GetString("ConnectionRestored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم الإنشاء بنجاح.
+        /// </summary>
+        public static string CreatedSuccessfully {
+            get {
+                return ResourceManager.GetString("CreatedSuccessfully", resourceCulture);
             }
         }
         
@@ -957,6 +975,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static string UnauthorizedAccessAlert {
             get {
                 return ResourceManager.GetString("UnauthorizedAccessAlert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يوجد مشاكل في صيغة الداتا او نوعها عن المطلوب.
+        /// </summary>
+        public static string UnprocessableEntity {
+            get {
+                return ResourceManager.GetString("UnprocessableEntity", resourceCulture);
             }
         }
         

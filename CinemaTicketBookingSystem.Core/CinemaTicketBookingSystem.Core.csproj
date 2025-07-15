@@ -19,22 +19,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Actors\Commands\Validator\" />
     <Folder Include="Features\Genres\Commands\" />
     <Folder Include="Features\Genres\Queries\" />
-    <Folder Include="Features\Halls\Commands\" />
-    <Folder Include="Features\Halls\Queries\" />
     <Folder Include="Features\Seats\Commands\" />
     <Folder Include="Features\Seats\Queries\" />
     <Folder Include="Features\Reservations\Commands\" />
     <Folder Include="Features\Reservations\Queries\" />
     <Folder Include="Features\Movies\Commands\" />
     <Folder Include="Features\Movies\Queries\" />
-    <Folder Include="Features\Directors\Commands\" />
-    <Folder Include="Features\Directors\Queries\" />
-    <Folder Include="Features\Actors\Queries\" />
     <Folder Include="Filters\" />
-    <Folder Include="Mapping\ActorMapping\Queries\" />
   </ItemGroup>
 
 </Project>

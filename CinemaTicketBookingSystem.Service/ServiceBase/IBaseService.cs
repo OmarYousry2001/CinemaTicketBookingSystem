@@ -2,12 +2,12 @@
 {
     public interface IBaseService<T>
     {
-        public  Task<IEnumerable<T>> GetAll();
+        public  Task<IEnumerable<T>> GetAllAsync();
         Task<T> FindByIdAsync(Guid Id);
         Task<bool> SaveAsync(T entity, Guid userId);
         Task<bool> AddAsync(T entity, Guid creatorId);
         Task<bool> UpdateAsync(T entity, Guid updaterId);
-        bool Delete(T entity);
+        Task<bool> Delete(T entity);
         public  void PrepareEntity(T entity, Guid userId);
     }
 }
