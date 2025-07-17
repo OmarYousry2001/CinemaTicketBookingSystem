@@ -55,7 +55,7 @@ namespace CinemaTicketBookingSystem.Core.Features.Halls.Commands.Handler
         {
             var entity = await _hallService.FindByIdAsync(request.Id);
             if (entity == null) return NotFound<string>();
-            var isDeleted = await _hallService.Delete(entity);
+            var isDeleted = await _hallService.DeleteAsync(entity);
             if (isDeleted) return Deleted<string>();
             else return BadRequest<string>();
         }

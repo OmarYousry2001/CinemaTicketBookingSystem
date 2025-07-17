@@ -52,7 +52,7 @@ namespace CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Handler
         {
             var entity = await _seatTypeService.FindByIdAsync(request.Id);
             if (entity == null) return NotFound<string>();
-            var isDeleted = await _seatTypeService.Delete(entity);
+            var isDeleted = await _seatTypeService.DeleteAsync(entity);
             if (isDeleted) return Deleted<string>();
             else return BadRequest<string>();
         }

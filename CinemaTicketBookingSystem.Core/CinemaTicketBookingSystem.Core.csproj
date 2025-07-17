@@ -23,8 +23,6 @@
     <Folder Include="Features\Seats\Queries\" />
     <Folder Include="Features\Reservations\Commands\" />
     <Folder Include="Features\Reservations\Queries\" />
-    <Folder Include="Features\Movies\Commands\" />
-    <Folder Include="Features\Movies\Queries\" />
     <Folder Include="Filters\" />
   </ItemGroup>
 

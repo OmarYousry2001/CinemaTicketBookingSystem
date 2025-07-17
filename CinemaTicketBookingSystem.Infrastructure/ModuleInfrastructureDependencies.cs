@@ -1,4 +1,6 @@
-﻿using CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositories;
+﻿using CinemaTicketBookingSystem.Infrastructure.Abstracts;
+using CinemaTicketBookingSystem.Infrastructure.Implementations;
+using CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,9 @@ namespace CinemaTicketBookingSystem.Infrastructure
             //services.AddTransient<IInstructorsRepository, InstructorsRepository>();
             //services.AddTransient<ISubjectRepository, SubjectRepository>();
             //services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddTransient<ISeatRepository, SeatRepository>();
+
+
             services.AddTransient(typeof(ITableRepositoryAsync<>), typeof(TableRepositoryAsync<>));
 
             //views

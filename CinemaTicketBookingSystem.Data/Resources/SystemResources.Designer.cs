@@ -61,6 +61,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to التقييم غير صالح.
+        /// </summary>
+        public static string InvalidRating {
+            get {
+                return ResourceManager.GetString("InvalidRating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to   التاريخ جب أن يكون أقل من أو يساوي تاريخ   اليوم.
         /// </summary>
         public static string LessThanOrEqualToToday {
@@ -75,6 +84,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static string NameAlreadyExists {
             get {
                 return ResourceManager.GetString("NameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هذا الحقل غير موجود.
+        /// </summary>
+        public static string NotExist {
+            get {
+                return ResourceManager.GetString("NotExist", resourceCulture);
             }
         }
     }

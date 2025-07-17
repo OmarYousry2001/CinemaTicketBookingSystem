@@ -1,11 +1,6 @@
 ﻿using CinemaTicketBookingSystem.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CinemaTicketBookingSystem.Infrastructure.Configurations
 {
@@ -13,15 +8,35 @@ namespace CinemaTicketBookingSystem.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<MovieActor> builder)
         {
+
             builder.HasKey(ma => new { ma.MovieId, ma.ActorId });
+
+
+            builder.Property(ma => ma.Id)
+                   .ValueGeneratedOnAdd();
 
             builder.HasOne(ma => ma.Movie)
                    .WithMany(m => m.MovieActors)
-                   .HasForeignKey(ma => ma.MovieId);
+                   .HasForeignKey(ma => ma.MovieId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(ma => ma.Actor)
                    .WithMany(a => a.MovieActors)
-                   .HasForeignKey(ma => ma.ActorId);
+                   .HasForeignKey(ma => ma.ActorId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+
+            builder.Property(ma => ma.CurrentState)
+                   .HasDefaultValue(1);
+
+            builder.Property(ma => ma.CreatedDateUtc)
+                   .IsRequired();
+
+            builder.Property(ma => ma.CreatedBy)
+                   .IsRequired();
+
+            builder.Property(ma => ma.UpdatedBy);
+            builder.Property(ma => ma.UpdatedDateUtc);
         }
     }
 }

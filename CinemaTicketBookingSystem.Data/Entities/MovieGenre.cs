@@ -2,7 +2,7 @@
 
 namespace CinemaTicketBookingSystem.Data.Entities
 {
-    public class MovieGenre
+    public class MovieGenre: BaseEntity
     {
         public Guid MovieId { get; set; }
         public Guid GenreId { get; set; }

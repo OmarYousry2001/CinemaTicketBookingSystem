@@ -430,6 +430,27 @@ namespace CinemaTicketBookingSystem.Infrastructure.Migrations
                     b.Property<Guid>("ActorId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDateUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
+
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedDateUtc")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("MovieId", "ActorId");
 
                     b.HasIndex("ActorId");
@@ -444,6 +465,27 @@ namespace CinemaTicketBookingSystem.Infrastructure.Migrations
 
                     b.Property<Guid>("GenreId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDateUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
+
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedDateUtc")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("MovieId", "GenreId");
 

@@ -10,6 +10,7 @@ namespace CinemaTicketBookingSystem.Service.ServiceBase
     {
         private readonly ITableRepositoryAsync<T> _baseRepository;
 
+
         public BaseService(ITableRepositoryAsync<T> baseRepository)
         {
             _baseRepository = baseRepository;
@@ -42,9 +43,9 @@ namespace CinemaTicketBookingSystem.Service.ServiceBase
             return await _baseRepository.UpdateAsync(entity, updaterId);
         }
 
-        public virtual async Task<bool> Delete(T entity)
+        public virtual async Task<bool> DeleteAsync(T entity )
         {
-          return await _baseRepository.UpdateCurrentState(entity);
+          return await _baseRepository.UpdateCurrentStateAsync(entity);
         }
         public virtual void PrepareEntity(T entity, Guid userId) 
         {

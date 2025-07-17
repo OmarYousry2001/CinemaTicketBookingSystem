@@ -5,11 +5,11 @@ using FluentValidation;
 
 namespace CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Validators
 {
-    public class CreateSeatTypeValidator : AbstractValidator<AddSeatTypeCommand>
+    public class AddSeatTypeValidator : AbstractValidator<AddSeatTypeCommand>
     {
         private readonly ISeatTypeService _seatTypeService;
 
-        public CreateSeatTypeValidator(ISeatTypeService seatTypeService)
+        public AddSeatTypeValidator(ISeatTypeService seatTypeService)
         {
             _seatTypeService = seatTypeService;
             ApplyValidationRules();
@@ -38,7 +38,7 @@ namespace CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Validators
             RuleFor(st => st.TypeNameEn)
                 .MustAsync(async (model, typeNameEn, cancellationToken) =>
                     !await _seatTypeService.IsExistByNameAsync(typeNameEn, model.TypeNameAr))
-                .WithMessage(_ => SystemResources.NameAlreadyExists);
+                .WithMessage( SystemResources.NameAlreadyExists);
         }
     }
 }

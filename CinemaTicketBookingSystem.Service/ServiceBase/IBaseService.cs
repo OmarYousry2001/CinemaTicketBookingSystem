@@ -7,7 +7,7 @@
         Task<bool> SaveAsync(T entity, Guid userId);
         Task<bool> AddAsync(T entity, Guid creatorId);
         Task<bool> UpdateAsync(T entity, Guid updaterId);
-        Task<bool> Delete(T entity);
+        Task<bool> DeleteAsync(T entity );
         public  void PrepareEntity(T entity, Guid userId);
     }
 }

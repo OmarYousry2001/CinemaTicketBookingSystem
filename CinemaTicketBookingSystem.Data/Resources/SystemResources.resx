@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidRating" xml:space="preserve">
+    <value>التقييم غير صالح</value>
+  </data>
   <data name="LessThanOrEqualToToday" xml:space="preserve">
     <value>  التاريخ جب أن يكون أقل من أو يساوي تاريخ   اليوم</value>
   </data>
   <data name="NameAlreadyExists" xml:space="preserve">
     <value>هذا الاسم موجود بالفعل</value>
+  </data>
+  <data name="NotExist" xml:space="preserve">
+    <value>هذا الحقل غير موجود</value>
   </data>
 </root>

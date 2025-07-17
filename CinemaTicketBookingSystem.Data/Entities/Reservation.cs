@@ -1,7 +1,4 @@
-﻿
-
-
-using CinemaTicketBookingSystem.Data.Base;
+﻿using CinemaTicketBookingSystem.Data.Base;
 using CinemaTicketBookingSystem.Data.Entities.Identity;
 using CinemaTicketBookingSystem.Data.Enums;
 

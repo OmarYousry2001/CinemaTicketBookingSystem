@@ -30,10 +30,7 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositor
         #endregion
 
         #region Actions
-        // public IEnumerable<T> GetAll()
-        //{
-        //    return DbSet.AsNoTracking().Where(x => x.CurrentState == 1);
-        //}
+
 
         public IQueryable<T> GetTableNoTracking()
         {
@@ -52,19 +49,33 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositor
         {
 
             return await DbSet.Where(x => x.Id == id && x.CurrentState == 1)
-                              .AsNoTracking()
                               .FirstOrDefaultAsync();
+
         }
 
+        //public virtual async Task AddRangeAsync(ICollection<T> entities)
+        //{
+        //    await DbSet.AddRangeAsync(entities);
+        //    await _dbContext.SaveChangesAsync();
 
-
-        public virtual async Task AddRangeAsync(ICollection<T> entities)
+        //}
+        public virtual async Task AddRangeAsync(ICollection<T> entities, Guid creatorId )
         {
+            var utcNow = DateTime.UtcNow;
+
+            foreach (var entity in entities)
+            {
+
+                entity.Id = Guid.NewGuid();
+                entity.CreatedBy = creatorId;
+                entity.CreatedDateUtc = utcNow;
+                entity.CurrentState = 1;
+            }
+
             await DbSet.AddRangeAsync(entities);
             await _dbContext.SaveChangesAsync();
-
         }
-  
+
 
         public virtual async Task<bool> UpdateAsync(T model, Guid updaterId)
         {
@@ -167,7 +178,7 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositor
         /// <summary>
         /// Updates the CurrentState of an entity.
         /// </summary>
-        public async Task<bool> UpdateCurrentState(T entity, int newValue = 0)
+        public async Task<bool> UpdateCurrentStateAsync(T entity, int newValue = 0)
         {
             entity.CurrentState = newValue;
             DbSet.Update(entity);
@@ -175,6 +186,25 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositor
 
 
         }
+
+        public virtual async Task<T> AddAndReturnAsync(T model, Guid creatorId)
+        {
+            model.Id = Guid.NewGuid();
+            model.CreatedDateUtc = DateTime.UtcNow;
+            model.CreatedBy = creatorId;
+            model.CurrentState = 1;
+
+            await DbSet.AddAsync(model);
+            await _dbContext.SaveChangesAsync();
+
+            return model; // ✅ نرجّع الكيان نفسه عشان نقدر نقرأ الـ Id
+        }
+
+        public Task AddRangeAsync(ICollection<T> entities)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

@@ -14,11 +14,45 @@ namespace CinemaTicketBookingSystem.Service.Implementations.CMS
         private readonly long _maxFileSize = 5 * 1024 * 1024; //5MB
         private readonly string[] _allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
         private readonly string _imagesFolder = "uploads";
+        private readonly string _archivedImages = "ArchivedImages";
+
+        
 
         public FileUploadService(IWebHostEnvironment env)
         {
             _env = env;
         }
+        public async Task ArchiveFileAsync(string relativePath, string entityName)
+        {
+            if (string.IsNullOrWhiteSpace(relativePath) || string.IsNullOrWhiteSpace(entityName))
+                return;
+
+            // مسار الصورة الأصلي
+            var sourcePath = Path.Combine(_env.WebRootPath, relativePath.Replace("/", Path.DirectorySeparatorChar.ToString()));
+            if (!File.Exists(sourcePath))
+                return;
+
+            // اسم الصورة
+            var fileName = Path.GetFileName(sourcePath);
+
+            // تنظيف اسم الكيان من الرموز غير الصالحة
+            var safeEntityName = string.Concat(entityName.Where(c => !Path.GetInvalidFileNameChars().Contains(c))).Trim();
+
+            // مسار الأرشيف النهائي
+            var archiveFolder = Path.Combine(_env.WebRootPath, _archivedImages, safeEntityName);
+            Directory.CreateDirectory(archiveFolder);
+
+            var archivePath = Path.Combine(archiveFolder, fileName);
+
+            // لو فيه صورة بنفس الاسم، احذفها قبل النقل لتفادي الخطأ
+            if (File.Exists(archivePath))
+                File.Delete(archivePath);
+
+            // نقل الصورة إلى الأرشيف
+            File.Move(sourcePath, archivePath);
+        }
+
+
 
         public async Task<byte[]> GetFileBytesAsync(IFormFile file)
         {

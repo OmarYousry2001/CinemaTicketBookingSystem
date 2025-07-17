@@ -25,18 +25,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
             _tableRepositoryAsync = tableRepositoryAsync;
             _fileUploadService = fileUploadService;
         }
-
-        //public async Task<bool> SaveAndUploadImageAsync(Hall entity, Guid userId, IFormFile file)
-        //{
-        //    if (!string.IsNullOrEmpty(entity.ImageURL))
-        //    {
-        //        entity.ImageURL = await _fileUploadService.UploadFileAsync(file, "Halls", entity.ImageURL);
-
-        //        return await _tableRepositoryAsync.SaveChangesAsync(entity, userId);
-
-        //    }
-        //    return false;
-        //}
+ 
 
         public async Task<bool> IsExistByNameExcludeItselfAsync(Guid id, string NameEn, string NameAr)
         {

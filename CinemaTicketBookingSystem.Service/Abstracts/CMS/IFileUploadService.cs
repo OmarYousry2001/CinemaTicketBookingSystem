@@ -9,6 +9,7 @@ namespace CinemaTicketBookingSystem.Service.Abstracts.CMS
 {
     public interface IFileUploadService
     {
+        public  Task ArchiveFileAsync(string relativePath, string entityName);
         Task<byte[]> GetFileBytesAsync(IFormFile file);
         Task<byte[]> GetFileBytesAsync(string base64String);
         Task<string> UploadFileAsync(IFormFile file , string featureFolder , string oldFileName = null);

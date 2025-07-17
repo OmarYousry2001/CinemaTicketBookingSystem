@@ -53,7 +53,7 @@ namespace CinemaTicketBookingSystem.Core.Features.Genres.Commands.Handler
         {
             var entity = await _genreService.FindByIdAsync(request.Id);
             if (entity == null) return NotFound<string>();
-            var isDeleted = await _genreService.Delete(entity);
+            var isDeleted = await _genreService.DeleteAsync(entity);
             if (isDeleted) return Deleted<string>();
             else return BadRequest<string>();
         }

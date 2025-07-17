@@ -10,7 +10,9 @@ namespace CinemaTicketBookingSystem.Service.Abstracts
 {
     public interface IGenreService : IBaseService<Genre>
     {
+        Task<bool> IsExistAsync(Guid id);
         Task<bool> IsExistByNameAsync(string NameEn, string NameAr);
         Task<bool> IsExistByNameExcludeItselfAsync(Guid id, string NameEn, string NameAr);
+        public IQueryable<Genre> GetAllQueryable();
     }
 }

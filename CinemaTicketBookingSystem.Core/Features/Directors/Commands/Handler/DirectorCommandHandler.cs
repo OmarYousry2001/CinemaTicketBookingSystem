@@ -65,7 +65,7 @@ namespace CinemaTicketBookingSystem.Core.Features.Directors.Commands.Handler
         {
             var entity = await _directorService.FindByIdAsync(request.Id);
             if (entity == null) return NotFound<string>();
-            var isDeleted = await _directorService.Delete(entity);
+            var isDeleted = await _directorService.DeleteAsync(entity);
             if (isDeleted) return Deleted<string>();
             else return BadRequest<string>();
         }

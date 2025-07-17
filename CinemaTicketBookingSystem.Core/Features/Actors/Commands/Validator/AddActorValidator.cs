@@ -31,12 +31,14 @@ namespace CinemaTicketBookingSystem.Core.Features.Actors.Commands.Validator
 
              RuleFor(a => a.Bio)
             .NotEmpty().WithMessage(ValidationResources.FieldRequired)
-
            .MaximumLength(500).WithMessage(string.Format(ValidationResources.MaxLengthExceeded, 500));
+
+            RuleFor(m => m.Image)
+.NotEmpty().WithMessage(ValidationResources.FieldRequired);
 
             RuleFor(a => a.BirthDate)
      .NotEmpty().WithMessage(ValidationResources.FieldRequired)
-    .GreaterThan(new DateOnly(1800, 1, 1)).WithMessage(string.Format(ValidationResources.GreaterThan, "1-1-1800"))
+    .GreaterThan(new DateOnly(1800, 1, 1)).WithMessage(_ =>string.Format(ValidationResources.GreaterThan, "1-1-1800"))
     .LessThanOrEqualTo(DateOnly.FromDateTime(DateTime.Today)).WithMessage(SystemResources.LessThanOrEqualToToday);
 
 

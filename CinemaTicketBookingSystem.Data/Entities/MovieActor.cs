@@ -1,6 +1,8 @@
-﻿namespace CinemaTicketBookingSystem.Data.Entities
+﻿using CinemaTicketBookingSystem.Data.Base;
+
+namespace CinemaTicketBookingSystem.Data.Entities
 {
-    public class MovieActor
+    public class MovieActor : BaseEntity
     {
         public Guid MovieId { get; set; }
         public Guid ActorId { get; set; }
