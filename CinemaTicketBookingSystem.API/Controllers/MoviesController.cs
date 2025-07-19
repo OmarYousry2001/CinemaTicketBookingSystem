@@ -9,10 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaTicketBookingSystem.API.Controllers
 {
-    //[Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Data Entry")]
-    //[ServiceFilter(typeof(DataEntryRoleFilter))]
+
     public class MoviesController : AppControllerBase
     {
 

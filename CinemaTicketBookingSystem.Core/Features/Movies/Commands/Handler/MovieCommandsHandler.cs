@@ -3,6 +3,7 @@ using Azure.Core;
 using CinemaTicketBookingSystem.Core.Features.Movies.Commands.Models;
 using CinemaTicketBookingSystem.Core.GenericResponse;
 using CinemaTicketBookingSystem.Data.Entities;
+using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -58,7 +59,7 @@ namespace CinemaTicketBookingSystem.Core.Features.Movies.Commands.Handler
             var createdMovie = await _movieService.SaveMovieWithRelationsAsync(newMovie, Guid.NewGuid(), request.Poster);
 
             if (createdMovie)
-                return Created<string>("createted");
+                return Created<string>(ActionsResources.Accept);
             else
                 return BadRequest<string>();
         }
@@ -96,7 +97,7 @@ namespace CinemaTicketBookingSystem.Core.Features.Movies.Commands.Handler
 
 
             if (editedMovie)
-                return Success("edited");
+                return Success(NotifiAndAlertsResources.ItemUpdated);
             else
                 return BadRequest<string>();
         }

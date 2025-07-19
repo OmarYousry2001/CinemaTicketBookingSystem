@@ -435,4 +435,10 @@
   <data name="CreatedSuccessfully" xml:space="preserve">
     <value>تم الإنشاء بنجاح</value>
   </data>
+  <data name="EmailAlreadyConfirmed" xml:space="preserve">
+    <value>تم تأكيد البريد الإلكتروني بالفعل</value>
+  </data>
+  <data name="EmailConfirmed" xml:space="preserve">
+    <value>تم تأكيد البريد الإلكتروني بنجاح</value>
+  </data>
 </root>

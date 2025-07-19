@@ -39,7 +39,7 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.UserResources", typeof(UserResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CinemaTicketBookingSystem.Data.Resources.UserResources", typeof(UserResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -124,6 +124,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to رمز التحديث منتهي الصلاحية.
+        /// </summary>
+        public static string ExpiredRefreshToken {
+            get {
+                return ResourceManager.GetString("ExpiredRefreshToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to فشل في إرسال رمز التفعيل..
         /// </summary>
         public static string FailedToSendVerificationCode {
@@ -169,11 +178,38 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to رمز الوصول غير صالح.
+        /// </summary>
+        public static string InvalidAccessToken {
+            get {
+                return ResourceManager.GetString("InvalidAccessToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to خوارزمية التشفير غير صالحة.
+        /// </summary>
+        public static string InvalidHashAlgorithm {
+            get {
+                return ResourceManager.GetString("InvalidHashAlgorithm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رمز التفعيل غير صالح أو منتهي الصلاحية..
         /// </summary>
         public static string InvalidOrExpiredCode {
             get {
                 return ResourceManager.GetString("InvalidOrExpiredCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رمز التحديث غير صالح.
+        /// </summary>
+        public static string InvalidRefreshToken {
+            get {
+                return ResourceManager.GetString("InvalidRefreshToken", resourceCulture);
             }
         }
         
@@ -228,6 +264,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static string NewPassword_Required {
             get {
                 return ResourceManager.GetString("NewPassword_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الرمز المميز لم ينتهِ بعد.
+        /// </summary>
+        public static string NotExpiredToken {
+            get {
+                return ResourceManager.GetString("NotExpiredToken", resourceCulture);
             }
         }
         

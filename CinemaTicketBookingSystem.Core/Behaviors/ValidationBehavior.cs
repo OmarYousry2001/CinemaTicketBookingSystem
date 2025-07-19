@@ -26,7 +26,7 @@ namespace CinemaTicketBookingSystem.Core.Behaviors
                 if (failures.Count != 0)
                 {
                     //var message = failures.Select(x => _localizer[$"{x.PropertyName}"]+":"+_localizer[x.ErrorMessage]).FirstOrDefault();
-                    var message = failures.Select(x => x.ErrorMessage).FirstOrDefault();
+                    var message = failures.Select(x =>x.PropertyName + " : "+ x.ErrorMessage).FirstOrDefault();
 
 
                     throw new ValidationException(message);

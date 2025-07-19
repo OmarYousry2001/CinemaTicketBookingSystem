@@ -32,8 +32,9 @@
             public const string list = Prefix + "List";
             public const string FreeSeatsInShowTime = Prefix + "FreeSeats/{showTimeId}";
             public const string GetById = Prefix + SingleRoute;
-            public const string Create = Prefix + "Create";
-            public const string Delete = Prefix + SingleRoute;
+            public const string Create = Prefix  + "Create";
+            public const string Edit = Prefix    + "Edit";
+            public const string Delete = Prefix  + SingleRoute;
         }
         public static class HallRouting
         {
@@ -71,7 +72,6 @@
             public const string Edit = Prefix + "Edit";
             public const string Delete = Prefix + SingleRoute;
         }
-
         public static class MovieRouting
         {
             public const string Prefix = Rule + "Movie/";
@@ -82,8 +82,48 @@
             public const string Edit = Prefix + "Edit";
             public const string Delete = Prefix + SingleRoute;
         }
+        public static class ShowTimeRouting
+        {
+            public const string Prefix = Rule + "ShowTime/";
+
+            public const string list = Prefix + "List";
+            public const string comingList = Prefix + "ComingList";
+            public const string GetById = Prefix + SingleRoute;
 
 
+            public const string Create = Prefix + "Create";
+            public const string Edit = Prefix + "Edit";
+            public const string Delete = Prefix + SingleRoute;
+        }
+        public static class UserRouting
+        {
+            public const string Prefix = Rule + "User/";
+
+            public const string list = Prefix + "List";
+            public const string GetById = Prefix + SingleRoute;
+
+
+            public const string Create = Prefix + "Create";
+            public const string Edit = Prefix + "Edit";
+            public const string ChangePassword = Prefix + "ChangePassword";
+            public const string Delete = Prefix + SingleRoute;
+            public const string UserReservations = Prefix + "Reservations/" + SingleRoute;
+            public const string ConfirmEmail = "Api/V1/User/ConfirmEmail";
+            public const string SendResetPassword = Prefix + "SendResetPassword";
+            public const string ConfirmResetPasswordCode = Prefix + "ConfirmResetPasswordCode";
+            public const string ResetPassword = Prefix + "ResetPassword";
+
+        }
+        public static class AuthenticationRouting
+        {
+            public const string Prefix = Rule + "Authentication/";
+
+            public const string ValidateToken = Prefix + "ValidateToken";
+
+            public const string SignIn = Prefix + "SignIn";
+
+            public const string RefreshToken = Prefix + "RefreshToken";
+        }
         //-------------------------
         public static class StudentRouting
         {

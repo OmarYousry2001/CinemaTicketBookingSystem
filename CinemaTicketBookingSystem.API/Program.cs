@@ -2,15 +2,19 @@
 using CinemaTicketBookingSystem.Core;
 using CinemaTicketBookingSystem.Core.MiddleWare;
 using CinemaTicketBookingSystem.Data.Entities.Identity;
+using CinemaTicketBookingSystem.Data.Helpers;
 using CinemaTicketBookingSystem.Infrastructure;
 using CinemaTicketBookingSystem.Infrastructure.Context;
 using CinemaTicketBookingSystem.Service;
 using DAL.ApplicationContext;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System.Globalization;
+using System.Text;
 
 namespace CinemaTicketBookingSystem.API
 {
@@ -25,17 +29,46 @@ namespace CinemaTicketBookingSystem.API
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
-            //Connection To SQL Server
+         
+            #region Connection To SQL Server
             builder.Services.AddDbContext<ApplicationDBContext>(option =>
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
+            }); 
+            #endregion
 
             #region Dependency injections
             builder.Services.AddServiceRegisteration(builder.Configuration);
             builder.Services.AddInfrastructureDependencies()
                              .AddServiceDependencies()
                              .AddCoreDependencies();
+            #endregion
+
+            #region JWT Authentication
+            var jwtSettings = new JwtSettings();
+            builder.Configuration.GetSection(nameof(jwtSettings)).Bind(jwtSettings);
+            builder.Services.AddSingleton(jwtSettings);
+
+            builder.Services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+           .AddJwtBearer(x =>
+           {
+               x.RequireHttpsMetadata = false;
+               x.SaveToken = true;
+               x.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuer = jwtSettings.ValidateIssuer,
+                   ValidIssuers = new[] { jwtSettings.Issuer },
+                   ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
+                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
+                   ValidAudience = jwtSettings.Audience,
+                   ValidateAudience = jwtSettings.ValidateAudience,
+                   ValidateLifetime = jwtSettings.ValidateLifeTime,
+               };
+           });
             #endregion
 
             var app = builder.Build();

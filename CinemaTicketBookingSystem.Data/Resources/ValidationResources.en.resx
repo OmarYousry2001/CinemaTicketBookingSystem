@@ -573,4 +573,19 @@
   <data name="MinimumLength" xml:space="preserve">
     <value>The field  must not be less than {1} chars</value>
   </data>
+  <data name="InvalidConfirmPassword" xml:space="preserve">
+    <value>The confirmation password does not match</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User not found</value>
+  </data>
+  <data name="EmailNotFound" xml:space="preserve">
+    <value>Email address not found</value>
+  </data>
+  <data name="TryAgainInAnotherTime" xml:space="preserve">
+    <value>An error occurred. Please try again later</value>
+  </data>
+  <data name="SetNewPasswordFailed" xml:space="preserve">
+    <value>An error occurred while setting the new password</value>
+  </data>
 </root>

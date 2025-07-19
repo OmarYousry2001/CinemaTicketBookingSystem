@@ -279,4 +279,19 @@
   <data name="RoleAssignmentFailed" xml:space="preserve">
     <value>فشل في تعيين المستخدم إلى الدور المحدد</value>
   </data>
+  <data name="InvalidHashAlgorithm" xml:space="preserve">
+    <value>خوارزمية التشفير غير صالحة</value>
+  </data>
+  <data name="NotExpiredToken" xml:space="preserve">
+    <value>الرمز المميز لم ينتهِ بعد</value>
+  </data>
+  <data name="InvalidRefreshToken" xml:space="preserve">
+    <value>رمز التحديث غير صالح</value>
+  </data>
+  <data name="ExpiredRefreshToken" xml:space="preserve">
+    <value>رمز التحديث منتهي الصلاحية</value>
+  </data>
+  <data name="InvalidAccessToken" xml:space="preserve">
+    <value>رمز الوصول غير صالح</value>
+  </data>
 </root>

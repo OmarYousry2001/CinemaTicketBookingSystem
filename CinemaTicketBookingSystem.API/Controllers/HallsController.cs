@@ -9,10 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MovieReservationSystem.API.Controllers
 {
-    //[Route("api/[controller]")]
 
     [ApiController]
-    //[Authorize(Roles = "Cinema Manager")]
     public class HallsController : AppControllerBase
     {
 

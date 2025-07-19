@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaTicketBookingSystem.API.Controllers
 {
-    //[Route("api/[controller]")]
+
     [ApiController]
     public class GenresController : AppControllerBase
     {
 
 
         #region Queries Actions
-        //[Authorize(Roles = "Data Entry")]
+        [Authorize(Roles = "Data Entry")]
         [HttpGet(Router.GenreRouting.list)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllGenresAsync()
@@ -36,7 +36,6 @@ namespace CinemaTicketBookingSystem.API.Controllers
         #endregion
 
         #region Commands Actions
-        //[ServiceFilter(typeof(DataEntryRoleFilter))]
         [HttpPost(Router.GenreRouting.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -46,7 +45,6 @@ namespace CinemaTicketBookingSystem.API.Controllers
             return NewResult(response);
         }
 
-        //[ServiceFilter(typeof(DataEntryRoleFilter))]
         [HttpPut(Router.GenreRouting.Edit)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -56,7 +54,6 @@ namespace CinemaTicketBookingSystem.API.Controllers
             return NewResult(response);
         }
 
-        //[ServiceFilter(typeof(DataEntryRoleFilter))]
         [HttpDelete(Router.GenreRouting.Delete)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

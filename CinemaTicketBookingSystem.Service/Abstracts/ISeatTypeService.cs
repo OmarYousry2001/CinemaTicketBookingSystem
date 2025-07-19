@@ -12,5 +12,6 @@ namespace CinemaTicketBookingSystem.Service.Abstracts
 
         Task<bool> IsExistByNameAsync(string NameEn, string NameAr);
         Task<bool> IsExistByNameExcludeItselfAsync(Guid id, string NameEn, string NameAr);
+        public Task<bool> IsExistAsync(Guid id); 
     }
 }

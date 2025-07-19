@@ -4,11 +4,7 @@ using CinemaTicketBookingSystem.Service.Abstracts;
 using CinemaTicketBookingSystem.Service.Abstracts.CMS;
 using CinemaTicketBookingSystem.Service.ServiceBase;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CinemaTicketBookingSystem.Service.Implementations
 {
@@ -42,6 +38,13 @@ namespace CinemaTicketBookingSystem.Service.Implementations
                 .AnyAsync(d =>
                     d.TypeNameEn.Trim().ToLower() == NameEn.Trim().ToLower() &&
                     d.TypeNameAr.Trim().ToLower() == NameAr.Trim().ToLower());
+        }
+
+
+        public async Task<bool> IsExistAsync(Guid id)
+        {
+            return await _tableRepositoryAsync.GetTableNoTracking()
+         .AnyAsync(d => d.Id == id);
         }
 
 

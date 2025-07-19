@@ -47,6 +47,16 @@ namespace CinemaTicketBookingSystem.Service.Implementations
                 .ToListAsync();
             return movies;
         }
+        public override async Task<Movie> FindByIdAsync(Guid Id)
+        {
+            return await _movieRepositoryAsync.GetTableAsTracking()
+                  .Include(d => d.Director)
+                .Include(g => g.MovieGenres).ThenInclude(mg => mg.Genre)
+                .Include(a => a.MovieActors).ThenInclude(ma => ma.Actor)
+                .Include(x => x.ShowTimes).ThenInclude(x => x.Hall)
+                .FirstOrDefaultAsync(x => x.CurrentState == 1 && x.Id == Id);
+
+        }
         public IQueryable<Movie> FilterMoviePaginatedQueryable(MovieOrderingEnum orderingEnum, string search)
         {
             var queryable =  _movieRepositoryAsync.GetTableNoTracking()

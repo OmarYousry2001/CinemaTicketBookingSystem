@@ -412,6 +412,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to عنوان البريد الإلكتروني غير موجود.
+        /// </summary>
+        public static string EmailNotFound {
+            get {
+                return ResourceManager.GetString("EmailNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to البريد الإلكتروني مطلوب..
         /// </summary>
         public static string EmailRequired {
@@ -606,6 +615,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static string InstagramInvalid {
             get {
                 return ResourceManager.GetString("InstagramInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to كلمة المرور التأكيدية غير متطابقة.
+        /// </summary>
+        public static string InvalidConfirmPassword {
+            get {
+                return ResourceManager.GetString("InvalidConfirmPassword", resourceCulture);
             }
         }
         
@@ -1204,6 +1222,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to حدث خطأ أثناء تعيين كلمة المرور الجديدة.
+        /// </summary>
+        public static string SetNewPasswordFailed {
+            get {
+                return ResourceManager.GetString("SetNewPasswordFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الوصف القصير العربي يجب أن يكون بين 10 و 1000 حرف..
         /// </summary>
         public static string ShortDescriptionArLength {
@@ -1312,6 +1339,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to حدث خطأ ما، يرجى المحاولة مرة أخرى لاحقًا.
+        /// </summary>
+        public static string TryAgainInAnotherTime {
+            get {
+                return ResourceManager.GetString("TryAgainInAnotherTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رابط تويتر غير صحيح..
         /// </summary>
         public static string TwitterInvalid {
@@ -1344,6 +1380,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static string UnexpectedError {
             get {
                 return ResourceManager.GetString("UnexpectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المستخدم غير موجود.
+        /// </summary>
+        public static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
         

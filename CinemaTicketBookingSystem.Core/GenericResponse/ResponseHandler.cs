@@ -20,7 +20,7 @@ namespace CinemaTicketBookingSystem.Core.GenericResponse
                 Message = Message == null ? NotifiAndAlertsResources.DeletedSuccessfully : Message
             };
         }
-        public Response<T> Success<T>(T entity, object Meta = null)
+        public Response<T> Success<T>(T entity , object Meta = null)
         {
             return new Response<T>()
             {

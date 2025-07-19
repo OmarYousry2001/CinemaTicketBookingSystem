@@ -21,12 +21,14 @@ namespace CinemaTicketBookingSystem.Service
             services.AddTransient<ISeatTypeService, SeatTypeService>();
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<IMovieService, MovieService>();
-
-            
-
-
+            services.AddTransient<IShowTimeService, ShowTimeService>();
+            services.AddTransient<ISeatService, SeatService>();
+            services.AddTransient<IReservationService, ReservationService>();
+            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IApplicationUserService,ApplicationUserService>();
             services.AddTransient<IFileUploadService, FileUploadService>();
             services.AddTransient<IImageProcessingService, ImageProcessingService>();
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
 
             return services;
         }

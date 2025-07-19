@@ -61,6 +61,33 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to موجود بالفعل.
+        /// </summary>
+        public static string AlreadyExists {
+            get {
+                return ResourceManager.GetString("AlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to القاعة وصلت إلى الحد الأقصى لعدد المقاعد المسموح بها.
+        /// </summary>
+        public static string HallCapacityReached {
+            get {
+                return ResourceManager.GetString("HallCapacityReached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to القيمة غير صالحة.
+        /// </summary>
+        public static string Invalid {
+            get {
+                return ResourceManager.GetString("Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to التقييم غير صالح.
         /// </summary>
         public static string InvalidRating {
@@ -93,6 +120,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static string NotExist {
             get {
                 return ResourceManager.GetString("NotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to وقت العرض محجوز بالفعل.
+        /// </summary>
+        public static string ShowTimeOverlap {
+            get {
+                return ResourceManager.GetString("ShowTimeOverlap", resourceCulture);
             }
         }
     }

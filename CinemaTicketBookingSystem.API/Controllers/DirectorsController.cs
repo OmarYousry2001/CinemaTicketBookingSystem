@@ -14,8 +14,6 @@ namespace CinemaTicketBookingSystem.API.Controllers
     {
 
 
-        //[Authorize(Roles = "Data Entry")]
-        [HttpGet(Router.DirectorRouting.list)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllDirectorsAsync()
         {
@@ -34,9 +32,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
 
 
         #region Commands Actions
-        //[Authorize(Roles = "Data Entry")]
-        //[ServiceFilter(typeof(DataEntryRoleFilter))]
-        [HttpPost(Router.DirectorRouting.Create)]
+        [Authorize(Roles = "Data Entry")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateDirector([FromForm] AddDirectorCommand model)
@@ -45,8 +41,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
             return NewResult(response);
         }
 
-        //[Authorize(Roles = "Data Entry")]
-        //[ServiceFilter(typeof(DataEntryRoleFilter))]
+        [Authorize(Roles = "Data Entry")]
         [HttpPut(Router.DirectorRouting.Edit)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -56,8 +51,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
             return NewResult(response);
         }
 
-        //[Authorize(Roles = "Data Entry")]
-        //[ServiceFilter(typeof(DataEntryRoleFilter))]
+        [Authorize(Roles = "Data Entry")]
         [HttpDelete(Router.DirectorRouting.Delete)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -16,6 +16,6 @@ namespace CinemaTicketBookingSystem.Data.Entities.Identity
         public bool IsRevoked { get; set; }
         public DateTime ExpiryDate { get; set; }
         [ForeignKey(nameof(UserId))]
-        public virtual ApplicationUser? user { get; set; }
+        public virtual ApplicationUser? User { get; set; }
     }
 }

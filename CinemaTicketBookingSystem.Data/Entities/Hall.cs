@@ -1,6 +1,5 @@
 ﻿using CinemaTicketBookingSystem.Data.Base;
 
-
 namespace CinemaTicketBookingSystem.Data.Entities
 {
     public class Hall : BaseEntity

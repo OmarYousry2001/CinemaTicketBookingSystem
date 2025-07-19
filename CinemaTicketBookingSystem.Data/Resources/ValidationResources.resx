@@ -573,4 +573,19 @@
   <data name="MinimumLength" xml:space="preserve">
     <value>يجب ألا يقل الحقل عن {1} حرفًا</value>
   </data>
+  <data name="InvalidConfirmPassword" xml:space="preserve">
+    <value>كلمة المرور التأكيدية غير متطابقة</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>المستخدم غير موجود</value>
+  </data>
+  <data name="EmailNotFound" xml:space="preserve">
+    <value>عنوان البريد الإلكتروني غير موجود</value>
+  </data>
+  <data name="TryAgainInAnotherTime" xml:space="preserve">
+    <value>حدث خطأ ما، يرجى المحاولة مرة أخرى لاحقًا</value>
+  </data>
+  <data name="SetNewPasswordFailed" xml:space="preserve">
+    <value>حدث خطأ أثناء تعيين كلمة المرور الجديدة</value>
+  </data>
 </root>

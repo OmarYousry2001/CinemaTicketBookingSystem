@@ -1,4 +1,5 @@
 ﻿using CinemaTicketBookingSystem.Data.Base;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CinemaTicketBookingSystem.Data.Entities
 {
@@ -13,5 +14,8 @@ namespace CinemaTicketBookingSystem.Data.Entities
         public virtual Hall Hall { get; set; } 
         public virtual Movie Movie { get; set; } 
         public virtual ICollection<Reservation>? Reservations { get; set; }
+
+        [NotMapped]
+        public DateTime FullEndDateTime => Day.ToDateTime(EndTime);
     }
 }

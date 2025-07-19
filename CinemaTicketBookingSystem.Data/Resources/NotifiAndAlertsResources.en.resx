@@ -435,4 +435,10 @@
   <data name="CreatedSuccessfully" xml:space="preserve">
     <value>Created successfully</value>
   </data>
+  <data name="EmailAlreadyConfirmed" xml:space="preserve">
+    <value>Email is already confirmed</value>
+  </data>
+  <data name="EmailConfirmed" xml:space="preserve">
+    <value>Email confirmed successfully</value>
+  </data>
 </root>

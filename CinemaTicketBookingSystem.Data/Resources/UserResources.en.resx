@@ -279,4 +279,19 @@
   <data name="RoleAssignmentFailed" xml:space="preserve">
     <value>Failed to assign the user to the role</value>
   </data>
+  <data name="InvalidHashAlgorithm" xml:space="preserve">
+    <value>Invalid hash algorithm</value>
+  </data>
+  <data name="NotExpiredToken" xml:space="preserve">
+    <value>The token has not expired yet</value>
+  </data>
+  <data name="InvalidRefreshToken" xml:space="preserve">
+    <value>Invalid refresh token</value>
+  </data>
+  <data name="ExpiredRefreshToken" xml:space="preserve">
+    <value>Expired refresh token</value>
+  </data>
+  <data name="InvalidAccessToken" xml:space="preserve">
+    <value>Invalid access token</value>
+  </data>
 </root>
