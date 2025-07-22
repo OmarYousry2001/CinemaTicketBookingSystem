@@ -1,4 +1,5 @@
-﻿using CinemaTicketBookingSystem.Service.Abstracts;
+﻿using BL.GeneralService.CMS;
+using CinemaTicketBookingSystem.Service.Abstracts;
 using CinemaTicketBookingSystem.Service.Abstracts.CMS;
 using CinemaTicketBookingSystem.Service.Implementations;
 using CinemaTicketBookingSystem.Service.Implementations.CMS;
@@ -31,8 +32,8 @@ namespace CinemaTicketBookingSystem.Service
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<ICurrentUserService, CurrentUserService>();
             services.AddTransient<IPaymentService, PaymentService>();
+            services.AddTransient<ICacheService, CacheService>();
 
-            
 
             return services;
         }

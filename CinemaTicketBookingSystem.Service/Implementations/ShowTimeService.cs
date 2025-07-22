@@ -1,6 +1,7 @@
 ﻿using CinemaTicketBookingSystem.Data.Entities;
 using CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositories;
 using CinemaTicketBookingSystem.Service.Abstracts;
+using CinemaTicketBookingSystem.Service.Abstracts.CMS;
 using CinemaTicketBookingSystem.Service.ServiceBase;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,20 +11,46 @@ namespace CinemaTicketBookingSystem.Service.Implementations
     {
         #region Fields
         private readonly ITableRepositoryAsync<ShowTime> _showTimeRepository;
+        private readonly ICacheService _cacheService;
         #endregion
         #region Constructors
-        public ShowTimeService(ITableRepositoryAsync<ShowTime> showTimeRepository):base(showTimeRepository)
+        public ShowTimeService(ITableRepositoryAsync<ShowTime> showTimeRepository
+            , ICacheService cacheService) :base(showTimeRepository)
         {
             _showTimeRepository = showTimeRepository;
+            _cacheService = cacheService;  
         }
         #endregion
         #region Methods
         public override async Task<IEnumerable<ShowTime>> GetAllAsync()
         {
-            return await _showTimeRepository.GetTableNoTracking()
+            string cacheKey = "MemberShowTimes_";
+            var memberShowTimes = _cacheService.Get<IEnumerable<ShowTime>>(cacheKey);
+            if(memberShowTimes == null)
+            {
+                memberShowTimes =    await _showTimeRepository.GetTableNoTracking()
                 .Include(st => st.Movie)
                 .Include(st => st.Hall)
                 .ToListAsync();
+            }
+            if(memberShowTimes.Any())
+            {
+                _cacheService.Set(cacheKey, memberShowTimes, TimeSpan.FromHours(1)); 
+            }
+            return memberShowTimes;
+
+
+
+        }
+        public override async Task<bool> SaveAsync(ShowTime entity, Guid userId)
+        {
+            _cacheService.Remove("MemberShowTimes_");
+            return await base.SaveAsync(entity, userId);
+        }
+        public override Task<bool> DeleteAsync(ShowTime entity)
+        {
+            _cacheService.Remove("MemberShowTimes_");
+            return base.DeleteAsync(entity);
         }
         public override async Task<ShowTime> FindByIdAsync(Guid Id)
         {

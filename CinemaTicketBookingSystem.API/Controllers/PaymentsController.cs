@@ -2,7 +2,6 @@
 using CinemaTicketBookingSystem.Core.Features.Payments.Queries.Models;
 using CinemaTicketBookingSystem.Data.AppMetaData;
 using CinemaTicketBookingSystem.Service.Abstracts;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stripe;
@@ -21,7 +20,6 @@ namespace CinemaTicketBookingSystem.API.Controllers
             _paymentService = paymentService;
         }
         #endregion
-
 
 
         [Authorize]
