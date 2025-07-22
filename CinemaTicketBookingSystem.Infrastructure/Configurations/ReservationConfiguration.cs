@@ -14,7 +14,7 @@ namespace CinemaTicketBookingSystem.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
             builder.HasKey(r => r.Id);
-
+            builder.HasIndex(r => r.CreatedDateUtc);
             builder.HasOne(r => r.User)
                    .WithMany()
                    .HasForeignKey(r => r.UserId)

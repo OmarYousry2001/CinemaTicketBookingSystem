@@ -9,5 +9,6 @@ namespace CinemaTicketBookingSystem.Service.Abstracts
         public decimal CalculateReservationPrice(IEnumerable<Seat> seatsList, decimal showTimePrice);
         Task<int> DeleteExpiredUnpaidReservationsAsync();
         public IQueryable<Reservation> GetAllQueryable(DateOnly? Search);
+        public  Task<Reservation?> GetByPaymentIntentAsync(string paymentIntentId);
     }
 }

@@ -30,7 +30,9 @@ namespace CinemaTicketBookingSystem.Service
             services.AddTransient<IImageProcessingService, ImageProcessingService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<ICurrentUserService, CurrentUserService>();
+            services.AddTransient<IPaymentService, PaymentService>();
 
+            
 
             return services;
         }

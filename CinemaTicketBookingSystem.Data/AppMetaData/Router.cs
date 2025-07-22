@@ -137,6 +137,12 @@
             public const string Edit = Prefix + "Edit";
             public const string Delete = Prefix + SingleRoute;
         }
+        public static class PaymentRouting
+        {
+            public const string Prefix = Rule + "Payment/";
+            public const string Create = Prefix + "{reservationId}";
+            public const string webhook = Prefix + "webhook";
+        }
         //-------------------------
         public static class StudentRouting
         {

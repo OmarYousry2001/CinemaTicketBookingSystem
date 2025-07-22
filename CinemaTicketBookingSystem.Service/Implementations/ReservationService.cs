@@ -109,6 +109,21 @@ namespace CinemaTicketBookingSystem.Service.Implementations
 
             return notCompletedReservations.Count;
         }
+        /// <summary>
+        /// Retrieves a reservation by its associated payment intent ID.
+        /// It loads related data including the user, show time, movie, hall, and reserved seats.
+        /// Only active reservations (CurrentState == 1) are considered.
+        /// </summary>
+        public async Task<Reservation?> GetByPaymentIntentAsync(string paymentIntentId)
+        {
+            return await _reservationRepository.GetTableAsTracking()
+                .Include(r => r.User)
+                .Include(r => r.ShowTime).ThenInclude(st => st.Movie) // Include Movie from ShowTime
+                .Include(r => r.ShowTime).ThenInclude(st => st.Hall)  // Include Hall from ShowTime
+                .Include(r => r.ReservationSeats).ThenInclude(rs => rs.Seat) // Include Seats from ReservationSeats
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(r => r.PaymentIntentId == paymentIntentId && r.CurrentState==1);
+        }
 
     }
 }

@@ -1,11 +1,7 @@
 ﻿using CinemaTicketBookingSystem.Data.Entities;
 using CinemaTicketBookingSystem.Service.ServiceBase;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CinemaTicketBookingSystem.Service.Abstracts
 {
