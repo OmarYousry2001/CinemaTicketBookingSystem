@@ -5,7 +5,6 @@ using CinemaTicketBookingSystem.Core.GenericResponse;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using MediatR;
 
-
 namespace CinemaTicketBookingSystem.Core.Features.ShowTimes.Queries.Handler
 {
     public class ShowTimeQueryHandler : ResponseHandler,
@@ -25,6 +24,8 @@ namespace CinemaTicketBookingSystem.Core.Features.ShowTimes.Queries.Handler
             _mapper = mapper;
         }
         #endregion
+
+        #region Handle Functions
         public async Task<Response<List<GetAllShowTimesResponse>>> Handle(GetAllShowTimesQuery request, CancellationToken cancellationToken)
         {
             var showTimesList = await _showTimeService.GetAllAsync();
@@ -38,7 +39,7 @@ namespace CinemaTicketBookingSystem.Core.Features.ShowTimes.Queries.Handler
         {
             var showTime = await _showTimeService.FindByIdAsync(request.Id);
 
-            if (showTime== null)
+            if (showTime == null)
                 return NotFound<FindShowTimeByIdResponse>();
 
             var mappedShowTime = _mapper.Map<FindShowTimeByIdResponse>(showTime);
@@ -53,6 +54,7 @@ namespace CinemaTicketBookingSystem.Core.Features.ShowTimes.Queries.Handler
             var mappedShowTimesList = _mapper.Map<List<GetComingShowTimesResponse>>(showTimesList);
 
             return Success(mappedShowTimesList);
-        }
+        } 
+        #endregion
     }
 }

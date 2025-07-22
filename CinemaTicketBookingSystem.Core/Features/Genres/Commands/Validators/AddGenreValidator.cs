@@ -3,7 +3,7 @@ using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using FluentValidation;
 
-namespace MovieReservationSystem.Core.Features.Genres.Commands.Validators
+namespace CinemaTicketBookingSystem.Core.Features.Genres.Commands.Validators
 {
     public class AddGenreValidator : AbstractValidator<AddGenreCommand>
     {

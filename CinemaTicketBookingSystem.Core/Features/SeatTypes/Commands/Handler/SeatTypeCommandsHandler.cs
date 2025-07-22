@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Models;
-using CinemaTicketBookingSystem.Core.Features.SeatTypes.Queries.Results;
 using CinemaTicketBookingSystem.Core.GenericResponse;
 using CinemaTicketBookingSystem.Data.Entities;
 using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Service.Abstracts;
-using CinemaTicketBookingSystem.Service.Implementations;
 using MediatR;
 
 namespace CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Handler
@@ -18,43 +16,47 @@ namespace CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Handler
         #region Fields
         private readonly ISeatTypeService _seatTypeService;
         private readonly IMapper _mapper;
+        private readonly ICurrentUserService _currentUserService;
         #endregion
 
         #region Constructors
-        public SeatTypeCommandsHandler(ISeatTypeService seatTypeService, IMapper mapper)
+        public SeatTypeCommandsHandler(ISeatTypeService seatTypeService, IMapper mapper, ICurrentUserService currentUserService )
         {
             _seatTypeService = seatTypeService;
             _mapper = mapper;
+            _currentUserService = currentUserService;
+
         }
         #endregion
 
+        #region Handle Functions
         public async Task<Response<string>> Handle(AddSeatTypeCommand request, CancellationToken cancellationToken)
         {
-            var entity = _mapper.Map<SeatType>(request);
-            var savedActor = await _seatTypeService.SaveAsync(entity, Guid.NewGuid());
-            if (savedActor)
+            var SeatType = _mapper.Map<SeatType>(request);
+            var savedASeatType = await _seatTypeService.SaveAsync(SeatType, _currentUserService.GetUserId());
+            if (savedASeatType)
                 return Success(ActionsResources.Accept);
             else
                 return NotFound<string>();
         }
         public async Task<Response<string>> Handle(EditSeatTypeCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _seatTypeService.FindByIdAsync(request.Id);
-            if (entity == null) return NotFound<string>();
-            var entityMapping = _mapper.Map(request, entity);
-            var result = await _seatTypeService.SaveAsync(entityMapping, Guid.NewGuid());
+            var oldSeatType = await _seatTypeService.FindByIdAsync(request.Id);
+            if (oldSeatType == null) return NotFound<string>();
+            var seatTypeMapping = _mapper.Map(request, oldSeatType);
+            var result = await _seatTypeService.SaveAsync(seatTypeMapping, _currentUserService.GetUserId());
             //return response
             if (result) return Success(NotifiAndAlertsResources.ItemUpdated);
             else return BadRequest<string>();
         }
-
         public async Task<Response<string>> Handle(DeleteSeatTypeCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _seatTypeService.FindByIdAsync(request.Id);
-            if (entity == null) return NotFound<string>();
-            var isDeleted = await _seatTypeService.DeleteAsync(entity);
+            var SeatType = await _seatTypeService.FindByIdAsync(request.Id);
+            if (SeatType == null) return NotFound<string>();
+            var isDeleted = await _seatTypeService.DeleteAsync(SeatType);
             if (isDeleted) return Deleted<string>();
             else return BadRequest<string>();
-        }
+        } 
+        #endregion
     }
 }

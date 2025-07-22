@@ -1,6 +1,5 @@
 ﻿using CinemaTicketBookingSystem.Core.GenericResponse;
 using MediatR;
-using System.Reflection.Metadata;
 
 namespace CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Models
 {

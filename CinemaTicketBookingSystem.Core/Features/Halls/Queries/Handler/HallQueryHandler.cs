@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using CinemaTicketBookingSystem.Core.Features.Actors.Queries.Results;
 using CinemaTicketBookingSystem.Core.Features.Halls.Queries.Models;
 using CinemaTicketBookingSystem.Core.Features.Halls.Queries.Results;
 using CinemaTicketBookingSystem.Core.GenericResponse;
 using CinemaTicketBookingSystem.Service.Abstracts;
-using CinemaTicketBookingSystem.Service.Implementations;
 using MediatR;
-
 
 namespace CinemaTicketBookingSystem.Core.Features.Halls.Queries.Handler
 {
@@ -26,22 +23,24 @@ namespace CinemaTicketBookingSystem.Core.Features.Halls.Queries.Handler
             _mapper = mapper;
         }
         #endregion
+
+        #region Handle Functions
         public async Task<Response<List<GetAllHallsResponse>>> Handle(GetAllHallsQuery request, CancellationToken cancellationToken)
         {
-            var entityList = await _hallService.GetAllAsync();
+            var hallList = await _hallService.GetAllAsync();
 
-            var dtoList = _mapper.Map<List<GetAllHallsResponse>>(entityList);
+            var mappedHallList = _mapper.Map<List<GetAllHallsResponse>>(hallList);
 
-            return Success(dtoList);
+            return Success(mappedHallList);
         }
-
         public async Task<Response<FindHallByIdResponse>> Handle(FindHallByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _hallService.FindByIdAsync(request.Id);
-            if (entity == null) return NotFound<FindHallByIdResponse>();
+            var hall = await _hallService.FindByIdAsync(request.Id);
+            if (hall == null) return NotFound<FindHallByIdResponse>();
 
-            var dto = _mapper.Map<FindHallByIdResponse>(entity);
-            return Success<FindHallByIdResponse>(dto);
-        }
+            var mappedHall = _mapper.Map<FindHallByIdResponse>(hall);
+            return Success<FindHallByIdResponse>(mappedHall);
+        } 
+        #endregion
     }
 }

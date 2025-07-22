@@ -1,8 +1,8 @@
 ﻿//using FluentValidation;
-//using MovieReservationSystem.Core.Features.Users.Commands.Models;
-//using MovieReservationSystem.Data.Resources;
+//using CinemaTicketBookingSystem.Core.Features.Users.Commands.Models;
+//using CinemaTicketBookingSystem.Data.Resources;
 
-//namespace MovieReservationSystem.Core.Features.Users.Commands.Validators
+//namespace CinemaTicketBookingSystem.Core.Features.Users.Commands.Validators
 //{
 //    public class ResetPasswordValidator : AbstractValidator<ResetPasswordCommand>
 //    {

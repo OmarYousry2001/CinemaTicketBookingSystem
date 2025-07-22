@@ -5,7 +5,7 @@ using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using FluentValidation;
 
-namespace MovieReservationSystem.Core.Features.Halls.Commands.Validator
+namespace CinemaTicketBookingSystem.Core.Features.Halls.Commands.Validator
 {
     public class EditHallValidator : AbstractValidator<EditHallCommand>
     {

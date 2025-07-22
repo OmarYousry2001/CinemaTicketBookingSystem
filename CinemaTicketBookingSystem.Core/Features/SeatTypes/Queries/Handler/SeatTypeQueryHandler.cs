@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using CinemaTicketBookingSystem.Core.Features.Actors.Queries.Results;
 using CinemaTicketBookingSystem.Core.Features.SeatTypes.Queries.Models;
 using CinemaTicketBookingSystem.Core.Features.SeatTypes.Queries.Results;
 using CinemaTicketBookingSystem.Core.GenericResponse;
 using CinemaTicketBookingSystem.Service.Abstracts;
-using CinemaTicketBookingSystem.Service.Implementations;
 using MediatR;
-
 
 namespace CinemaTicketBookingSystem.Core.Features.SeatTypes.Queries.Handler
 {
@@ -26,22 +23,24 @@ namespace CinemaTicketBookingSystem.Core.Features.SeatTypes.Queries.Handler
             _mapper = mapper;
         }
         #endregion
+
+        #region Handle Functions
         public async Task<Response<List<GetAllSeatTypesResponse>>> Handle(GetAllSeatTypesQuery request, CancellationToken cancellationToken)
         {
-            var entityList = await _seatService.GetAllAsync();
+            var seatTypeList = await _seatService.GetAllAsync();
 
-            var dtoList = _mapper.Map<List<GetAllSeatTypesResponse>>(entityList);
+            var mappedSeatTypeList = _mapper.Map<List<GetAllSeatTypesResponse>>(seatTypeList);
 
-            return Success(dtoList);
+            return Success(mappedSeatTypeList);
         }
-
         public async Task<Response<FindSeatTypeByIdResponse>> Handle(FindSeatTypeByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _seatService.FindByIdAsync(request.Id);
-            if (entity == null) return NotFound<FindSeatTypeByIdResponse>();
+            var SeatType = await _seatService.FindByIdAsync(request.Id);
+            if (SeatType == null) return NotFound<FindSeatTypeByIdResponse>();
 
-            var dto = _mapper.Map<FindSeatTypeByIdResponse>(entity);
-            return Success<FindSeatTypeByIdResponse>(dto);
-        }
+            var mappedSeatType = _mapper.Map<FindSeatTypeByIdResponse>(SeatType);
+            return Success<FindSeatTypeByIdResponse>(mappedSeatType);
+        } 
+        #endregion
     }
 }

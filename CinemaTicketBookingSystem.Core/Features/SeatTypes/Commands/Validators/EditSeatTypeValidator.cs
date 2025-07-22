@@ -3,7 +3,6 @@ using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using FluentValidation;
 
-
 namespace CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Validators
 {
     public class EditSeatTypeValidator : AbstractValidator<EditSeatTypeCommand>
@@ -29,8 +28,8 @@ namespace CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Validators
                     .WithMessage(_ => string.Format(ValidationResources.MaxLengthExceeded, 100));
 
             RuleFor(st => st.TypeNameEn)
-.NotEmpty()
-.WithMessage(ValidationResources.FieldRequired)
+             .NotEmpty()
+            .WithMessage(ValidationResources.FieldRequired)
         .MinimumLength(2)
             .WithMessage(_ => string.Format(ValidationResources.MinimumLength, 2))
         .MaximumLength(100)

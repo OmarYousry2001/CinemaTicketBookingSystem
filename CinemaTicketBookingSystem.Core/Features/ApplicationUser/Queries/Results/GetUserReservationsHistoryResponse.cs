@@ -1,6 +1,6 @@
-﻿//using MovieReservationSystem.Core.Features.Reservations.Queries.Results.Shared;
+﻿//using CinemaTicketBookingSystem.Core.Features.Reservations.Queries.Results.Shared;
 
-//namespace MovieReservationSystem.Core.Features.Users.Queries.Results
+//namespace CinemaTicketBookingSystem.Core.Features.Users.Queries.Results
 //{
 //    public class GetUserReservationsHistoryResponse
 //    {

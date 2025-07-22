@@ -113,7 +113,6 @@ namespace CinemaTicketBookingSystem.Service.Implementations
             return all
                 .Where(st => st.Day.ToDateTime(st.EndTime) > now); 
         }
-
         #endregion
     }
 }

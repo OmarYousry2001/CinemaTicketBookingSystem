@@ -2,7 +2,6 @@
 {
     public class SeatTypeInSeatResponse
     {
-        //public Guid Id { get; set; }    
         public string TypeName { get; set; } = default!;
     }
 }

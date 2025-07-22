@@ -1,15 +1,9 @@
 ﻿using AutoMapper;
-using CinemaTicketBookingSystem.Core.Features.Actors.Queries.Models;
-using CinemaTicketBookingSystem.Core.Features.Actors.Queries.Results;
 using CinemaTicketBookingSystem.Core.Features.Directors.Queries.Models;
 using CinemaTicketBookingSystem.Core.Features.Directors.Queries.Results;
 using CinemaTicketBookingSystem.Core.GenericResponse;
-using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using MediatR;
-using Microsoft.Extensions.Localization;
-using SchoolProject.Core.Resources;
-
 namespace CinemaTicketBookingSystem.Core.Features.Directors.Queries.Handler
 {
     public class DirectorQueryHandler : ResponseHandler,
@@ -28,23 +22,26 @@ namespace CinemaTicketBookingSystem.Core.Features.Directors.Queries.Handler
             _mapper = mapper;
         }
         #endregion
+
+        #region Handle Functions
         public async Task<Response<List<GetAllDirectorsResponse>>> Handle(GetAllDirectorsQuery request, CancellationToken cancellationToken)
         {
-            var actorsList = await _directorService.GetAllAsync();
+            var directorList = await _directorService.GetAllAsync();
 
-            var mappedActorsList = _mapper.Map<List<GetAllDirectorsResponse>>(actorsList);
+            var mappedDirectorList = _mapper.Map<List<GetAllDirectorsResponse>>(directorList);
 
-            return Success(mappedActorsList);
+            return Success(mappedDirectorList);
         }
 
         public async Task<Response<FindDirectorByIdResponse>> Handle(FindDirectorByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _directorService.FindByIdAsync(request.Id);
-            if (entity == null) return NotFound<FindDirectorByIdResponse>();
+            var director = await _directorService.FindByIdAsync(request.Id);
+            if (director == null) return NotFound<FindDirectorByIdResponse>();
 
-            var dto = _mapper.Map<FindDirectorByIdResponse>(entity);
-            return Success<FindDirectorByIdResponse>(dto);
+            var mappedDirector = _mapper.Map<FindDirectorByIdResponse>(director);
+            return Success<FindDirectorByIdResponse>(mappedDirector);
 
-        }
+        } 
+        #endregion
     }
 }

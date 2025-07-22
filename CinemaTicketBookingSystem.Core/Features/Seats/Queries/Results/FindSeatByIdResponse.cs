@@ -1,9 +1,8 @@
 ﻿
 
 using CinemaTicketBookingSystem.Core.Features.Seats.Queries.Results.Shared;
-
-
 namespace CinemaTicketBookingSystem.Core.Features.Seats.Queries.Results
+
 {
     public class FindSeatByIdResponse
     {
@@ -11,10 +10,5 @@ namespace CinemaTicketBookingSystem.Core.Features.Seats.Queries.Results
         public string SeatNumber { get; set; } = default!;
         public HallInSeatResponse Hall { get; set; }
         public SeatTypeInSeatResponse SeatType { get; set; }
-
-        //public Guid Id { get; set; }
-        //public string SeatNumber { get; set; } = default!;
-        //public string HallName { get; set; } = default!;
-        //public string SeatTypeName { get; set; } = default!;
     }
 }

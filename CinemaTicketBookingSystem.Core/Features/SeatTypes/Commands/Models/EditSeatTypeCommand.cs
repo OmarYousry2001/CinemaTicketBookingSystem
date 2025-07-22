@@ -1,7 +1,5 @@
-﻿using CinemaTicketBookingSystem.Core.Features.SeatTypes.Queries.Results;
-using CinemaTicketBookingSystem.Core.GenericResponse;
+﻿using CinemaTicketBookingSystem.Core.GenericResponse;
 using MediatR;
-
 
 namespace CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Models
 {

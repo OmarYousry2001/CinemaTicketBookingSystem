@@ -3,6 +3,7 @@ using CinemaTicketBookingSystem.Core.Features.Seats.Queries.Models;
 using CinemaTicketBookingSystem.Core.Features.Seats.Queries.Results;
 using CinemaTicketBookingSystem.Core.GenericResponse;
 using CinemaTicketBookingSystem.Service.Abstracts;
+using CinemaTicketBookingSystem.Service.Implementations;
 using MediatR;
 
 
@@ -15,20 +16,26 @@ namespace CinemaTicketBookingSystem.Core.Features.Seats.Queries.Handler
     {
         #region Fields
         private readonly ISeatService _seatService;
-        //private readonly IReservationService _reservationService;
+        private readonly IReservationService _reservationService;
         private readonly IShowTimeService _showTimeService;
         private readonly IMapper _mapper;
+
         #endregion
 
         #region Constructors
-        public SeatQueryHandler(ISeatService seatService, IMapper mapper, IShowTimeService showTimeService)
+        public SeatQueryHandler(ISeatService seatService
+            , IMapper mapper
+            , IShowTimeService showTimeService 
+            , IReservationService reservationService)
         {
             _seatService = seatService;
             _mapper = mapper;
-            //_reservationService = reservationService;
+            _reservationService = reservationService;
             _showTimeService = showTimeService;
         }
         #endregion
+
+        #region Handle Functions
         public async Task<Response<List<GetAllSeatsResponse>>> Handle(GetAllSeatsQuery request, CancellationToken cancellationToken)
         {
             var seatsList = await _seatService.GetAllAsync();
@@ -68,6 +75,7 @@ namespace CinemaTicketBookingSystem.Core.Features.Seats.Queries.Handler
         //        .ToListAsync();
 
         //    return Success(freeSeatsList);
-        //}
+        //} 
+        #endregion
     }
 }

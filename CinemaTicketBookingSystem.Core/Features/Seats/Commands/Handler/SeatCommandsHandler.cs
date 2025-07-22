@@ -17,31 +17,38 @@ namespace CinemaTicketBookingSystem.Core.Features.Seats.Commands.Handler
         private readonly ISeatService _seatService;
         private readonly IHallService _hallService;
         private readonly ISeatTypeService _seatTypeService;
+        private readonly ICurrentUserService _currentUserService;
         private readonly IMapper _mapper;
         #endregion
         
         #region Constructors
-        public SeatCommandsHandler(ISeatService seatService, IMapper mapper, IHallService hallService, ISeatTypeService seatTypeService)
+        public SeatCommandsHandler(ISeatService seatService
+            , IMapper mapper
+            , IHallService hallService
+            , ISeatTypeService seatTypeService
+            , ICurrentUserService currentUserService)
         {
             _seatService = seatService;
             _mapper = mapper;
             _hallService = hallService;
             _seatTypeService = seatTypeService;
+            _currentUserService = currentUserService;   
         }
         #endregion
 
+        #region Handle Functions
         public async Task<Response<string>> Handle(AddSeatCommand request, CancellationToken cancellationToken)
         {
             var seat = _mapper.Map<Seat>(request);
-            var savedSeat = await _seatService.AddAsync(seat, Guid.NewGuid());
-            return (savedSeat)?  Success(ActionsResources.Accept):  BadRequest<string>();
+            var savedSeat = await _seatService.AddAsync(seat, _currentUserService.GetUserId());
+            return (savedSeat) ? Success(ActionsResources.Accept) : BadRequest<string>();
         }
         public async Task<Response<string>> Handle(EditSeatCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _seatService.FindByIdAsync(request.Id);
-            if (entity == null) return NotFound<string>();
-            var entityMapping = _mapper.Map(request, entity);
-            var result = await _seatService.SaveAsync(entityMapping, Guid.NewGuid());
+            var oldSeat = await _seatService.FindByIdAsync(request.Id);
+            if (oldSeat == null) return NotFound<string>();
+            var mappedSeat = _mapper.Map(request, oldSeat);
+            var result = await _seatService.SaveAsync(mappedSeat, _currentUserService.GetUserId());
             //return response
             if (result) return Success(NotifiAndAlertsResources.ItemUpdated);
             else return BadRequest<string>();
@@ -51,6 +58,7 @@ namespace CinemaTicketBookingSystem.Core.Features.Seats.Commands.Handler
             var seat = await _seatService.FindByIdAsync(request.Id);
             var isDeleted = await _seatService.DeleteAsync(seat);
             return isDeleted ? Deleted<string>() : BadRequest<string>();
-        }
+        } 
+        #endregion
     }
 }

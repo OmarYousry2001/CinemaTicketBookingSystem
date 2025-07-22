@@ -2,11 +2,8 @@
 using CinemaTicketBookingSystem.Core.Features.Actors.Queries.Models;
 using CinemaTicketBookingSystem.Core.Features.Actors.Queries.Results;
 using CinemaTicketBookingSystem.Core.GenericResponse;
-using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using MediatR;
-using Microsoft.Extensions.Localization;
-using SchoolProject.Core.Resources;
 
 namespace CinemaTicketBookingSystem.Core.Features.Actors.Queries.Handler
 {
@@ -26,23 +23,26 @@ namespace CinemaTicketBookingSystem.Core.Features.Actors.Queries.Handler
             _mapper = mapper;
         }
         #endregion
+
+        #region Handle Functions
         public async Task<Response<List<GetAllActorsResponse>>> Handle(GetAllActorsQuery request, CancellationToken cancellationToken)
         {
-            var entityList = await _actorService.GetAllAsync();
+            var actorList = await _actorService.GetAllAsync();
 
-            var dtoList = _mapper.Map<List<GetAllActorsResponse>>(entityList);
+            var mappedActorList = _mapper.Map<List<GetAllActorsResponse>>(actorList);
 
-            return Success(dtoList);
+            return Success(mappedActorList);
         }
 
         public async Task<Response<FindActorByIdResponse>> Handle(FindActorsByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _actorService.FindByIdAsync(request.Id);
-            if (entity == null) return NotFound<FindActorByIdResponse>();
+            var actor = await _actorService.FindByIdAsync(request.Id);
+            if (actor == null) return NotFound<FindActorByIdResponse>();
 
-            var dto = _mapper.Map<FindActorByIdResponse>(entity);
-            return Success<FindActorByIdResponse>(dto);
+            var mappedActor = _mapper.Map<FindActorByIdResponse>(actor);
+            return Success<FindActorByIdResponse>(mappedActor);
 
-        }
+        } 
+        #endregion
     }
 }

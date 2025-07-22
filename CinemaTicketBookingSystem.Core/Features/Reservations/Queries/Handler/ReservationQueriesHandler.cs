@@ -6,7 +6,7 @@ using CinemaTicketBookingSystem.Service.Abstracts;
 using MediatR;
 using SchoolProject.Core.Wrappers;
 
-namespace MovieReservationSystem.Core.Features.Reservations.Queries.Handler
+namespace CinemaTicketBookingSystem.Core.Features.Reservations.Queries.Handler
 {
     internal class ReservationQueriesHandler : ResponseHandler,
         IRequestHandler<GetReservationsPaginatedListQuery, PaginatedResult<GetReservationsPaginatedListResponse>>,

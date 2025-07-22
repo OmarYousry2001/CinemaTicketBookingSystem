@@ -7,7 +7,7 @@ using CinemaTicketBookingSystem.Service.Abstracts;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace MovieReservationSystem.Core.Features.Reservations.Commands.Handler
+namespace CinemaTicketBookingSystem.Core.Features.Reservations.Commands.Handler
 {
     public class ReservationCommandsHandler : ResponseHandler,
         IRequestHandler<AddReservationCommand, Response<string>>,
@@ -40,6 +40,8 @@ namespace MovieReservationSystem.Core.Features.Reservations.Commands.Handler
             _currentUserService = currentUserService;
         }
         #endregion
+
+        #region Handle Functions
         public async Task<Response<string>> Handle(AddReservationCommand request, CancellationToken cancellationToken)
         {
             var user = await _userService.FindByIdAsync(request.UserId);
@@ -74,6 +76,7 @@ namespace MovieReservationSystem.Core.Features.Reservations.Commands.Handler
 
             var isDeleted = await _reservationService.DeleteAsync(reservation);
             return isDeleted ? Deleted<string>() : BadRequest<string>();
-        }
+        } 
+        #endregion
     }
 }

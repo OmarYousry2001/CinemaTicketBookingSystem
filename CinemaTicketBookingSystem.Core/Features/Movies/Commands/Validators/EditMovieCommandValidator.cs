@@ -4,8 +4,6 @@ using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using FluentValidation;
 
-
-
 namespace CinemaTicketBookingSystem.Core.Features.Movies.Commands.Validators
 {
     public class EditMovieCommandValidator : AbstractValidator<EditMovieCommand>

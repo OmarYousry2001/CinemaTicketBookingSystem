@@ -5,11 +5,11 @@ using FluentValidation;
 
 namespace CinemaTicketBookingSystem.Core.Features.Halls.Commands.Validator
 {
-    public class CreateHallValidator : AbstractValidator<AddHallCommand>
+    public class AddHallValidator : AbstractValidator<AddHallCommand>
     {
         private readonly IHallService _hallService;
 
-        public CreateHallValidator(IHallService hallService)
+        public AddHallValidator(IHallService hallService)
         {
             _hallService = hallService;
 

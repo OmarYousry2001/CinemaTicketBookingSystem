@@ -7,7 +7,6 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using SchoolProject.Core.Wrappers;
 
-
 namespace CinemaTicketBookingSystem.Core.Features.Movies.Queries.Handlers
 {
     public class MoviesQueryHandler : ResponseHandler,
@@ -29,7 +28,7 @@ namespace CinemaTicketBookingSystem.Core.Features.Movies.Queries.Handlers
         }
         #endregion
 
-        #region Handlers
+        #region Handle Functions
         public async Task<Response<List<GetAllMoviesResponse>>> Handle(GetAllMoviesQuery request, CancellationToken cancellationToken)
         {
             var moviesList = await _movieService.GetAllAsync();
@@ -49,7 +48,6 @@ namespace CinemaTicketBookingSystem.Core.Features.Movies.Queries.Handlers
 
             return Success(mappedMovie);
         }
-
         public async Task<PaginatedResult<GetMoviesPaginatedListResponse>> Handle(GetMoviesPaginatedListQuery request, CancellationToken cancellationToken)
         {
             var FilterQuery = _movieService.FilterMoviePaginatedQueryable( request.MovieOrdering , request.Search);

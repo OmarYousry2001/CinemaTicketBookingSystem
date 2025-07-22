@@ -3,7 +3,7 @@ using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using FluentValidation;
 
-namespace MovieReservationSystem.Core.Features.Users.Commands.Validators
+namespace CinemaTicketBookingSystem.Core.Features.Users.Commands.Validators
 {
     public class ChangePasswordValidator : AbstractValidator<ChangePasswordCommand>
     {

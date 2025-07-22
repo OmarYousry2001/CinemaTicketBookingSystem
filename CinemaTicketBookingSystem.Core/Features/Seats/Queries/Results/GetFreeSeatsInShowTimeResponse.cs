@@ -2,7 +2,7 @@
 {
     public class GetFreeSeatsInShowTimeResponse
     {
-        public int SeatId { get; set; }
+        public Guid Id { get; set; }
         public string SeatNumber { get; set; } = default!;
         public string SeatTypeName { get; set; } = default!;
     }

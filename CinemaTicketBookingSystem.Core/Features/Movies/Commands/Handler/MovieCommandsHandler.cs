@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using CinemaTicketBookingSystem.Core.Features.Movies.Commands.Models;
 using CinemaTicketBookingSystem.Core.GenericResponse;
 using CinemaTicketBookingSystem.Data.Entities;
 using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-
 
 namespace CinemaTicketBookingSystem.Core.Features.Movies.Commands.Handler
 {
@@ -23,7 +19,7 @@ namespace CinemaTicketBookingSystem.Core.Features.Movies.Commands.Handler
         private readonly IDirectorService _directorService;
         private readonly IActorService _actorService;
         private readonly IMapper _mapper;
-
+        private readonly ICurrentUserService _currentUserService;
         #endregion
 
         #region Constructors
@@ -31,16 +27,20 @@ namespace CinemaTicketBookingSystem.Core.Features.Movies.Commands.Handler
             , IMapper mapper
             , IGenreService genreService
             , IDirectorService directorService
-            , IActorService actorService)
+            , IActorService actorService
+            , ICurrentUserService currentUserService)
         {
             _movieService = movieService;
             _mapper = mapper;
             _genreService = genreService;
             _directorService = directorService;
             _actorService = actorService;
+            _currentUserService = currentUserService;   
 
         }
         #endregion
+
+        #region Handle Functions
         public async Task<Response<string>> Handle(AddMovieCommand request, CancellationToken cancellationToken)
         {
             var newMovie = _mapper.Map<Movie>(request);
@@ -56,7 +56,7 @@ namespace CinemaTicketBookingSystem.Core.Features.Movies.Commands.Handler
             }).ToList();
 
             newMovie.DirectorId = request.DirectorId;
-            var createdMovie = await _movieService.SaveMovieWithRelationsAsync(newMovie, Guid.NewGuid(), request.Poster);
+            var createdMovie = await _movieService.SaveMovieWithRelationsAsync(newMovie, _currentUserService.GetUserId(), request.Poster);
 
             if (createdMovie)
                 return Created<string>(ActionsResources.Accept);
@@ -70,7 +70,6 @@ namespace CinemaTicketBookingSystem.Core.Features.Movies.Commands.Handler
 
             var mappedMovie = _mapper.Map(request, oldMovie);
 
-
             // check if ids for genres and actors are Exist in the database    
             var genres = _genreService.GetAllQueryable().Where(g => request.GenresIds.Contains(g.Id)).ToList();
             var actors = _actorService.GetAllQueryable().Where(a => request.ActorsIds.Contains(a.Id)).ToList();
@@ -78,23 +77,16 @@ namespace CinemaTicketBookingSystem.Core.Features.Movies.Commands.Handler
             if (genres.Count != request.GenresIds.Count)
                 return BadRequest<string>("Some genres do not exist");
             if (actors.Count != request.ActorsIds.Count)
-                return BadRequest<string>("Some actors do not exist");  
-
+                return BadRequest<string>("Some actors do not exist");
 
             var director = await _directorService.FindByIdAsync(request.DirectorId);
-
-            //request.Title = request.Title.Trim();
 
             // the mappedMovie with the new values  
             mappedMovie.MovieGenres = genres.Select(genre => new MovieGenre { GenreId = genre.Id }).ToList();
             mappedMovie.Director = director;
             mappedMovie.MovieActors = actors.Select(actor => new MovieActor { ActorId = actor.Id }).ToList();
 
-
-
-
-            var editedMovie = await _movieService.SaveMovieWithRelationsAsync(mappedMovie, Guid.NewGuid(), request.Poster);
-
+            var editedMovie = await _movieService.SaveMovieWithRelationsAsync(mappedMovie, _currentUserService.GetUserId(), request.Poster);
 
             if (editedMovie)
                 return Success(NotifiAndAlertsResources.ItemUpdated);
@@ -106,11 +98,12 @@ namespace CinemaTicketBookingSystem.Core.Features.Movies.Commands.Handler
         {
             var movie = await _movieService.FindByIdAsync(request.Id);
 
-            var isDeleted = await _movieService.DeleteAsync(movie );
+            var isDeleted = await _movieService.DeleteAsync(movie);
             if (isDeleted)
                 return Deleted<string>();
             else
                 return BadRequest<string>();
-        }
+        } 
+        #endregion
     }
 }
