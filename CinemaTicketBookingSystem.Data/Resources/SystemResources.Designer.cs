@@ -70,6 +70,24 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to لا يمكن إلغاء الحجز.
+        /// </summary>
+        public static string CannotCancelReservation {
+            get {
+                return ResourceManager.GetString("CannotCancelReservation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لقد انتهى وقت العرض بالفعل.
+        /// </summary>
+        public static string EndedShowTime {
+            get {
+                return ResourceManager.GetString("EndedShowTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to القاعة وصلت إلى الحد الأقصى لعدد المقاعد المسموح بها.
         /// </summary>
         public static string HallCapacityReached {
@@ -120,6 +138,24 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static string NotExist {
             get {
                 return ResourceManager.GetString("NotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الكرسي غير موجود في تلك القاعة.
+        /// </summary>
+        public static string SeatNotFoundInHall {
+            get {
+                return ResourceManager.GetString("SeatNotFoundInHall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هذا المقعد محجوز بالفعل.
+        /// </summary>
+        public static string SeatReserved {
+            get {
+                return ResourceManager.GetString("SeatReserved", resourceCulture);
             }
         }
         

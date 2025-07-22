@@ -1,4 +1,5 @@
 ﻿using CinemaTicketBookingSystem.Data.Entities;
+using CinemaTicketBookingSystem.Data.Enums;
 using CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositories;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using CinemaTicketBookingSystem.Service.ServiceBase;
@@ -16,21 +17,55 @@ namespace CinemaTicketBookingSystem.Service.Implementations
             _reservationRepository = seatRepository;
         }
 
-
-
-
+        public IQueryable<Reservation> GetAllQueryable(DateOnly? Search)
+        {
+            var queryable = _reservationRepository.GetTableAsTracking()
+                .Include(r => r.User)
+                .Include(r => r.ShowTime).ThenInclude(st => st.Movie) 
+                .Include(r => r.ShowTime).ThenInclude(st => st.Hall)  
+                .Include(r => r.ReservationSeats).ThenInclude(rs => rs.Seat)
+                .Where(r => r.CurrentState==1)
+                .AsSplitQuery();
+            if (Search.HasValue)
+            {
+                // Assuming DateOnly without Time
+                var date = Search.Value.ToDateTime(new TimeOnly(0, 0));
+                var nextDate = date.AddDays(1);
+ 
+                queryable = queryable.Where(r => r.CreatedDateUtc >= date && r.CreatedDateUtc < nextDate);
+            }
+            return queryable;
+        }
+        public  async override Task<Reservation> FindByIdAsync(Guid Id)
+        {
+            return await _reservationRepository.GetTableAsTracking()
+           .Include(r => r.User)
+           .Include(r => r.ShowTime).ThenInclude(st => st.Movie) // Include Movie from ShowTime
+           .Include(r => r.ShowTime).ThenInclude(st => st.Hall)  // Include Hall from ShowTime
+           .Include(r => r.ReservationSeats).ThenInclude(rs => rs.Seat) // Include Seats from ReservationSeats  
+           .AsSplitQuery()
+           .FirstOrDefaultAsync(r => r.Id == Id && r.CurrentState ==1);
+        }
         public async Task<bool> IsExistAsync(Guid id)
         {
             return await _reservationRepository.GetTableNoTracking()
          .AnyAsync(d => d.Id == id);
         }
+
+        /// <summary>
+        /// Checks if a specific seat is already reserved for the given show time.
+        /// Returns true if the seat exists in any reservation for that show time.
+        /// </summary>
         public async Task<bool> IsSeatExistReservationInSameShowTimeAsync(Guid showTimeId, Guid seatId)
         {
-            return await _reservationRepository.GetTableNoTracking()
-                .Include(r => r.ShowTime)
-                .Include(r => r.ReservationSeats)
-                .Where(r => r.ShowTime.Id == showTimeId )
-                .AnyAsync(r => r.ReservationSeats.Any(rs => rs.SeatId == seatId));
+            // want return true 
+            var s =  await _reservationRepository.GetTableNoTracking()
+                    .Include(r => r.ShowTime)
+                    .Include(r => r.ReservationSeats)
+                    .Where(r => r.ShowTime.Id == showTimeId)
+                     .Where(r => r.CurrentState == 1)
+                    .AnyAsync(r => r.ReservationSeats.Any(rs => rs.SeatId == seatId));
+            return s;
         }
 
         /// <summary>
@@ -57,11 +92,23 @@ namespace CinemaTicketBookingSystem.Service.Implementations
             return totalPrice;
         }
 
-        //public async Task<bool> IsSeatExistReservationInSameShowTimeAsync(Guid showTimeId, Guid seatId)
-        //{
-        //    return await _reservationRepository.GetTableNoTracking()
-        //        .AnyAsync(r => r.ShowTimeId == showTimeId &&
-        //                       r.ReservationSeats.Any(rs => rs.SeatId == seatId));
-        //}
+        /// <summary>
+        /// Deletes all reservations that have expired and have not been paid.
+        /// A reservation is considered expired if the allowed time has passed
+        /// and the payment status is not marked as completed.
+        /// </summary>
+        /// <returns>
+        /// The number of deleted reservations.
+        /// </returns>
+        public async Task<int> DeleteExpiredUnpaidReservationsAsync()
+        {
+            var notCompletedReservations = await _reservationRepository.GetTableAsTracking()
+                .Where(r => r.AllowedTime < DateTime.Now && r.PaymentStatus != PaymentStatusEnum.Completed).ToListAsync();
+
+            await _reservationRepository.DeleteRangeAsync(notCompletedReservations);
+
+            return notCompletedReservations.Count;
+        }
+
     }
 }

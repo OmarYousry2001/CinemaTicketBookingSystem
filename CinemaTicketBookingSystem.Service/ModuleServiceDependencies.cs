@@ -29,6 +29,8 @@ namespace CinemaTicketBookingSystem.Service
             services.AddTransient<IFileUploadService, FileUploadService>();
             services.AddTransient<IImageProcessingService, ImageProcessingService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
+            services.AddTransient<ICurrentUserService, CurrentUserService>();
+
 
             return services;
         }

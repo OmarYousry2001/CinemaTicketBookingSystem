@@ -120,6 +120,12 @@
   <data name="AlreadyExists" xml:space="preserve">
     <value>موجود بالفعل</value>
   </data>
+  <data name="CannotCancelReservation" xml:space="preserve">
+    <value>لا يمكن إلغاء الحجز</value>
+  </data>
+  <data name="EndedShowTime" xml:space="preserve">
+    <value>لقد انتهى وقت العرض بالفعل</value>
+  </data>
   <data name="HallCapacityReached" xml:space="preserve">
     <value>القاعة وصلت إلى الحد الأقصى لعدد المقاعد المسموح بها</value>
   </data>
@@ -137,6 +143,12 @@
   </data>
   <data name="NotExist" xml:space="preserve">
     <value>هذا الحقل غير موجود</value>
+  </data>
+  <data name="SeatNotFoundInHall" xml:space="preserve">
+    <value>الكرسي غير موجود في تلك القاعة</value>
+  </data>
+  <data name="SeatReserved" xml:space="preserve">
+    <value>هذا المقعد محجوز بالفعل</value>
   </data>
   <data name="ShowTimeOverlap" xml:space="preserve">
     <value>وقت العرض محجوز بالفعل</value>

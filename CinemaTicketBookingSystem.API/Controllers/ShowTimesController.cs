@@ -13,7 +13,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
 
 
         #region Queries Actions
-        [Authorize(Roles = "Data Entry")]
+        //[Authorize(Roles = "Data Entry")]
         [HttpGet(Router.ShowTimeRouting.list)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllShowTimesAsync()
@@ -41,7 +41,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
         #endregion
 
         #region Commands Actions
-        [Authorize(Roles = "Data Entry")]
+        //[Authorize(Roles = "Data Entry")]
         [HttpPost(Router.ShowTimeRouting.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -51,7 +51,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
             return NewResult(response);
         }
 
-        [Authorize(Roles = "Data Entry")]
+        //[Authorize(Roles = "Data Entry")]
         [HttpPut(Router.ShowTimeRouting.Edit)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -61,7 +61,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
             return NewResult(response);
         }
 
-        [Authorize(Roles = "Data Entry")]
+        //[Authorize(Roles = "Data Entry")]
         [HttpDelete(Router.ShowTimeRouting.Delete)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

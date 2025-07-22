@@ -19,8 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Reservations\Commands\" />
-    <Folder Include="Features\Reservations\Queries\" />
     <Folder Include="Filters\" />
   </ItemGroup>
 

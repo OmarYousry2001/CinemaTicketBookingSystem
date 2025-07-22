@@ -14,6 +14,10 @@ namespace CinemaTicketBookingSystem.Service.Implementations
         {
             _seatRepository = seatRepository;
         }
+        public  IQueryable<Seat> GetAllQueryable()
+        {
+            return _seatRepository.GetTableAsTracking().AsQueryable();
+        }
         public override async Task<IEnumerable<Seat>> GetAllAsync()
         {
 
@@ -66,11 +70,11 @@ namespace CinemaTicketBookingSystem.Service.Implementations
         //    }
         //    return totalPrice;  
         //}
-        //public Task<bool> IsExistBySeatIdInHallAsync(Guid seatId, Guid hallId)
-        //{
-        //    return _seatRepository.GetTableNoTracking()
-        //        .AnyAsync(x => x.Id == seatId && x.HallId == hallId && x.CurrentState == 1);
-        //}
+        public Task<bool> IsExistBySeatIdInHallAsync(Guid seatId, Guid hallId)
+        {
+            return _seatRepository.GetTableNoTracking()
+                .AnyAsync(x => x.Id == seatId && x.HallId == hallId && x.CurrentState == 1);
+        }
 
 
     }

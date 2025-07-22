@@ -17,7 +17,7 @@ namespace CinemaTicketBookingSystem.Data.Entities
 
         public Guid ShowTimeId { get; set; }
         public string UserId { get; set; } = default!;
-        public virtual ShowTime ShowTime { get; set; } = new();
+        public virtual ShowTime ShowTime { get; set; } 
         public virtual ICollection<ReservationSeat> ReservationSeats { get; set; } = new HashSet<ReservationSeat>();
         public virtual ApplicationUser User { get; set; } 
 

@@ -120,6 +120,12 @@
   <data name="AlreadyExists" xml:space="preserve">
     <value>Already exists</value>
   </data>
+  <data name="CannotCancelReservation" xml:space="preserve">
+    <value>The reservation cannot be cancelled</value>
+  </data>
+  <data name="EndedShowTime" xml:space="preserve">
+    <value>The showtime has already ended</value>
+  </data>
   <data name="HallCapacityReached" xml:space="preserve">
     <value>The hall has reached its maximum seating capacity</value>
   </data>
@@ -137,6 +143,12 @@
   </data>
   <data name="NotExist" xml:space="preserve">
     <value>This field does not exist</value>
+  </data>
+  <data name="SeatNotFoundInHall" xml:space="preserve">
+    <value>The seat does not exist in the selected hall</value>
+  </data>
+  <data name="SeatReserved" xml:space="preserve">
+    <value>This seat is already reserved</value>
   </data>
   <data name="ShowTimeOverlap" xml:space="preserve">
     <value>The show time is already booked</value>

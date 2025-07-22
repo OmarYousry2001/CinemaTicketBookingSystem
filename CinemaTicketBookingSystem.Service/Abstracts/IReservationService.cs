@@ -7,5 +7,7 @@ namespace CinemaTicketBookingSystem.Service.Abstracts
         public Task<bool> IsExistAsync(Guid id);
         public Task<bool> IsSeatExistReservationInSameShowTimeAsync(Guid showTimeId, Guid seatId);
         public decimal CalculateReservationPrice(IEnumerable<Seat> seatsList, decimal showTimePrice);
+        Task<int> DeleteExpiredUnpaidReservationsAsync();
+        public IQueryable<Reservation> GetAllQueryable(DateOnly? Search);
     }
 }

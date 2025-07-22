@@ -1,9 +1,7 @@
 ﻿using CinemaTicketBookingSystem.API.Base;
-using CinemaTicketBookingSystem.Core.Features.Actors.Queries.Models;
 using CinemaTicketBookingSystem.Core.Features.Directors.Commands.Models;
 using CinemaTicketBookingSystem.Core.Features.Directors.Queries.Models;
 using CinemaTicketBookingSystem.Data.AppMetaData;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,8 +11,8 @@ namespace CinemaTicketBookingSystem.API.Controllers
     public class DirectorsController : AppControllerBase
     {
 
-
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet(Router.DirectorRouting.list)]
         public async Task<IActionResult> GetAllDirectorsAsync()
         {
             var response = await Mediator.Send(new GetAllDirectorsQuery());
@@ -33,6 +31,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
 
         #region Commands Actions
         [Authorize(Roles = "Data Entry")]
+        [HttpPut(Router.DirectorRouting.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateDirector([FromForm] AddDirectorCommand model)
