@@ -41,6 +41,14 @@ namespace CinemaTicketBookingSystem.API.Controllers
              var response = await Mediator.Send(new ManageUserRolesQuery() { UserId = userId });
             return NewResult(response);
         }
+
+        [SwaggerOperation(Summary = " Manage User Claims", OperationId = "ManageUserClaims")]
+        [HttpGet(Router.AuthorizationRouting.ManageUserClaims)]
+        public async Task<IActionResult> ManageUserClaims([FromRoute] string userId)
+        {
+            var response = await Mediator.Send(new ManageUserClaimsQuery() { UserId = userId });
+            return NewResult(response);
+        }
         #endregion
 
         #region Commands Actions
@@ -79,6 +87,14 @@ namespace CinemaTicketBookingSystem.API.Controllers
         public async Task<IActionResult> DeleteRole([FromRoute]  string id)
         {
              var response = await Mediator.Send(new DeleteRoleCommand(id));
+            return NewResult(response);
+        }
+   
+        [SwaggerOperation(Summary = " Update User Claims", OperationId = "UpdateUserClaims")]
+        [HttpPut(Router.AuthorizationRouting.UpdateUserClaims)]
+        public async Task<IActionResult> UpdateUserClaims([FromBody] UpdateUserClaimsCommand command)
+        {
+            var response = await Mediator.Send(command);
             return NewResult(response);
         }
         #endregion

@@ -603,4 +603,13 @@
   <data name="RoleNotExist" xml:space="preserve">
     <value>الدور غير موجود</value>
   </data>
+  <data name="FailedToRemoveOldClaims" xml:space="preserve">
+    <value>فشل في حذف الأذونات القديمة</value>
+  </data>
+  <data name="FailedToAddNewClaims" xml:space="preserve">
+    <value>فشل في إضافة الأذونات الجديدة</value>
+  </data>
+  <data name="FailedToUpdateClaims" xml:space="preserve">
+    <value>فشل في تحديث الأذونات</value>
+  </data>
 </root>

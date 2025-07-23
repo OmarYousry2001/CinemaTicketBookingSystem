@@ -112,7 +112,21 @@ namespace CinemaTicketBookingSystem.API
             });
             #endregion
 
-
+            services.AddAuthorization(option =>
+            {
+                option.AddPolicy("Create", policy =>
+                {
+                    policy.RequireClaim("Create", "True");
+                });
+                option.AddPolicy("Delete", policy =>
+                {
+                    policy.RequireClaim("Delete", "True");
+                });
+                option.AddPolicy("Edit", policy =>
+                {
+                    policy.RequireClaim("Edit", "True");
+                });
+            });
 
             return services;
         }

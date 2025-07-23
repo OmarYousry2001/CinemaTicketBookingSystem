@@ -1,6 +1,5 @@
 ﻿using CinemaTicketBookingSystem.Data.Entities.Identity;
 using CinemaTicketBookingSystem.Data.Helpers;
-using CinemaTicketBookingSystem.Data.Resources;
 using Microsoft.AspNetCore.Identity;
 
 namespace CinemaTicketBookingSystem.Service.Abstracts
@@ -15,11 +14,11 @@ namespace CinemaTicketBookingSystem.Service.Abstracts
         Task<IEnumerable<Role>> GetAllRolesAsync();
         Task<Role> FindRoleByIdAsync(string id);
         Task<List<string>> GetUserRolesAsync(string userId);
-        //omar
-        Task<List<string>> UpdateUserRolesAsync(string userId, List<string> rolesNames);
-
         public Task<ManageUserRolesResult> ManageUserRolesData(ApplicationUser user);
         public Task<string> UpdateUserRoles(UpdateUserRolesRequest request);
+
+        public  Task<ManageUserClaimsResult> ManageUserClaimData(ApplicationUser user);
+        public Task<string> UpdateUserClaims(UpdateUserClaimsRequest request);
 
 
     }

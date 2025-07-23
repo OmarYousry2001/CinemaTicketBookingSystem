@@ -1,12 +1,16 @@
-﻿//using MediatR;
-//using SchoolProject.Core.Bases;
-//using SchoolProject.Data.Requests;
+﻿using CinemaTicketBookingSystem.Core.GenericResponse;
+using MediatR;
 
-//namespace SchoolProject.Core.Features.Authorization.Commands.Models
-//{
-//    public class UpdateUserClaimsCommand : UpdateUserClaimsRequest, IRequest<Response<string>>
-//    {
-//        //  زمان بتقول مكنت  حتيت  UpdateUserClaimsRequest
-//        //  لكن انا عملت كده  عشان الاسم بس 
-//    }
-//}
+namespace CinemaTicketBookingSystem.Core.Features.Authorization.Commands.Models
+{
+    public class UpdateUserClaimsCommand : IRequest<Response<string>>
+    {
+            public string UserId { get; set; }
+            public List<UserClaimsInManageUserClaimsResponse> userClaims { get; set; }
+        public class UserClaimsInManageUserClaimsResponse
+        {
+            public string Type { get; set; }
+            public bool Value { get; set; }
+        }
+    }
+}

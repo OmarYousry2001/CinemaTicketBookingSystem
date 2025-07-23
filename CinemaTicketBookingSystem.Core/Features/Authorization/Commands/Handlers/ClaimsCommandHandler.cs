@@ -1,37 +1,55 @@
-﻿//using MediatR;
+﻿using CinemaTicketBookingSystem.Core.Features.Authorization.Commands.Models;
+using CinemaTicketBookingSystem.Core.GenericResponse;
+using CinemaTicketBookingSystem.Data.Helpers;
+using CinemaTicketBookingSystem.Data.Resources;
+using CinemaTicketBookingSystem.Service.Abstracts;
+using MediatR;
 
 
-//namespace CinemaTicketBookingSystem.Core.Features.Authorization.Commands.Handlers
-//{
-//    public class ClaimsCommandHandler : ResponseHandler,
-//         IRequestHandler<UpdateUserClaimsCommand, Response<string>>
-//    {
-//        #region Fileds
-//        private readonly IStringLocalizer<SharedResources> _stringLocalizer;
-//        private readonly IAuthorizationService _authorizationService;
+namespace CinemaTicketBookingSystem.Core.Features.Authorization.Commands.Handlers
+{
+    public class ClaimsCommandHandler : ResponseHandler,
+         IRequestHandler<UpdateUserClaimsCommand, Response<string>>
+    {
+        #region Fileds
+        private readonly IAuthorizationService _authorizationService;
 
-//        #endregion
-//        #region Constructors
-//        public ClaimsCommandHandler(IStringLocalizer<SharedResources> stringLocalizer,
-//                                    IAuthorizationService authorizationService) : base(stringLocalizer)
-//        {
-//            _authorizationService = authorizationService;
-//            _stringLocalizer = stringLocalizer;
-//        }
-//        #endregion
-//        #region Handle Functions
-//        public async Task<Response<string>> Handle(UpdateUserClaimsCommand request, CancellationToken cancellationToken)
-//        {
-//            var result = await _authorizationService.UpdateUserClaims(request);
-//            switch (result)
-//            {
-//                case "UserIsNull": return NotFound<string>(_stringLocalizer[SharedResourcesKeys.UserIsNotFound]);
-//                case "FailedToRemoveOldClaims": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.FailedToRemoveOldClaims]);
-//                case "FailedToAddNewClaims": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.FailedToAddNewClaims]);
-//                case "FailedToUpdateClaims": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.FailedToUpdateClaims]);
-//            }
-//            return Success<string>(_stringLocalizer[SharedResourcesKeys.Success]);
-//        }
-//        #endregion
-//    }
-//}
+        #endregion
+        #region Constructors
+        public ClaimsCommandHandler( IAuthorizationService authorizationService) 
+        {
+            _authorizationService = authorizationService;
+        }
+        #endregion
+        #region Handle Functions
+        public async Task<Response<string>> Handle(UpdateUserClaimsCommand request, CancellationToken cancellationToken)
+        {
+            var userClaimsRequest = new UpdateUserClaimsRequest() 
+            {
+                UserId = request.UserId , 
+                userClaims = request.userClaims.Select(c =>new UserClaims { Value = c.Value , Type = c.Type}).ToList() 
+            };
+
+            var result = await _authorizationService.UpdateUserClaims(userClaimsRequest);
+
+            switch (result)
+            {
+                case nameof(ValidationResources.UserNotFound):
+                    return NotFound<string>(ValidationResources.UserNotFound);
+
+                case nameof(ValidationResources.FailedToRemoveOldClaims):
+                    return BadRequest<string>(ValidationResources.FailedToRemoveOldClaims);
+
+                case nameof(ValidationResources.FailedToAddNewClaims):
+                    return BadRequest<string>(ValidationResources.FailedToAddNewClaims);
+
+                case nameof(ValidationResources.FailedToUpdateClaims):
+                    return BadRequest<string>(ValidationResources.FailedToUpdateClaims);
+            }
+
+            return Success<string>(NotifiAndAlertsResources.Success);
+
+        }
+        #endregion
+    }
+}

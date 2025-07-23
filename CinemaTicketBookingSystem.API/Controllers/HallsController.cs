@@ -2,8 +2,8 @@
 using CinemaTicketBookingSystem.Core.Features.Halls.Commands.Models;
 using CinemaTicketBookingSystem.Core.Features.Halls.Queries.Models;
 using CinemaTicketBookingSystem.Data.AppMetaData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace MovieReservationSystem.API.Controllers
 {
@@ -34,7 +34,7 @@ namespace MovieReservationSystem.API.Controllers
         #endregion
 
         #region Commands Actions
-
+        [Authorize(Policy = "Create")]
         [HttpPost(Router.HallRouting.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

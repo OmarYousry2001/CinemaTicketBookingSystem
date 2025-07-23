@@ -475,6 +475,15 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to فشل في إضافة الأذونات الجديدة.
+        /// </summary>
+        public static string FailedToAddNewClaims {
+            get {
+                return ResourceManager.GetString("FailedToAddNewClaims", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to فشل في تعيين الأدوار الجديدة للمستخدم.
         /// </summary>
         public static string FailedToAddNewRoles {
@@ -484,11 +493,29 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to فشل في حذف الأذونات القديمة.
+        /// </summary>
+        public static string FailedToRemoveOldClaims {
+            get {
+                return ResourceManager.GetString("FailedToRemoveOldClaims", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to فشل في إزالة الأدوار القديمة من المستخدم.
         /// </summary>
         public static string FailedToRemoveOldRoles {
             get {
                 return ResourceManager.GetString("FailedToRemoveOldRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to فشل في تحديث الأذونات.
+        /// </summary>
+        public static string FailedToUpdateClaims {
+            get {
+                return ResourceManager.GetString("FailedToUpdateClaims", resourceCulture);
             }
         }
         
