@@ -16,7 +16,8 @@ namespace CinemaTicketBookingSystem.Service.Implementations
         }
         public  IQueryable<Seat> GetAllQueryable()
         {
-            return _seatRepository.GetTableAsTracking().AsQueryable();
+            return _seatRepository.GetTableAsTracking()
+                .AsQueryable();
         }
         public override async Task<IEnumerable<Seat>> GetAllAsync()
         {

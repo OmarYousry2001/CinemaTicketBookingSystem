@@ -2,7 +2,6 @@
 using CinemaTicketBookingSystem.Data.Base;
 using CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace CinemaTicketBookingSystem.Service.ServiceBase
 {

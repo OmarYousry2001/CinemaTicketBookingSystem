@@ -8,7 +8,8 @@ namespace CinemaTicketBookingSystem.API.Controllers
     [ApiController]
     public class ActorsController : AppControllerBase
     {
-      
+
+        #region Queries Actions
         [HttpGet(Router.ActorRouting.list)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllActorsAsync()
@@ -25,6 +26,9 @@ namespace CinemaTicketBookingSystem.API.Controllers
             var response = await Mediator.Send(new FindActorsByIdQuery() { Id = id });
             return NewResult(response);
         }
+        #endregion
+
+        #region Commands Actions
         [HttpPost(Router.ActorRouting.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -32,7 +36,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
         {
             var response = await Mediator.Send(command);
             return NewResult(response);
-           
+
         }
 
         [HttpPut(Router.ActorRouting.Edit)]
@@ -50,7 +54,8 @@ namespace CinemaTicketBookingSystem.API.Controllers
         {
             var response = await Mediator.Send(new DeleteActorCommand() { Id = id });
             return NewResult(response);
-        }
-    
+        } 
+        #endregion
+
     }
 }

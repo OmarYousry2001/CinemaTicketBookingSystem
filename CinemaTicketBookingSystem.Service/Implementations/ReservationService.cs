@@ -4,8 +4,6 @@ using CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositories;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using CinemaTicketBookingSystem.Service.ServiceBase;
 using Microsoft.EntityFrameworkCore;
-
-
 namespace CinemaTicketBookingSystem.Service.Implementations
 {
     public class ReservationService : BaseService<Reservation>, IReservationService
@@ -17,26 +15,27 @@ namespace CinemaTicketBookingSystem.Service.Implementations
             _reservationRepository = seatRepository;
         }
 
+        #region Methods
         public IQueryable<Reservation> GetAllQueryable(DateOnly? Search)
         {
             var queryable = _reservationRepository.GetTableAsTracking()
                 .Include(r => r.User)
-                .Include(r => r.ShowTime).ThenInclude(st => st.Movie) 
-                .Include(r => r.ShowTime).ThenInclude(st => st.Hall)  
+                .Include(r => r.ShowTime).ThenInclude(st => st.Movie)
+                .Include(r => r.ShowTime).ThenInclude(st => st.Hall)
                 .Include(r => r.ReservationSeats).ThenInclude(rs => rs.Seat)
-                .Where(r => r.CurrentState==1)
+                .Where(r => r.CurrentState == 1)
                 .AsSplitQuery();
             if (Search.HasValue)
             {
                 // Assuming DateOnly without Time
                 var date = Search.Value.ToDateTime(new TimeOnly(0, 0));
                 var nextDate = date.AddDays(1);
- 
+
                 queryable = queryable.Where(r => r.CreatedDateUtc >= date && r.CreatedDateUtc < nextDate);
             }
             return queryable;
         }
-        public  async override Task<Reservation> FindByIdAsync(Guid Id)
+        public async override Task<Reservation> FindByIdAsync(Guid Id)
         {
             return await _reservationRepository.GetTableAsTracking()
            .Include(r => r.User)
@@ -44,7 +43,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
            .Include(r => r.ShowTime).ThenInclude(st => st.Hall)  // Include Hall from ShowTime
            .Include(r => r.ReservationSeats).ThenInclude(rs => rs.Seat) // Include Seats from ReservationSeats  
            .AsSplitQuery()
-           .FirstOrDefaultAsync(r => r.Id == Id && r.CurrentState ==1);
+           .FirstOrDefaultAsync(r => r.Id == Id && r.CurrentState == 1);
         }
         public async Task<bool> IsExistAsync(Guid id)
         {
@@ -59,7 +58,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
         public async Task<bool> IsSeatExistReservationInSameShowTimeAsync(Guid showTimeId, Guid seatId)
         {
             // want return true 
-            var s =  await _reservationRepository.GetTableNoTracking()
+            var s = await _reservationRepository.GetTableNoTracking()
                     .Include(r => r.ShowTime)
                     .Include(r => r.ReservationSeats)
                     .Where(r => r.ShowTime.Id == showTimeId)
@@ -105,7 +104,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
             var notCompletedReservations = await _reservationRepository.GetTableAsTracking()
                 .Where(r => r.AllowedTime < DateTime.Now && r.PaymentStatus != PaymentStatusEnum.Completed).ToListAsync();
 
-            await _reservationRepository.DeleteRangeAsync(notCompletedReservations);
+            await _reservationRepository.SoftDeleteRangeAsync(notCompletedReservations);
 
             return notCompletedReservations.Count;
         }
@@ -122,8 +121,9 @@ namespace CinemaTicketBookingSystem.Service.Implementations
                 .Include(r => r.ShowTime).ThenInclude(st => st.Hall)  // Include Hall from ShowTime
                 .Include(r => r.ReservationSeats).ThenInclude(rs => rs.Seat) // Include Seats from ReservationSeats
                 .AsSplitQuery()
-                .FirstOrDefaultAsync(r => r.PaymentIntentId == paymentIntentId && r.CurrentState==1);
-        }
+                .FirstOrDefaultAsync(r => r.PaymentIntentId == paymentIntentId && r.CurrentState == 1);
+        } 
+        #endregion
 
     }
 }

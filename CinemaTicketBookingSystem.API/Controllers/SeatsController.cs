@@ -32,6 +32,14 @@ namespace CinemaTicketBookingSystem.API.Controllers
             var response = await Mediator.Send(new FindSeatByIdQuery() { Id = id });
             return NewResult(response);
         }
+        [AllowAnonymous]
+        [HttpGet(Router.SeatRouting.FreeSeatsInShowTime)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetFreeSeatsInShowTimeAsync([FromRoute] Guid showTimeId)
+        {
+            var response = await Mediator.Send(new GetFreeSeatsInShowTimeQuery() { ShowTimeId = showTimeId });
+            return NewResult(response);
+        }
         #endregion
 
         #region Commands Actions

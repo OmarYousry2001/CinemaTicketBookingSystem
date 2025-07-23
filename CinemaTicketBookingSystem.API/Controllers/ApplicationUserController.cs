@@ -4,17 +4,14 @@ using CinemaTicketBookingSystem.Core.Features.Users.Queries.Models;
 using CinemaTicketBookingSystem.Data.AppMetaData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-
 namespace CinemaTicketBookingSystem.API.Controllers
 {
 
     [ApiController]
-
     public class ApplicationUserController : AppControllerBase
     {
 
-
+        #region Queries Actions
         [HttpGet(Router.UserRouting.list)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllUsersAsync()
@@ -29,7 +26,8 @@ namespace CinemaTicketBookingSystem.API.Controllers
         {
             var response = await Mediator.Send(new FindUserByIdQuery() { Id = id });
             return NewResult(response);
-        }
+        } 
+        #endregion
 
         #region Commands Actions
 

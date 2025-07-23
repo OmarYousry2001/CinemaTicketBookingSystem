@@ -111,6 +111,20 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositor
             }
             await _dbContext.SaveChangesAsync();
         }
+        public virtual async Task SoftDeleteRangeAsync(ICollection<T> entities)
+        {
+            var utcNow = DateTime.UtcNow;
+
+            foreach (var entity in entities)
+            {
+                entity.CurrentState = 0; 
+                entity.UpdatedDateUtc = utcNow;
+
+                _dbContext.Entry(entity).State = EntityState.Modified;
+            }
+
+            await _dbContext.SaveChangesAsync();
+        }
 
         public async Task<bool> SaveChangesAsync(T model, Guid userId)
         {
@@ -120,8 +134,6 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositor
                 return await UpdateAsync(model, userId);
 
         }
-
-
 
         public IDbContextTransaction BeginTransaction()
         {
@@ -197,7 +209,7 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositor
             await DbSet.AddAsync(model);
             await _dbContext.SaveChangesAsync();
 
-            return model; // ✅ نرجّع الكيان نفسه عشان نقدر نقرأ الـ Id
+            return model; 
         }
 
         public Task AddRangeAsync(ICollection<T> entities)

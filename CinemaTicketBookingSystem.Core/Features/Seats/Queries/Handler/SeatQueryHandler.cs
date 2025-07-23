@@ -3,15 +3,15 @@ using CinemaTicketBookingSystem.Core.Features.Seats.Queries.Models;
 using CinemaTicketBookingSystem.Core.Features.Seats.Queries.Results;
 using CinemaTicketBookingSystem.Core.GenericResponse;
 using CinemaTicketBookingSystem.Service.Abstracts;
-using CinemaTicketBookingSystem.Service.Implementations;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace CinemaTicketBookingSystem.Core.Features.Seats.Queries.Handler
 {
     public class SeatQueryHandler : ResponseHandler,
         IRequestHandler<GetAllSeatsQuery, Response<List<GetAllSeatsResponse>>>,
-        //IRequestHandler<GetFreeSeatsInShowTimeQuery, Response<List<GetFreeSeatsInShowTimeResponse>>>,
+        IRequestHandler<GetFreeSeatsInShowTimeQuery, Response<List<GetFreeSeatsInShowTimeResponse>>>,
         IRequestHandler<FindSeatByIdQuery, Response<FindSeatByIdResponse>>
     {
         #region Fields
@@ -53,29 +53,44 @@ namespace CinemaTicketBookingSystem.Core.Features.Seats.Queries.Handler
             return Success(mappedSeat);
         }
 
-        //public async Task<Response<List<GetFreeSeatsInShowTimeResponse>>> Handle(GetFreeSeatsInShowTimeQuery request, CancellationToken cancellationToken)
-        //{
-        //    var showTime = await _showTimeService.GetByIdAsync(request.ShowTimeId);
-        //    if (showTime is null)
-        //        return BadRequest<List<GetFreeSeatsInShowTimeResponse>>(SharedResourcesKeys.Invalid);
+        /// <summary>
+        /// Retrieves all available (free) seats for a specific show time.
+        /// It ensures that expired and unpaid reservations are deleted first,
+        /// then fetches all seats in the corresponding hall that are not reserved 
+        /// for the specified show time.
+        /// </summary>
+        /// <param name="query">The query containing the target ShowTimeId.</param>
+        /// <param name="cancellationToken">Token to cancel the operation if needed.</param>
+        /// <returns>
+        /// A response wrapping a list of seats that are free during the given show time,
+        /// each including seat ID, number, and seat type name.
+        /// </returns>
+        public async Task<Response<List<GetFreeSeatsInShowTimeResponse>>> Handle(GetFreeSeatsInShowTimeQuery request, CancellationToken cancellationToken)
+        {
+            var showTime = await _showTimeService.FindByIdAsync(request.ShowTimeId);
+            if (showTime is null)
+                return NotFound<List<GetFreeSeatsInShowTimeResponse>>();
 
-        //    var hallId = showTime.Hall.HallId;
+            var hallId = showTime.Hall.Id;
 
-        //    await _reservationService.DeleteNotCompletedReservations();
+            await _reservationService.DeleteExpiredUnpaidReservationsAsync();
 
-        //    var freeSeatsList = await _seatService.GetAllQueryable()
-        //        .Where(s => !s.Reservations.Any(r => r.ShowTime.ShowTimeId == request.ShowTimeId) &&
-        //                    s.Hall.HallId == hallId)
-        //        .Select(s => new GetFreeSeatsInShowTimeResponse
-        //        {
-        //            SeatId = s.SeatId,
-        //            SeatNumber = s.SeatNumber,
-        //            SeatTypeName = s.SeatType.TypeName
-        //        })
-        //        .ToListAsync();
+                            var freeSeatsList = await _seatService.GetAllQueryable()
+                           .Include(x => x.Hall)
+                           .Include(x => x.ReservationSeats).ThenInclude(rs => rs.Reservation).ThenInclude(r => r.ShowTime)
+                           .Where(s => !s.ReservationSeats.Any(r => r.Reservation.ShowTime.Id == request.ShowTimeId) &&
+                            s.Hall.Id == hallId)
 
-        //    return Success(freeSeatsList);
-        //} 
+                .Select(s => new GetFreeSeatsInShowTimeResponse
+                {
+                    Id = s.Id,
+                    SeatNumber = s.SeatNumber,
+                    SeatTypeName = s.SeatType.Localize(s.SeatType.TypeNameAr, s.SeatType.TypeNameEn),   
+                })
+                .ToListAsync();
+
+            return Success(freeSeatsList);
+        }
         #endregion
     }
 }

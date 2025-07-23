@@ -30,5 +30,6 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositor
         public Task<bool> UpdateCurrentStateAsync(T entity, int newValue = 0);
         public Task<T> AddAndReturnAsync(T model, Guid creatorId);
         public Task AddRangeAsync(ICollection<T> entities, Guid creatorId);
+        public Task SoftDeleteRangeAsync(ICollection<T> entities);
     }
 }
