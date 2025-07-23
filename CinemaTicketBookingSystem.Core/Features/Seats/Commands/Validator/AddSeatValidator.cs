@@ -3,7 +3,6 @@ using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using FluentValidation;
 
-
 namespace CinemaTicketBookingSystem.Core.Features.Seats.Commands.Validator
 {
     public class AddSeatValidator : AbstractValidator<AddSeatCommand>

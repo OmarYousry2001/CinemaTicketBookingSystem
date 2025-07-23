@@ -13,8 +13,6 @@ namespace CinemaTicketBookingSystem.Service.Abstracts
         Task<JwtAuthTokenResponse> CreateNewAccessTokenByRefreshToken(string accessToken, UserRefreshToken userRefreshToken);
         Task<string> ValidateAccessTokenAsync(string accessToken);
         Task<UserRefreshToken> GetUserFullRefreshTokenObjByRefreshToken(string refreshToken);
-
-
         Task<SignInResult> CheckUserPasswordAsync(ApplicationUser user, string password, bool lockoutOnFailure = false);
 
     }

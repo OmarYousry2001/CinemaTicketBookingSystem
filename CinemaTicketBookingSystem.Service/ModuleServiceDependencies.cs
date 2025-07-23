@@ -5,11 +5,6 @@ using CinemaTicketBookingSystem.Service.Abstracts.CMS;
 using CinemaTicketBookingSystem.Service.Implementations;
 using CinemaTicketBookingSystem.Service.Implementations.CMS;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CinemaTicketBookingSystem.Service
 {
@@ -35,8 +30,7 @@ namespace CinemaTicketBookingSystem.Service
             services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<ICacheService, CacheService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-
-            
+            services.AddTransient<IAuthorizationService, AuthorizationService>();
 
             return services;
         }

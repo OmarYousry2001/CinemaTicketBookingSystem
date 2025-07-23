@@ -588,4 +588,19 @@
   <data name="SetNewPasswordFailed" xml:space="preserve">
     <value>An error occurred while setting the new password</value>
   </data>
+  <data name="Role_HasAssignedUsers" xml:space="preserve">
+    <value>There are users assigned to this role</value>
+  </data>
+  <data name="FailedToRemoveOldRoles" xml:space="preserve">
+    <value>Failed to remove old roles from the user</value>
+  </data>
+  <data name="FailedToAddNewRoles" xml:space="preserve">
+    <value>Failed to assign the new roles to the user</value>
+  </data>
+  <data name="FailedToUpdateUserRoles" xml:space="preserve">
+    <value>Failed to update user roles</value>
+  </data>
+  <data name="RoleNotExist" xml:space="preserve">
+    <value>The role does not exist</value>
+  </data>
 </root>

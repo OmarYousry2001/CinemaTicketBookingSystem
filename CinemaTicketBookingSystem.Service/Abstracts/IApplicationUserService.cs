@@ -18,7 +18,6 @@ namespace CinemaTicketBookingSystem.Service.Abstracts
         Task<string> UpdateAsync(ApplicationUser user);
         public Task<string> ChangePasswordAsync(ApplicationUser user, string oldPassword, string confirmPassword);
 
-
         Task<string> SendResetUserPasswordCode(string email);
         Task<string> ConfirmResetPasswordCodeAsyn(string Code, string Email);
         Task<string> ResetPassword(string ResetCode, string newPassword);

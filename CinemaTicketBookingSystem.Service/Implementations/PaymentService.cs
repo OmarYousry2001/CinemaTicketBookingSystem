@@ -16,6 +16,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
             _configuration = configuration;
             _reservationService = reservationService;
         }
+
         public async Task<Reservation?> CreateOrUpdatePaymentIntent(Guid reservationId)
         {
             StripeConfiguration.ApiKey = _configuration["StripeSettings:SecretKey"];
@@ -55,6 +56,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
             return reservation;
         }
 
+     
         public async Task UpdatePaymentIntentToSucceededOrFailed(string paymentIntentId, bool isSucceeded)
         {
             var reservation = await _reservationService.GetByPaymentIntentAsync(paymentIntentId);

@@ -143,6 +143,20 @@
             public const string Create = Prefix + "{reservationId}";
             public const string webhook = Prefix + "webhook";
         }
+        //public static class AuthorizationRouting
+        //{
+        //    public const string Prefix = Rule + "Authorization/";
+
+        //    public const string CreateRole = Prefix + "Role/Create";
+        //    public const string EditRole = Prefix + "Role/Edit";
+        //    public const string DeleteRole = Prefix + "Role/" + SingleRoute;
+
+        //    public const string list = Prefix + "Role/" + "List";
+        //    public const string GetById = Prefix + "Role/" + SingleRoute;
+        //    public const string GetUserRoles = Prefix + "Role/User-Roles" + SingleRoute;
+        //    public const string EditUserRoles = Prefix + "Role/Edit-User-Roles";
+
+        //}
         //-------------------------
         public static class StudentRouting
         {
@@ -187,18 +201,18 @@
         }
         public static class AuthorizationRouting
         {
-            public const string Prefix = Rule+"AuthorizationRouting";
-            public const string Roles = Prefix+"/Roles";
-            public const string Claims = Prefix+"/Claims";
-            public const string Create = Roles+"/Create";
-            public const string Edit = Roles+"/Edit";
-            public const string Delete = Roles+"/Delete/{id}";
-            public const string RoleList = Roles+"/Role-List";
-            public const string GetRoleById = Roles+"/Role-By-Id/{id}";
-            public const string ManageUserRoles = Roles+"/Manage-User-Roles/{userId}";
-            public const string ManageUserClaims = Claims+"/Manage-User-Claims/{userId}";
-            public const string UpdateUserRoles = Roles+"/Update-User-Roles";
-            public const string UpdateUserClaims = Claims+"/Update-User-Claims";
+            public const string Prefix = Rule + "AuthorizationRouting";
+            public const string Roles = Prefix + "/Roles";
+            public const string Claims = Prefix + "/Claims";
+            public const string Create = Roles + "/Create";
+            public const string Edit = Roles + "/Edit";
+            public const string Delete = Roles + "/Delete/{id}";
+            public const string RoleList = Roles + "/Role-List";
+            public const string GetRoleById = Roles + "/Role-By-Id/{id}";
+            public const string ManageUserRoles = Roles + "/Manage-User-Roles/{userId}";
+            public const string ManageUserClaims = Claims + "/Manage-User-Claims/{userId}";
+            public const string UpdateUserRoles = Roles + "/Update-User-Roles";
+            public const string UpdateUserClaims = Claims + "/Update-User-Claims";
         }
         public static class EmailsRoute
         {

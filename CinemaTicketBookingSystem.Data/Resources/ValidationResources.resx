@@ -588,4 +588,19 @@
   <data name="SetNewPasswordFailed" xml:space="preserve">
     <value>حدث خطأ أثناء تعيين كلمة المرور الجديدة</value>
   </data>
+  <data name="Role_HasAssignedUsers" xml:space="preserve">
+    <value>هناك مستخدمون مرتبطون بهذا الدور</value>
+  </data>
+  <data name="FailedToRemoveOldRoles" xml:space="preserve">
+    <value>فشل في إزالة الأدوار القديمة من المستخدم</value>
+  </data>
+  <data name="FailedToAddNewRoles" xml:space="preserve">
+    <value>فشل في تعيين الأدوار الجديدة للمستخدم</value>
+  </data>
+  <data name="FailedToUpdateUserRoles" xml:space="preserve">
+    <value>فشل في تحديث أدوار المستخدم</value>
+  </data>
+  <data name="RoleNotExist" xml:space="preserve">
+    <value>الدور غير موجود</value>
+  </data>
 </root>

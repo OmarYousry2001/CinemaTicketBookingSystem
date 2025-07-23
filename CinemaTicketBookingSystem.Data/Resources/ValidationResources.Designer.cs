@@ -475,6 +475,33 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to فشل في تعيين الأدوار الجديدة للمستخدم.
+        /// </summary>
+        public static string FailedToAddNewRoles {
+            get {
+                return ResourceManager.GetString("FailedToAddNewRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to فشل في إزالة الأدوار القديمة من المستخدم.
+        /// </summary>
+        public static string FailedToRemoveOldRoles {
+            get {
+                return ResourceManager.GetString("FailedToRemoveOldRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to فشل في تحديث أدوار المستخدم.
+        /// </summary>
+        public static string FailedToUpdateUserRoles {
+            get {
+                return ResourceManager.GetString("FailedToUpdateUserRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to هذا الحقل يجب أن يكون بين 2 و 100 حرف.
         /// </summary>
         public static string FieldLength {
@@ -1146,6 +1173,24 @@ namespace CinemaTicketBookingSystem.Data.Resources {
         public static string RobotValidate {
             get {
                 return ResourceManager.GetString("RobotValidate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هناك مستخدمون مرتبطون بهذا الدور.
+        /// </summary>
+        public static string Role_HasAssignedUsers {
+            get {
+                return ResourceManager.GetString("Role_HasAssignedUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الدور غير موجود.
+        /// </summary>
+        public static string RoleNotExist {
+            get {
+                return ResourceManager.GetString("RoleNotExist", resourceCulture);
             }
         }
         

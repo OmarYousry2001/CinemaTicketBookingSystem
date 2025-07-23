@@ -1,8 +1,6 @@
 ﻿using CinemaTicketBookingSystem.Data.Resources;
-using Microsoft.Extensions.Localization;
-using SchoolProject.Core.Resources;
-
 namespace CinemaTicketBookingSystem.Core.GenericResponse
+
 {
     public class ResponseHandler
     {
