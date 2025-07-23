@@ -5,7 +5,6 @@ using CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositories;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

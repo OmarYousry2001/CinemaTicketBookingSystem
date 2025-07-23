@@ -4,12 +4,9 @@ using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Infrastructure.Context;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SchoolProject.Core.Resources;
-using System;
 using System.Security.Cryptography;
 using System.Text;
 

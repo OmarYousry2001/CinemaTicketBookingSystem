@@ -25,7 +25,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
         [HttpGet(Router.SeatTypeRouting.GetById)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetGenreByIdAsync(Guid id)
+        public async Task<IActionResult> GeteatTypeByIdAsync(Guid id)
         {
             var response = await Mediator.Send(new FindSeatTypeByIdQuery() { Id = id });
             return NewResult(response);

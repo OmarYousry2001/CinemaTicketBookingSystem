@@ -3,13 +3,7 @@ using CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositories;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using CinemaTicketBookingSystem.Service.Abstracts.CMS;
 using CinemaTicketBookingSystem.Service.ServiceBase;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CinemaTicketBookingSystem.Service.Implementations
 {

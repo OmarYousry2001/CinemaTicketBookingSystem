@@ -4,12 +4,6 @@ using CinemaTicketBookingSystem.Service.Abstracts;
 using CinemaTicketBookingSystem.Service.Abstracts.CMS;
 using CinemaTicketBookingSystem.Service.ServiceBase;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CinemaTicketBookingSystem.Service.Implementations
 {

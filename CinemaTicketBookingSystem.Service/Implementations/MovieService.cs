@@ -1,13 +1,11 @@
 ﻿using CinemaTicketBookingSystem.Data.Entities;
 using CinemaTicketBookingSystem.Data.Enums;
 using CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositories;
-using CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.UnitOfWork;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using CinemaTicketBookingSystem.Service.Abstracts.CMS;
 using CinemaTicketBookingSystem.Service.ServiceBase;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace CinemaTicketBookingSystem.Service.Implementations
 {
@@ -34,13 +32,14 @@ namespace CinemaTicketBookingSystem.Service.Implementations
         }
         #endregion
 
+        #region Handle Functions
         public override async Task<IEnumerable<Movie>> GetAllAsync()
         {
 
-            var movies= await _movieRepositoryAsync.GetTableNoTracking()
+            var movies = await _movieRepositoryAsync.GetTableNoTracking()
                 .Include(d => d.Director)
-                .Include(g => g.MovieGenres).ThenInclude(mg => mg.Genre)    
-                .Include(a => a.MovieActors).ThenInclude(ma => ma.Actor)    
+                .Include(g => g.MovieGenres).ThenInclude(mg => mg.Genre)
+                .Include(a => a.MovieActors).ThenInclude(ma => ma.Actor)
                 .Include(x => x.ShowTimes).ThenInclude(x => x.Hall)
                 .Where(x => x.CurrentState == 1)
                 .AsSplitQuery()
@@ -59,7 +58,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
         }
         public IQueryable<Movie> FilterMoviePaginatedQueryable(MovieOrderingEnum orderingEnum, string search)
         {
-            var queryable =  _movieRepositoryAsync.GetTableNoTracking()
+            var queryable = _movieRepositoryAsync.GetTableNoTracking()
                .Include(d => d.Director)
                .Include(g => g.MovieGenres).ThenInclude(mg => mg.Genre)
                .Include(a => a.MovieActors).ThenInclude(ma => ma.Actor)
@@ -86,7 +85,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
                     queryable = queryable.OrderBy(x => x.DurationInMinutes);
                     break;
             }
-            return queryable; 
+            return queryable;
         }
         public async Task<bool> SaveMovieWithRelationsAsync(Movie movie, Guid userId, IFormFile poster)
         {
@@ -131,39 +130,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
       d.Id != id &&
       d.TitleEn.ToLower().Trim() == NameEn.ToLower().Trim() &&
       d.TitleAr.ToLower().Trim() == NameAr.ToLower().Trim());
-        }
-
-        
-        //public async Task<bool> SaveMovieWithRelationsAsync(Movie movie, Guid userId, IFormFile poster)
-        //{
-        //    await _movieRepositoryAsync.BeginTransactionAsync();
-        //    try
-        //    {
-        //        // check if the movie already exists and has a poster URL   
-        //        if (movie.Id != default && string.IsNullOrEmpty(movie.PosterURL)) return false;
-
-        //        // Upload image and assign URL
-        //        movie.PosterURL = await _fileUploadService.UploadFileAsync(poster, "Movies");
-
-        //        // ✅ Save movie and get the full entity with Id
-        //        //var createdMovie = await _movieRepositoryAsync.AddAndReturnAsync(movie, userId);
-
-        //        //var createdMovie = await _movieRepositoryAsync.AddAndReturnAsync(movie, userId);
-        //        var createdMovie = await _movieRepositoryAsync.SaveChangesAsync(movie, userId);
-
-        //        await _movieRepositoryAsync.CommitAsync();
-        //            return true;
-
-
-        //    }
-        //    catch
-        //    {
-        //        _movieRepositoryAsync.RollBack();
-        //        return false;
-        //    }
-
-
-        //}
-
+        } 
+        #endregion
     }
 }

@@ -4,6 +4,7 @@ using CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.Repositories;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using CinemaTicketBookingSystem.Service.ServiceBase;
 using Microsoft.EntityFrameworkCore;
+
 namespace CinemaTicketBookingSystem.Service.Implementations
 {
     public class ReservationService : BaseService<Reservation>, IReservationService

@@ -5,7 +5,6 @@ using CinemaTicketBookingSystem.Service.Abstracts.CMS;
 using CinemaTicketBookingSystem.Service.ServiceBase;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace CinemaTicketBookingSystem.Service.Implementations
 {
     public class SeatTypeService : BaseService<SeatType>, ISeatTypeService
