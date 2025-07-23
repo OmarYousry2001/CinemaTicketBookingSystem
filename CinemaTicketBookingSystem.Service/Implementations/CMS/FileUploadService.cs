@@ -100,7 +100,10 @@ namespace CinemaTicketBookingSystem.Service.Implementations.CMS
             var imageProcessor = new ImageProcessingService();
             var processedImage = imageProcessor.ConvertToWebP(fileBytes, quality: 100);
 
-            var uniqueFileName = $" {Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+            var originalFileName = Path.GetFileName(file.FileName).Trim(); 
+            var uniqueFileName = $"{Guid.NewGuid()}_{originalFileName}";
+
+         
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))

@@ -112,6 +112,7 @@ namespace CinemaTicketBookingSystem.API
                 return factory.GetUrlHelper(actionContext);
             });
             #endregion
+
             #region Filters
             services.AddTransient<DataEntryRoleFilter>();
             #endregion
