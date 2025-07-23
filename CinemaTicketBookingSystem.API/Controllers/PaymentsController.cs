@@ -11,8 +11,11 @@ namespace CinemaTicketBookingSystem.API.Controllers
     [ApiController]
     public class PaymentsController : AppControllerBase
     {
+        #region Fields
         private readonly string _webHookSecret;
-        private readonly IPaymentService _paymentService;
+        private readonly IPaymentService _paymentService; 
+        #endregion
+
         #region Constructors
         public PaymentsController(IPaymentService paymentService, IConfiguration configuration)
         {
@@ -21,7 +24,13 @@ namespace CinemaTicketBookingSystem.API.Controllers
         }
         #endregion
 
+        #region Commands Actions
 
+        /// <summary>
+        /// Create or update a Stripe payment intent for a specific reservation.
+        /// </summary>
+        /// <param name="reservationId">The unique identifier of the reservation.</param>
+        /// <returns>Returns the result of the payment intent creation or update.</returns>
         [Authorize]
         [HttpPost(Router.PaymentRouting.Create)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -32,6 +41,10 @@ namespace CinemaTicketBookingSystem.API.Controllers
             return NewResult(response);
         }
 
+        /// <summary>
+        /// Handle incoming Stripe webhook events to update the payment status.
+        /// </summary>
+        /// <returns>Returns 200 OK if the event was handled successfully, or 400 BadRequest if failed.</returns>
         [HttpPost(Router.PaymentRouting.webhook)]
         public async Task<IActionResult> HandleWebhookAsync()
         {
@@ -63,7 +76,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
             {
                 return BadRequest(e.Message);
             }
-        }
-
+        } 
+        #endregion
     }
 }
