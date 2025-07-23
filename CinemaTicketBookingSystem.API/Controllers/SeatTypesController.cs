@@ -2,16 +2,16 @@
 using CinemaTicketBookingSystem.Core.Features.SeatTypes.Commands.Models;
 using CinemaTicketBookingSystem.Core.Features.SeatTypes.Queries.Models;
 using CinemaTicketBookingSystem.Data.AppMetaData;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace CinemaTicketBookingSystem.API.Controllers
 {
     [ApiController]
+    [Authorize(Roles = Roles.DataEntry)]
     public class SeatTypesController : AppControllerBase
     {
-
 
         #region Queries Actions
         [HttpGet(Router.SeatTypeRouting.list)]
@@ -25,7 +25,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
         [HttpGet(Router.SeatTypeRouting.GetById)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GeteatTypeByIdAsync(Guid id)
+        public async Task<IActionResult> GetSeatTypeByIdAsync(Guid id)
         {
             var response = await Mediator.Send(new FindSeatTypeByIdQuery() { Id = id });
             return NewResult(response);

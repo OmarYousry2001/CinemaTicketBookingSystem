@@ -90,7 +90,7 @@ namespace CinemaTicketBookingSystem.API
             builder.Services.AddSerilog();
 
             #endregion
-
+     
             var app = builder.Build();
 
             #region Loaclation

@@ -12,6 +12,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
     {
 
         #region Queries Actions
+        [Authorize(Roles = Roles.Admin)]
         [HttpGet(Router.UserRouting.list)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllUsersAsync()
@@ -19,6 +20,8 @@ namespace CinemaTicketBookingSystem.API.Controllers
             var response = await Mediator.Send(new GetAllUsersQuery());
             return NewResult(response);
         }
+
+        [Authorize(Roles = Roles.Admin)]
         [HttpGet(Router.UserRouting.GetById)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -26,11 +29,20 @@ namespace CinemaTicketBookingSystem.API.Controllers
         {
             var response = await Mediator.Send(new FindUserByIdQuery() { Id = id });
             return NewResult(response);
-        } 
+        }
+
+        [Authorize(Roles = $"{Roles.DataEntry},{Roles.User}")]
+        [HttpGet(Router.UserRouting.UserReservations)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetUserReservationsAsync(string id)
+        {
+            var response =  await Mediator.Send(new GetUserReservationsHistoryQuery() { Id = id });
+            return NewResult(response);
+        }
         #endregion
 
         #region Commands Actions
-
         [HttpPost(Router.UserRouting.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -60,7 +72,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
             return NewResult(response);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Roles.DataEntry)]
         [HttpDelete(Router.UserRouting.Delete)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

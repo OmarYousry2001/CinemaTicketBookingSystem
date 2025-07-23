@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CinemaTicketBookingSystem.Core.Features.Reservations.Queries.Results.Shared;
 using CinemaTicketBookingSystem.Core.Features.Users.Queries.Models;
 using CinemaTicketBookingSystem.Core.Features.Users.Queries.Results;
 using CinemaTicketBookingSystem.Core.GenericResponse;
@@ -9,14 +10,13 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace CinemaTicketBookingSystem.Core.Features.Users.Queries.Handler
 {
     public class UserQueryHandler : ResponseHandler,
        IRequestHandler<GetAllUsersQuery, Response<List<GetAllUsersResponse>>>,
        IRequestHandler<FindUserByIdQuery, Response<FindUserByIdResponse>>,
-        IRequestHandler<ConfirmEmailQuery, Response<string>>
-        //IRequestHandler<GetUserReservationsHistoryQuery, Response<List<GetUserReservationsHistoryResponse>>>
+        IRequestHandler<ConfirmEmailQuery, Response<string>>,
+        IRequestHandler<GetUserReservationsHistoryQuery, Response<List<GetUserReservationsHistoryResponse>>>
     {
         #region Fields
         private readonly UserManager<ApplicationUser> _userManager;
@@ -34,6 +34,8 @@ namespace CinemaTicketBookingSystem.Core.Features.Users.Queries.Handler
             _reservationService = reservationService;
         }
         #endregion
+
+        #region Handle Functions
         public async Task<Response<List<GetAllUsersResponse>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
             var usersList = await _userService.GetAllUsersQueryable().Select(u => new GetAllUsersResponse
@@ -43,11 +45,10 @@ namespace CinemaTicketBookingSystem.Core.Features.Users.Queries.Handler
                 Email = u.Email,
                 PhoneNumber = u.PhoneNumber,
                 UserName = u.UserName
-               }).ToListAsync();   
+            }).ToListAsync();
 
             return Success(usersList);
         }
-
         public async Task<Response<FindUserByIdResponse>> Handle(FindUserByIdQuery request, CancellationToken cancellationToken)
         {
 
@@ -65,7 +66,6 @@ namespace CinemaTicketBookingSystem.Core.Features.Users.Queries.Handler
 
             return Success(user);
         }
-
         public async Task<Response<string>> Handle(ConfirmEmailQuery request, CancellationToken cancellationToken)
         {
             try
@@ -79,37 +79,35 @@ namespace CinemaTicketBookingSystem.Core.Features.Users.Queries.Handler
                 return BadRequest<string>(ex.Message);
             }
         }
+        public async Task<Response<List<GetUserReservationsHistoryResponse>>> Handle(GetUserReservationsHistoryQuery request, CancellationToken cancellationToken)
+        {
+            var userReservations = await _reservationService.GetAllQueryable()
+                .Where(r => r.UserId == request.Id).ToListAsync();
 
-        //public async Task<Response<List<GetUserReservationsHistoryResponse>>> Handle(GetUserReservationsHistoryQuery request, CancellationToken cancellationToken)
-        //{
-        //    var userReservations = await _reservationService.GetAllQueryable()
-        //        .Where(r => r.UserId == request.Id).ToListAsync();
-
-
-
-        //    var response = userReservations
-        //        .Select(ur => new GetUserReservationsHistoryResponse
-        //        {
-        //            ReservationId = ur.ReservationId,
-        //            FinalPrice = ur.FinalPrice,
-        //            ReservationDate = ur.CreatedAt,
-        //            HallName = ur.ShowTime.Hall.Name,
-        //            PaymentStatus = ur.PaymentStatus.ToString(),
-        //            Seats = ur.ReservedSeats.Select(urs => new SeatsInReservationResponse
-        //            {
-        //                SeatId = urs.SeatId,
-        //                SeatNumber = urs.SeatNumber,
-        //            }),
-        //            ShowTime = new ShowTimeInReservationResponse
-        //            {
-        //                ShowTimeId = ur.ShowTime.ShowTimeId,
-        //                MovieName = ur.ShowTime.Movie.Title,
-        //                Day = ur.ShowTime.Day,
-        //                StartTime = ur.ShowTime.StartTime,
-        //                EndTime = ur.ShowTime.EndTime
-        //            }
-        //        }).ToList();
-        //    return Success(response);
-        //}
+            var response = userReservations
+                .Select(ur => new GetUserReservationsHistoryResponse
+                {
+                    ReservationId = ur.Id,
+                    FinalPrice = ur.FinalPrice,
+                    ReservationDate = ur.CreatedDateUtc,
+                    HallName = ur.ShowTime.Hall.Localize(ur.ShowTime.Hall.NameAr, ur.ShowTime.Hall.NameEn),
+                    PaymentStatus = ur.PaymentStatus.ToString(),
+                    Seats = ur.ReservationSeats.Select(urs => new SeatsInReservationResponse
+                    {
+                        Id = urs.Seat.Id,
+                        SeatNumber = urs.Seat.SeatNumber,
+                    }),
+                    ShowTime = new ShowTimeInReservationResponse
+                    {
+                        Id = ur.ShowTime.Id,
+                        MovieName = ur.ShowTime.Movie.Localize(ur.ShowTime.Movie.TitleAr, ur.ShowTime.Movie.TitleEn),
+                        Day = ur.ShowTime.Day,
+                        StartTime = ur.ShowTime.StartTime,
+                        EndTime = ur.ShowTime.EndTime
+                    }
+                }).ToList();
+            return Success(response);
+        } 
+        #endregion
     }
 }

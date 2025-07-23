@@ -9,10 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace CinemaTicketBookingSystem.API.Controllers
 {
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = Roles.DataEntry)]
     public class SeatsController : AppControllerBase
     {
-
 
         #region Queries Actions
 

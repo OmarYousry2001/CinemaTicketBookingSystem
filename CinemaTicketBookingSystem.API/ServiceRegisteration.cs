@@ -1,4 +1,5 @@
 ﻿
+using CinemaTicketBookingSystem.Core.Filters;
 using CinemaTicketBookingSystem.Data.Entities.Identity;
 using CinemaTicketBookingSystem.Data.Helpers;
 using CinemaTicketBookingSystem.Infrastructure.Context;
@@ -111,7 +112,11 @@ namespace CinemaTicketBookingSystem.API
                 return factory.GetUrlHelper(actionContext);
             });
             #endregion
+            #region Filters
+            services.AddTransient<DataEntryRoleFilter>();
+            #endregion
 
+            #region Claims
             services.AddAuthorization(option =>
             {
                 option.AddPolicy("Create", policy =>
@@ -126,7 +131,8 @@ namespace CinemaTicketBookingSystem.API
                 {
                     policy.RequireClaim("Edit", "True");
                 });
-            });
+            }); 
+            #endregion
 
             return services;
         }

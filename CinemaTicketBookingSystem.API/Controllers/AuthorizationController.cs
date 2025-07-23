@@ -3,14 +3,14 @@ using CinemaTicketBookingSystem.Core.Features.Authorization.Commands.Models;
 using CinemaTicketBookingSystem.Core.Features.Authorization.Quaries.Models;
 using CinemaTicketBookingSystem.Core.Features.Authorization.Queries.Models;
 using CinemaTicketBookingSystem.Data.AppMetaData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace CinemaTicketBookingSystem.API.Controllers
 {
-    //[Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public class AuthorizationController : AppControllerBase
     {
 

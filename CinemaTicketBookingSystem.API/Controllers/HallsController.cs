@@ -9,12 +9,12 @@ namespace MovieReservationSystem.API.Controllers
 {
 
     [ApiController]
+    [Authorize(Roles = Roles.DataEntry)]
     public class HallsController : AppControllerBase
     {
 
 
         #region Queries Actions
-
         [HttpGet(Router.HallRouting.list)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllHallsAsync()
@@ -34,7 +34,6 @@ namespace MovieReservationSystem.API.Controllers
         #endregion
 
         #region Commands Actions
-        [Authorize(Policy = "Create")]
         [HttpPost(Router.HallRouting.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

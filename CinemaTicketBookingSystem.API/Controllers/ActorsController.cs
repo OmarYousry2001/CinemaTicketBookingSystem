@@ -1,11 +1,13 @@
 ﻿using CinemaTicketBookingSystem.API.Base;
 using CinemaTicketBookingSystem.Core.Features.Actors.Commands.Models;
-using CinemaTicketBookingSystem.Data.AppMetaData;
-using Microsoft.AspNetCore.Mvc;
 using CinemaTicketBookingSystem.Core.Features.Actors.Queries.Models;
+using CinemaTicketBookingSystem.Data.AppMetaData;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 namespace CinemaTicketBookingSystem.API.Controllers
 {
     [ApiController]
+    [Authorize(Roles = Roles.DataEntry)]
     public class ActorsController : AppControllerBase
     {
 

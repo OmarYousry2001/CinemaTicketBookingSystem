@@ -1,6 +1,7 @@
 ﻿using CinemaTicketBookingSystem.API.Base;
 using CinemaTicketBookingSystem.Core.Features.Directors.Commands.Models;
 using CinemaTicketBookingSystem.Core.Features.Directors.Queries.Models;
+using CinemaTicketBookingSystem.Core.Filters;
 using CinemaTicketBookingSystem.Data.AppMetaData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace CinemaTicketBookingSystem.API.Controllers
 {
     [ApiController]
+    [Authorize(Roles = Roles.DataEntry)]
     public class DirectorsController : AppControllerBase
     {
-
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet(Router.DirectorRouting.list)]
         public async Task<IActionResult> GetAllDirectorsAsync()
@@ -30,7 +31,6 @@ namespace CinemaTicketBookingSystem.API.Controllers
 
 
         #region Commands Actions
-        [Authorize(Roles = "Data Entry")]
         [HttpPut(Router.DirectorRouting.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -40,7 +40,6 @@ namespace CinemaTicketBookingSystem.API.Controllers
             return NewResult(response);
         }
 
-        [Authorize(Roles = "Data Entry")]
         [HttpPut(Router.DirectorRouting.Edit)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -50,7 +49,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
             return NewResult(response);
         }
 
-        [Authorize(Roles = "Data Entry")]
+        [ServiceFilter(typeof(DataEntryRoleFilter))]
         [HttpDelete(Router.DirectorRouting.Delete)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

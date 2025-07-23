@@ -15,6 +15,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
         #region Queries Actions
         [HttpGet(Router.ReservationRouting.PaginatedList)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = Roles.DataEntry)]
         public async Task<IActionResult> GetReservationsPaginatedList([FromQuery] GetReservationsPaginatedListQuery model)
         {
             var response = await Mediator.Send(model);
@@ -23,6 +24,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
         [HttpGet(Router.ReservationRouting.GetById)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = Roles.DataEntry)]
         public async Task<IActionResult> GetReservationByIdAsync(Guid id)
         {
             var response = await Mediator.Send(new FindReservationByIdQuery() { Id = id });
@@ -44,6 +46,7 @@ namespace CinemaTicketBookingSystem.API.Controllers
         [HttpDelete(Router.ReservationRouting.Delete)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = Roles.DataEntry)]
         public async Task<IActionResult> DeleteSeat(Guid id)
         {
            var response = await Mediator.Send(new DeleteReservationCommand() { Id = id });

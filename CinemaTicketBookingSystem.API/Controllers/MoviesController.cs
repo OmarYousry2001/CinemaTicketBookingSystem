@@ -2,7 +2,6 @@
 using CinemaTicketBookingSystem.Core.Features.Movies.Commands.Models;
 using CinemaTicketBookingSystem.Core.Features.Movies.Queries.Models;
 using CinemaTicketBookingSystem.Data.AppMetaData;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CinemaTicketBookingSystem.API.Controllers
 {
     [ApiController]
-
+    [Authorize(Roles = Roles.DataEntry)]
     public class MoviesController : AppControllerBase
     {
 

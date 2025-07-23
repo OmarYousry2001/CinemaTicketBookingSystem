@@ -17,7 +17,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
         }
 
         #region Methods
-        public IQueryable<Reservation> GetAllQueryable(DateOnly? Search)
+        public IQueryable<Reservation> GetAllQueryable(DateOnly? Search = null)
         {
             var queryable = _reservationRepository.GetTableAsTracking()
                 .Include(r => r.User)

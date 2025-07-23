@@ -2,21 +2,19 @@
 using CinemaTicketBookingSystem.Core.Features.Genres.Commands.Models;
 using CinemaTicketBookingSystem.Core.Features.Genres.Queries.Models;
 using CinemaTicketBookingSystem.Data.AppMetaData;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace CinemaTicketBookingSystem.API.Controllers
 {
-
+    [Authorize(Roles = Roles.DataEntry)]
     [ApiController]
     public class GenresController : AppControllerBase
     {
 
 
         #region Queries Actions
-        [Authorize(Roles = "Data Entry")]
         [HttpGet(Router.GenreRouting.list)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllGenresAsync()

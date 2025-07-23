@@ -18,8 +18,4 @@
     <ProjectReference Include="..\CinemaTicketBookingSystem.Service\CinemaTicketBookingSystem.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Filters\" />
-  </ItemGroup>
-
 </Project>
