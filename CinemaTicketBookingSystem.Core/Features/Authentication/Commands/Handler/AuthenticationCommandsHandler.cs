@@ -39,8 +39,8 @@ namespace CinemaTicketBookingSystem.Core.Features.Authentication.Commands.Handle
                 return BadRequest<JwtAuthTokenResponse>(UserResources.Invalid_Email);
 
             //Check if Password is true for User
-            var signInResult = await _authenticationService.CheckUserPasswordAsync(user, request.Password, false);
-            if (!signInResult.Succeeded)
+            var signInResult = await _userService.CheckPasswordAsync(user, request.Password);
+            if (!signInResult)
                 return BadRequest<JwtAuthTokenResponse>(UserResources.Password_Mismatch);
 
             if (!await _userService.IsEmailConfirmedAsync(user))
