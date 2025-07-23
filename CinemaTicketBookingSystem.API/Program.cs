@@ -1,4 +1,3 @@
-
 using CinemaTicketBookingSystem.Core;
 using CinemaTicketBookingSystem.Core.MiddleWare;
 using CinemaTicketBookingSystem.Data.Entities.Identity;
@@ -11,8 +10,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Globalization;
 using System.Text;
 
@@ -82,6 +81,13 @@ namespace CinemaTicketBookingSystem.API
                                       policy.AllowAnyOrigin();
                                   });
             });
+
+            #endregion
+     
+            #region Serilog
+            Log.Logger = new LoggerConfiguration()
+                      .ReadFrom.Configuration(builder.Configuration).CreateLogger();
+            builder.Services.AddSerilog();
 
             #endregion
 

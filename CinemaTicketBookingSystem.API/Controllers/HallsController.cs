@@ -2,8 +2,6 @@
 using CinemaTicketBookingSystem.Core.Features.Halls.Commands.Models;
 using CinemaTicketBookingSystem.Core.Features.Halls.Queries.Models;
 using CinemaTicketBookingSystem.Data.AppMetaData;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 

@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Resources;
+using Serilog;
 
 namespace CinemaTicketBookingSystem.Core.Behaviors
 {
@@ -28,7 +29,7 @@ namespace CinemaTicketBookingSystem.Core.Behaviors
                     //var message = failures.Select(x => _localizer[$"{x.PropertyName}"]+":"+_localizer[x.ErrorMessage]).FirstOrDefault();
                     var message = failures.Select(x =>x.PropertyName + " : "+ x.ErrorMessage).FirstOrDefault();
 
-
+                    //Log.Error(message);
                     throw new ValidationException(message);
 
                 }
