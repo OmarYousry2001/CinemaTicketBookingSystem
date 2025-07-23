@@ -26,8 +26,6 @@ namespace CinemaTicketBookingSystem.Service.Implementations
         #endregion
 
         #region Methods
-
-    
         public async Task<bool> SaveAndUploadImageAsync(Director entity, Guid userId, IFormFile file)
         {
             if (!string.IsNullOrEmpty(entity.ImageURL))

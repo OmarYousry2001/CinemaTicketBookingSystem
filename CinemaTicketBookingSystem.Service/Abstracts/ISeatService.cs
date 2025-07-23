@@ -11,7 +11,5 @@ namespace CinemaTicketBookingSystem.Service.Abstracts
         Task<bool> IsExistBySeatIdInHallAsync(Guid seatId, Guid hallId);
         Task<int> CountSeatsInHall(Guid hallId);
         public IQueryable<Seat> GetAllQueryable();
-        //decimal CalculateSeatsPrice(IEnumerable<Seat> seatsList);
-        //public Task<Seat> FindByIdWithIncludes(Guid id);
     }
 }

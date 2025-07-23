@@ -10,7 +10,6 @@ namespace CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.UnitOfWor
     {
         //IRepository<T> Repository<T>() where T : class;
         ITableRepositoryAsync<TD> TableRepository<TD>() where TD : BaseEntity;
-        //ITableRepositoryAsync<T> TableRepository<T>() where T : class;
         Task<IDbContextTransaction> BeginTransactionAsync();
          Task<int> Commit() ;
         void Rollback();

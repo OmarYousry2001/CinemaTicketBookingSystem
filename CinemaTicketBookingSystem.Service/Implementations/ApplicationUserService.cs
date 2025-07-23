@@ -2,6 +2,7 @@
 using CinemaTicketBookingSystem.Data.Entities.Identity;
 using CinemaTicketBookingSystem.Data.Resources;
 using CinemaTicketBookingSystem.Infrastructure.Context;
+using CinemaTicketBookingSystem.Infrastructure.InfrastructureBases.UnitOfWork;
 using CinemaTicketBookingSystem.Service.Abstracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +21,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
         private readonly IEmailService _emailsService;
         private readonly ApplicationDBContext _applicationDBContext;
         private readonly IUrlHelper _urlHelper;
-
+        private readonly IUnitOfWork _unitOfWork;
 
         #endregion
         #region Constructors
@@ -28,34 +29,70 @@ namespace CinemaTicketBookingSystem.Service.Implementations
                                       IHttpContextAccessor httpContextAccessor,
                                       IEmailService emailsService,
                                       ApplicationDBContext applicationDBContext,
-                                      IUrlHelper urlHelper)
+                                      IUrlHelper urlHelper,
+                                      IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
             _emailsService = emailsService;
             _applicationDBContext = applicationDBContext;
             _urlHelper = urlHelper;
+            _unitOfWork = unitOfWork;
         }
         #endregion
         #region Handle Functions
-
-        // no forget  unit of work and repository pattern
         public async Task<ApplicationUser> CreateUser(ApplicationUser user, string password)
         {
-            var identityResult = await _userManager.CreateAsync(user, password);
+            using var transaction = await _unitOfWork.BeginTransactionAsync();
 
-            if (!identityResult.Succeeded)
-                throw new Exception(identityResult.Errors.FirstOrDefault().Description);
+            try
+            {
 
-            user = await _userManager.FindByNameAsync(user.UserName);
+                var identityResult = await _userManager.CreateAsync(user, password);
 
-            if (user == null)
-                throw new Exception("user not founded");
-            await _userManager.AddToRoleAsync(user, Roles.User);
+                if (!identityResult.Succeeded)
+                    throw new Exception(identityResult.Errors.FirstOrDefault().Description);
 
-            await SendConfirmUserEmailToken(user);
-            return user;
+                user = await _userManager.FindByNameAsync(user.UserName);
+
+                if (user == null)
+                    throw new Exception("user not founded");
+                await _userManager.AddToRoleAsync(user, Roles.User);
+
+                await SendConfirmUserEmailToken(user);
+
+                await transaction.CommitAsync();
+
+                return user;
+    
+            }
+            catch(Exception)
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
+
+
+
+        //// no forget  unit of work and repository pattern
+        //public async Task<ApplicationUser> CreateUser(ApplicationUser user, string password)
+        //{
+
+        //    var identityResult = await _userManager.CreateAsync(user, password);
+
+        //    if (!identityResult.Succeeded)
+        //        throw new Exception(identityResult.Errors.FirstOrDefault().Description);
+
+        //    user = await _userManager.FindByNameAsync(user.UserName);
+
+        //    if (user == null)
+        //        throw new Exception("user not founded");
+        //    await _userManager.AddToRoleAsync(user, Roles.User);
+
+        //    await SendConfirmUserEmailToken(user);
+        //    return user;
+        //}
         public async Task SendConfirmUserEmailToken(ApplicationUser user)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
