@@ -28,7 +28,6 @@ namespace CinemaTicketBookingSystem.API
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
-
          
             #region Connection To SQL Server
             builder.Services.AddDbContext<ApplicationDBContext>(option =>
@@ -71,6 +70,21 @@ namespace CinemaTicketBookingSystem.API
            });
             #endregion
 
+            #region AllowCORS
+            var CORS = "_AllowCORS";
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: CORS,
+                                  policy =>
+                                  {
+                                      policy.AllowAnyHeader();
+                                      policy.AllowAnyMethod();
+                                      policy.AllowAnyOrigin();
+                                  });
+            });
+
+            #endregion
+
             var app = builder.Build();
 
             #region Loaclation
@@ -109,14 +123,14 @@ namespace CinemaTicketBookingSystem.API
             app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseHttpsRedirection();
-
+            app.UseCors(CORS);
             app.UseAuthentication();
             app.UseAuthorization();
 
 
             app.MapControllers();
 
-            // Apply migrations and seed data
+            #region Seeding Data
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -129,7 +143,9 @@ namespace CinemaTicketBookingSystem.API
 
                 // Seed data
                 await ContextConfigurations.SeedDataAsync(dbContext, userManager, roleManager);
-            }
+            } 
+            #endregion
+
             app.Run();
         }
     }
