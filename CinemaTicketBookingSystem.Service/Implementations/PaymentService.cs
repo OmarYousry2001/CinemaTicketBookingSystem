@@ -8,15 +8,20 @@ namespace CinemaTicketBookingSystem.Service.Implementations
 {
     public class PaymentService : IPaymentService
     {
+        #region  Fields
         private readonly IConfiguration _configuration;
         private readonly IReservationService _reservationService;
+        #endregion
 
+        #region Constructors
         public PaymentService(IConfiguration configuration, IReservationService reservationService)
         {
             _configuration = configuration;
             _reservationService = reservationService;
         }
+        #endregion
 
+        #region Methods
         public async Task<Reservation?> CreateOrUpdatePaymentIntent(Guid reservationId)
         {
             StripeConfiguration.ApiKey = _configuration["StripeSettings:SecretKey"];
@@ -52,11 +57,10 @@ namespace CinemaTicketBookingSystem.Service.Implementations
                 await paymentIntentService.UpdateAsync(reservation.PaymentIntentId, options);
             }
 
-            await _reservationService.UpdateAsync(reservation , Guid.NewGuid());
+            await _reservationService.UpdateAsync(reservation, Guid.NewGuid());
             return reservation;
         }
 
-     
         public async Task UpdatePaymentIntentToSucceededOrFailed(string paymentIntentId, bool isSucceeded)
         {
             var reservation = await _reservationService.GetByPaymentIntentAsync(paymentIntentId);
@@ -70,6 +74,7 @@ namespace CinemaTicketBookingSystem.Service.Implementations
 
             await _reservationService.UpdateAsync(reservation, Guid.NewGuid());
             return;
-        }
+        } 
+        #endregion
     }
 }

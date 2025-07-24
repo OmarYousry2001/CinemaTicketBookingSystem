@@ -15,6 +15,7 @@ namespace CinemaTicketBookingSystem.Core.Features.Payments.Queries.Handler
         private readonly IPaymentService _paymentService;
         private readonly IMapper _mapper;
         #endregion
+
         #region Constructors
         public PaymentQueriesHandler(IPaymentService paymentService, IMapper mapper)
         {
@@ -22,40 +23,16 @@ namespace CinemaTicketBookingSystem.Core.Features.Payments.Queries.Handler
             _mapper = mapper;  
         }
         #endregion
+
+        #region Handle Functions
         public async Task<Response<CreateOrUpdatePaymentIntentResult>> Handle(CreateOrUpdatePaymentIntentQuery request, CancellationToken cancellationToken)
         {
             var reservation = await _paymentService.CreateOrUpdatePaymentIntent(request.ReservationId);
             if (reservation is null)
                 return BadRequest<CreateOrUpdatePaymentIntentResult>();
-            var response  = _mapper.Map<CreateOrUpdatePaymentIntentResult>(reservation);
-            //var response = new CreateOrUpdatePaymentIntentResult()
-            //{
-            //    ReservationId = reservation.Id,
-            //    ClientSecret = reservation.ClientSecret,
-            //    HallName = reservation.ShowTime.Hall.name,
-            //    ShowTime = new ShowTimeInReservationResponse()
-            //    {
-            //        Day = reservation.ShowTime.Day,
-            //        EndTime = reservation.ShowTime.EndTime,
-            //        ShowTimeId = reservation.ShowTime.ShowTimeId,
-            //        StartTime = reservation.ShowTime.StartTime,
-            //        MovieName = reservation.ShowTime.Movie.Title
-            //    },
-            //    PaymentIntentId = reservation.PaymentIntentId,
-            //    ReservationDate = reservation.CreatedAt,
-            //    Seats = reservation.ReservedSeats.Select(rs => new SeatsInReservationResponse
-            //    {
-            //        SeatId = rs.SeatId,
-            //        SeatNumber = rs.SeatNumber,
-            //    }).ToList(),
-            //    User = new UserInReservationResponse
-            //    {
-            //        Id = reservation.UserId,
-            //        UserName = reservation.User.UserName
-            //    },
-            //};
-
+            var response = _mapper.Map<CreateOrUpdatePaymentIntentResult>(reservation);
             return Success(response);
-        }
+        } 
+        #endregion
     }
 }

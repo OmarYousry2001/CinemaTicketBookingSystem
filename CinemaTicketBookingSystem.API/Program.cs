@@ -26,47 +26,12 @@ namespace CinemaTicketBookingSystem.API
             // Add services to the container
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
          
-            #region Connection To SQL Server
-            builder.Services.AddDbContext<ApplicationDBContext>(option =>
-            {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            }); 
-            #endregion
-
             #region Dependency injections
             builder.Services.AddServiceRegisteration(builder.Configuration);
             builder.Services.AddInfrastructureDependencies()
                              .AddServiceDependencies()
                              .AddCoreDependencies();
-            #endregion
-
-            #region JWT Authentication
-            var jwtSettings = new JwtSettings();
-            builder.Configuration.GetSection(nameof(jwtSettings)).Bind(jwtSettings);
-            builder.Services.AddSingleton(jwtSettings);
-
-            builder.Services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-           .AddJwtBearer(x =>
-           {
-               x.RequireHttpsMetadata = false;
-               x.SaveToken = true;
-               x.TokenValidationParameters = new TokenValidationParameters
-               {
-                   ValidateIssuer = jwtSettings.ValidateIssuer,
-                   ValidIssuers = new[] { jwtSettings.Issuer },
-                   ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
-                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
-                   ValidAudience = jwtSettings.Audience,
-                   ValidateAudience = jwtSettings.ValidateAudience,
-                   ValidateLifetime = jwtSettings.ValidateLifeTime,
-               };
-           });
             #endregion
 
             #region AllowCORS
@@ -81,13 +46,6 @@ namespace CinemaTicketBookingSystem.API
                                       policy.AllowAnyOrigin();
                                   });
             });
-
-            #endregion
-     
-            #region Serilog
-            Log.Logger = new LoggerConfiguration()
-                      .ReadFrom.Configuration(builder.Configuration).CreateLogger();
-            builder.Services.AddSerilog();
 
             #endregion
      
@@ -113,12 +71,26 @@ namespace CinemaTicketBookingSystem.API
             });
             #endregion
 
-
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+            }
+            else
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                    c.RoutePrefix = "Endpoint"; // Set this to match your API path if needed
+                });
+
+                app.MapGet("/", async context =>
+                {
+                    context.Response.Redirect("/Endpoint/");
+                    await context.Response.CompleteAsync(); // Ensure the async Task is returned
+                });
             }
 
             #region Localization Middleware

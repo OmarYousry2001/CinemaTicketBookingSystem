@@ -5,21 +5,14 @@ using CinemaTicketBookingSystem.Data.Helpers;
 using CinemaTicketBookingSystem.Infrastructure.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+using Serilog;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CinemaTicketBookingSystem.API
 {
@@ -27,6 +20,13 @@ namespace CinemaTicketBookingSystem.API
     {
         public static IServiceCollection AddServiceRegisteration(this IServiceCollection services, IConfiguration configuration)
         {
+            #region Connection To SQL Server
+            services.AddDbContext<ApplicationDBContext>(option =>
+            {
+                option.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            });
+            #endregion
+
             #region Identity
             services.AddIdentity<ApplicationUser, Role>(option =>
            {
@@ -62,9 +62,11 @@ namespace CinemaTicketBookingSystem.API
             #endregion
 
             #region Swagger Gn
+
+            services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c =>
           {
-              c.SwaggerDoc("v1", new OpenApiInfo { Title = "School Project", Version = "v1" });
+              c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cinema Ticket Booking System Project", Version = "v1" });
               c.EnableAnnotations();
 
               c.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
@@ -91,9 +93,6 @@ namespace CinemaTicketBookingSystem.API
             }
          });
           });
-
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
 
             #endregion
 
@@ -132,8 +131,44 @@ namespace CinemaTicketBookingSystem.API
                 {
                     policy.RequireClaim("Edit", "True");
                 });
-            }); 
+            });
             #endregion
+
+            #region JWT Authentication
+            var jwtSettings = new JwtSettings();
+            configuration.GetSection(nameof(jwtSettings)).Bind(jwtSettings);
+            services.AddSingleton(jwtSettings);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = jwtSettings.ValidateIssuer,
+                    ValidIssuers = new[] { jwtSettings.Issuer },
+                    ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
+                    ValidAudience = jwtSettings.Audience,
+                    ValidateAudience = jwtSettings.ValidateAudience,
+                    ValidateLifetime = jwtSettings.ValidateLifeTime,
+                };
+            });
+            #endregion
+
+            #region Serilog
+            Log.Logger = new LoggerConfiguration()
+                        .ReadFrom.Configuration(configuration)
+                        .CreateLogger();
+            services.AddSerilog();
+            #endregion
+
+         
 
             return services;
         }
